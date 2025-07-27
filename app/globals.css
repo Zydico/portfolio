@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+@theme {
+  --color-dark-background: #0D0824;
+  --color-darkish-background: #100A2D;
+  --color-off-white: #D3D3D3;
+}
+
+/**
+
+--clr-dark-a0: #000000;
+--clr-light-a0: #ffffff;
+
+--clr-primary-a0: #56cbd6;
+--clr-primary-a10: #6fd1da;
+--clr-primary-a20: #84d7df;
+--clr-primary-a30: #98dde4;
+--clr-primary-a40: #aae3e8;
+--clr-primary-a50: #bce8ed;
+
+--clr-surface-a0: #1b163b;
+--clr-surface-a10: #322b4e;
+--clr-surface-a20: #494263;
+--clr-surface-a30: #615a77;
+--clr-surface-a40: #79738d;
+--clr-surface-a50: #938ea3;
+
+--clr-surface-tonal-a0: #232649;
+--clr-surface-tonal-a10: #393a5b;
+--clr-surface-tonal-a20: #50506e;
+--clr-surface-tonal-a30: #676782;
+--clr-surface-tonal-a40: #7f7e96;
+--clr-surface-tonal-a50: #9797aa;
+
+.bg-primary {
+ color: var(--clr-primary-a50);
+ background-color: var(--clr-surface-a0);
+}
+
+
+*/
