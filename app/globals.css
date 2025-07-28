@@ -2,20 +2,19 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --color-light-red: #DA8A8B;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-main), sans-serif;
   overflow: hidden;
-}
-
-@theme {
-  --color-dark-background: #0D0824;
-  --color-darkish-background: #100A2D;
-  --color-off-white: #D3D3D3;
+  background-color: rgb(230, 230, 230);
 }
 
 /**
