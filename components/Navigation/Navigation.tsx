@@ -17,12 +17,6 @@ const Navigation = () => {
                     <li>Projects</li>
                     <li>Contact</li>
                 </ul>
-                {/* <button className={`menu-button h-6 w-8 left-3 md:invisible absolute cursor-pointer z-3
-                                flex flex-col justify-between ${activeMenu && "active"}`} onClick={hamburgerClick} >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button> */}
             </nav>
         </section>
     )
