@@ -1,4 +1,4 @@
 section {
     height: calc(100vh - (var(--spacing) * 14));
-    background-image: linear-gradient(#091244, #2B409D 70%, #d69aa4); 
+    background-image: linear-gradient(#091244, #2B409D 60%, #d69aa4); 
 }
