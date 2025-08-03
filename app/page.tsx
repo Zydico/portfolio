@@ -1,11 +1,3 @@
-import { Roboto } from "next/font/google";
-
-const robotoFont = Roboto({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-roboto",
-});
-
 import Hero from "@/components/Hero/Hero";
 import Navigation from "@/components/Navigation/Navigation";
 import Image from "next/image";
