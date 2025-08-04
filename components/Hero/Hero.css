@@ -3,9 +3,9 @@ section {
     background-image: linear-gradient(#091244, #2B409D 60%, #d69aa4); 
 }
 
-canvas {
+#starCanvas {
     animation-name: spin;
-    animation-duration: 500000ms;
+    animation-duration: 200000ms;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
