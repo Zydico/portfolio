@@ -14,9 +14,41 @@ section {
     margin-top: var(--nav-height);
 }
 
+.star {
+    display: visible;
+    height: 1.5px;
+    rotate: -10deg;
+    background: linear-gradient(45deg, #b7c0d3, rgba(0, 0, 255, 0));
+    filter: drop-shadow(0, 0, 6px #699bff);
+    animation: tail 2s ease-in-out infinite, shooting 2s ease-out infinite;
+}
+
+@keyframes tail {
+    0% {
+        width: 0px;
+    }
+    15% {
+        width: 100px;
+    }
+    50% {
+        width: 100px;
+    }
+    100% {
+        width: 0;
+    }
+}
+
+@keyframes shooting {
+    0% {
+    }
+    100% {
+        transform: translateX(max(-1000px, -60vw));
+    }
+}
+
 @keyframes spin {
     from {
-        transform: rotate(0deg); 
+        transform: rotate(0deg);
     }
     to {
         transform: rotate(360deg);

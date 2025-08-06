@@ -6,7 +6,9 @@ import starsData from './star_data.json';
 import lineData from './line_data.json';
 
 const Hero = (props) => {
-    const animationFrameId = useRef(0);
+    const animationFrameId = useRef<number>(0);
+    const shootingStarId = useRef<NodeJS.Timeout | null>(null);
+    const shootingStarRef = useRef<HTMLDivElement>(null);
     const starCanvasRef = useRef<HTMLCanvasElement>(null);
     const starCanvasContextRef = useRef<CanvasRenderingContext2D>(null);
     const lineCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -16,7 +18,6 @@ const Hero = (props) => {
     const starsInALine: string[] = [];
     const mousePosition: MousePosition = { x: 0, y: 0 }
     let scale: number = 1.8; // width scaling
-    let rotation: number = 0;
 
     interface MousePosition {
         x: number,
@@ -55,7 +56,6 @@ const Hero = (props) => {
                 }
             }       
         }   
-
         const setCanvas = () => {
             const starCanvas: HTMLCanvasElement | null = starCanvasRef.current;
             const lineCanvas: HTMLCanvasElement | null = lineCanvasRef.current;
@@ -87,9 +87,22 @@ const Hero = (props) => {
             animate();
         }
         setCanvas();
+        function shootingStar() {
+            if (shootingStarRef.current) {
+                shootingStarRef.current.classList.add('star');
+                shootingStarRef.current.style.left = Math.random() * 45 + 50 + '%';
+                shootingStarRef.current.style.top = Math.random() * 40 + '%';
+                shootingStarId.current = setTimeout(() => {
+                    shootingStarRef.current?.classList.remove('star');
+                    setTimeout(shootingStar, (Math.random() * 3000 + 3000));
+                }, 2000);
+            }
+        }
+        shootingStar();
         // Cleanup
         return () => {
             cancelAnimationFrame(animationFrameId.current);
+            clearTimeout(shootingStarId.current as NodeJS.Timeout);
             window.removeEventListener('resize', resize);
             window.removeEventListener('mousemove', handleMouseMove);
         }
@@ -178,6 +191,7 @@ const Hero = (props) => {
         <section className="relative overflow-hidden h-full ">
             <canvas className="absolute -top-3/4 -left-3/4 w-full h-full origin-center" ref={lineCanvasRef}></canvas>
             <canvas id="starCanvas" className="absolute -top-3/4 -left-3/4 w-full h-full origin-center" ref={starCanvasRef}></canvas>
+            <div className="absolute" ref={shootingStarRef}></div>
             <img src="/images/foreground.svg" alt="" className="object-fill absolute bottom-0 w-full h-1/1.5" />
         </section>
     )
