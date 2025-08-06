@@ -42,11 +42,6 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
                 drawLines();
             }
         };
-        window.addEventListener('mousemove', handleMouseMove);
-        const resize = () => {
-            location.reload();
-        }
-        window.addEventListener('resize', resize);
 
         for (let [key, value] of lines) {
             for (let line of value) {
@@ -101,6 +96,12 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
             }
         }
         shootingStar();
+        
+        window.addEventListener('mousemove', handleMouseMove);
+        const resize = () => {
+            location.reload();
+        }
+        window.addEventListener('resize', resize);
         // Cleanup
         return () => {
             cancelAnimationFrame(animationFrameId.current);
