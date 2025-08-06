@@ -96,7 +96,7 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
             }
         }
         shootingStar();
-        
+
         window.addEventListener('mousemove', handleMouseMove);
         const resize = () => {
             location.reload();
@@ -143,6 +143,12 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
         return { x: rotatedX, y: rotatedY };
     }
 
+    const addOpacityToRgb = (rgb: string, opacity: number): string => {
+        const split = rgb.substring(3, rgb.length-1).replace(/ /g, ',');
+        
+        return `rgba${split},${opacity})`;
+    }
+
     const drawLines = () => {
         if (lineCanvasContextRef?.current && lineCanvasRef?.current && starCanvasRef?.current) {
             const ref = lineCanvasContextRef.current;
@@ -181,7 +187,10 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
                             const deltaY = centerY - adjustedMouseY;
                             const deltaH = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));  
                             const opacity = Math.max(1 - deltaH/200, 0);
-                            ref.strokeStyle = `rgba(255, 255, 255, ${opacity})`; 
+                            const grad = ref.createLinearGradient(star1Coordinates.x, star1Coordinates.y, star2Coordinates.x, star2Coordinates.y);
+                            grad.addColorStop(0, addOpacityToRgb(star1.color, opacity));
+                            grad.addColorStop(1, addOpacityToRgb(star2.color, opacity));
+                            ref.strokeStyle = grad;
                             ref.stroke();
                         }
                     }
