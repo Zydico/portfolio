@@ -1,11 +1,22 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
 import './Hero.css';
 
 import starsData from './star_data.json';
 import lineData from './line_data.json';
 
-const Hero = (props) => {
+interface MousePosition {
+    x: number,
+    y: number
+}
+interface Star {
+    x: number,
+    y: number,
+    b: number,
+    color: string
+}
+
+const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
     const animationFrameId = useRef<number>(0);
     const shootingStarId = useRef<NodeJS.Timeout | null>(null);
     const shootingStarRef = useRef<HTMLDivElement>(null);
@@ -19,26 +30,17 @@ const Hero = (props) => {
     const mousePosition: MousePosition = { x: 0, y: 0 }
     let scale: number = 1.8; // width scaling
 
-    interface MousePosition {
-        x: number,
-        y: number
-    }
-    interface Star {
-        x: number,
-        y: number,
-        b: number,
-        color: string
-    }
-
     useEffect(() => {
         const animate = () => {
             drawLines();
             animationFrameId.current = requestAnimationFrame(animate);
         }
         const handleMouseMove = (event: MouseEvent) => {
-            mousePosition.x = event.clientX;
-            mousePosition.y = event.clientY - props.navBarRef.current.offsetHeight;
-            drawLines();
+            if (props.navBarRef && props.navBarRef.current) {
+                mousePosition.x = event.clientX;
+                mousePosition.y = event.clientY - props.navBarRef.current.offsetHeight;
+                drawLines();
+            }
         };
         window.addEventListener('mousemove', handleMouseMove);
         const resize = () => {

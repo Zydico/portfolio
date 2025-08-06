@@ -1,11 +1,10 @@
 'use client';
 import Hero from "@/components/Hero/Hero";
 import Navigation from "@/components/Navigation/Navigation";
-import Image from "next/image";
-import { useRef } from "react";
+import { RefObject, useRef } from "react";
 
 export default function Home() {
-  const navBarRef = useRef(null);
+  const navBarRef = useRef<HTMLElement>(null);
 
   return (
     <div className="flex flex-col">

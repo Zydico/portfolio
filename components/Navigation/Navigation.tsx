@@ -1,8 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { RefObject, useState } from 'react';
 import './Navigation.css';
 
-const Navigation = (props) => {
+const Navigation = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
     const [activeMenu, setActiveMenu] = useState<boolean>(false);
     const hamburgerClick = () => {
         setActiveMenu(!activeMenu);
