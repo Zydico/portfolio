@@ -101,7 +101,9 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
         const resize = () => {
             location.reload();
         }
-        window.addEventListener('resize', resize);
+        setTimeout(() => {
+            window.addEventListener('resize', resize);
+        }, 100);
         // Cleanup
         return () => {
             cancelAnimationFrame(animationFrameId.current);
@@ -204,7 +206,10 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
             <canvas className="absolute -top-3/4 -left-3/4 w-full h-full origin-center" ref={lineCanvasRef}></canvas>
             <canvas id="starCanvas" className="absolute -top-3/4 -left-3/4 w-full h-full origin-center" ref={starCanvasRef}></canvas>
             <div className="absolute" ref={shootingStarRef}></div>
-            <img src="./images/foreground.svg" alt="" className="pointer-events-none select-none object-fill absolute bottom-0 w-full h-1/1.5" />
+            <img src="./images/foreground.svg" alt="" className="pointer-events-none select-none object-fill absolute bottom-0 w-full min-h-30" />
+            <h1 className="font-(family-name:--font-header) text-3xl/13 md:text-5xl/16 text-white mt-4 md:mt-6 ml-7 md:ml-10">&lt; Matthew Hwang /&gt;</h1>
+            <h2 className="font-(family-name:--font-header) text-xl md:text-3xl text-white mt-1 ml-7 md:ml-10">Full-stack Developer</h2>
+            <h2 className="font-(family-name:--font-header) text-xl md:text-3xl text-white mt-1 ml-7 md:ml-10">Mechanical Engineer</h2>
         </section>
     )
 }

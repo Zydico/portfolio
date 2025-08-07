@@ -2,19 +2,13 @@
 import Hero from "@/components/Hero/Hero";
 import Navigation from "@/components/Navigation/Navigation";
 import { useRef } from "react";
-import { Rajdhani } from "next/font/google";
-
-const barlowCondensed = Rajdhani({
-  subsets: ['latin'],
-  weight: ['400'],
-});
 
 export default function Home() {
   const navBarRef = useRef<HTMLElement | null>(null);
 
   return (
     <div className="flex flex-col">
-      <header className={`${barlowCondensed.className}`}>
+      <header className="font-menu">
         <Navigation navBarRef={navBarRef} />
       </header>
       <main>
