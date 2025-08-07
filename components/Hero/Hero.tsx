@@ -204,7 +204,7 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
             <canvas className="absolute -top-3/4 -left-3/4 w-full h-full origin-center" ref={lineCanvasRef}></canvas>
             <canvas id="starCanvas" className="absolute -top-3/4 -left-3/4 w-full h-full origin-center" ref={starCanvasRef}></canvas>
             <div className="absolute" ref={shootingStarRef}></div>
-            <img src="./images/foreground.svg" alt="" className="object-fill absolute bottom-0 w-full h-1/1.5" />
+            <img src="./images/foreground.svg" alt="" className="pointer-events-none select-none object-fill absolute bottom-0 w-full h-1/1.5" />
         </section>
     )
 }

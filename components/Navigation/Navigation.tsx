@@ -10,7 +10,7 @@ const Navigation = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
 
     return (
         <nav ref={props.navBarRef} className="fixed left-0 top-0 w-full flex items-center justify-center md:justify-end md:pr-30 text-white h-(--nav-height) font-[600]" aria-label="top-menu">
-            <ul className="flex gap-6 text-xl pb-1">
+            <ul className="flex gap-6 text-xl">
                 <li>Home</li>
                 <li>About</li>
                 <li>Projects</li>
