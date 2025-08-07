@@ -188,7 +188,7 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
                             const deltaX = centerX - adjustedMouseX;
                             const deltaY = centerY - adjustedMouseY;
                             const deltaH = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));  
-                            const opacity = Math.max(1 - deltaH/200, 0);
+                            const opacity = Math.max(1 - deltaH/250, 0);
                             const grad = ref.createLinearGradient(star1Coordinates.x, star1Coordinates.y, star2Coordinates.x, star2Coordinates.y);
                             grad.addColorStop(0, addOpacityToRgb(star1.color, opacity));
                             grad.addColorStop(1, addOpacityToRgb(star2.color, opacity));
