@@ -6,6 +6,10 @@ Initially built using Angular, I decided to build a new portfolio website from s
 
 ## Dev Log
 - 8/7/2025 - Started the About Me page. Added a button on the hero page to navigate to the about page. Made the buttons on the navbar functional. Persistent navbar button color depending on scroll position.
+  As of 8/7/2025, the Hero page looks like this:
+  
+<img width="1903" height="927" alt="HeroPage" src="https://github.com/user-attachments/assets/059784d8-10a1-40a1-9404-48e860d29793" />
+  
 - 8/6/2025 - Added name and titles to hero page, as well as custom fonts.
 - 8/5/2025 - Added random shooting star animation.
 - 8/4/2025 - Constellation lines' opacity is dependent on proximity to mouse position. Star sizes also adjusted for better appearance.
