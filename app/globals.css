@@ -5,6 +5,8 @@
 :root {
   --nav-height: calc(var(--spacing) * 14);
   --color-light-red: #DA8A8B;
+  --color-lightish-red: #bb6566;
+  --color-ground: #101010;
 }
 
 @theme inline {

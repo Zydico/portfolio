@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${rajdhani.variable} ${orbitron.variable}`}>
+    <html lang="en" className={`${rajdhani.variable} ${orbitron.variable} scroll-smooth`}>
       <body>
         {children}
       </body>

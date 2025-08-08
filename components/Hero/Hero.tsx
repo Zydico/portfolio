@@ -1,5 +1,5 @@
 'use client';
-import React, { RefObject, useEffect, useRef, useState } from 'react';
+import React, { RefObject, useEffect, useRef } from 'react';
 import './Hero.css';
 
 import starsData from './star_data.json';
@@ -16,7 +16,7 @@ interface Star {
     color: string
 }
 
-const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
+const Hero = (props: { navBarRef: RefObject<HTMLElement | null>, homeRef: RefObject<HTMLElement | null>, aboutRef: RefObject<HTMLElement | null> }) => {
     const animationFrameId = useRef<number>(0);
     const shootingStarId = useRef<NodeJS.Timeout | null>(null);
     const shootingStarRef = useRef<HTMLDivElement>(null);
@@ -41,7 +41,7 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
                 mousePosition.y = event.clientY - props.navBarRef.current.offsetHeight;
                 drawLines();
             }
-        };
+        }
 
         for (let [key, value] of lines) {
             for (let line of value) {
@@ -189,11 +189,13 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
                             const deltaY = centerY - adjustedMouseY;
                             const deltaH = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));  
                             const opacity = Math.max(1 - deltaH/250, 0);
-                            const grad = ref.createLinearGradient(star1Coordinates.x, star1Coordinates.y, star2Coordinates.x, star2Coordinates.y);
-                            grad.addColorStop(0, addOpacityToRgb(star1.color, opacity));
-                            grad.addColorStop(1, addOpacityToRgb(star2.color, opacity));
-                            ref.strokeStyle = grad;
-                            ref.stroke();
+                            if (opacity > 0) {
+                                const grad = ref.createLinearGradient(star1Coordinates.x, star1Coordinates.y, star2Coordinates.x, star2Coordinates.y);
+                                grad.addColorStop(0, addOpacityToRgb(star1.color, opacity));
+                                grad.addColorStop(1, addOpacityToRgb(star2.color, opacity));
+                                ref.strokeStyle = grad;
+                                ref.stroke();
+                            }
                         }
                     }
                 }       
@@ -201,15 +203,27 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null> }) => {
             ref.restore();
         }
     }
+
+    const scrollDown = () => {
+        if (props.aboutRef.current) {
+            props.aboutRef.current.scrollIntoView();
+        }
+    }
+
     return (
-        <section className="relative overflow-hidden h-full ">
-            <canvas className="absolute -top-3/4 -left-3/4 w-full h-full origin-center" ref={lineCanvasRef}></canvas>
-            <canvas id="starCanvas" className="absolute -top-3/4 -left-3/4 w-full h-full origin-center" ref={starCanvasRef}></canvas>
-            <div className="absolute" ref={shootingStarRef}></div>
+        <section ref={props.homeRef} id="heroPage" className="mt-(--nav-height) relative overflow-hidden h-full text-white font-(family-name:--font-header)">
+            <canvas className="absolute pointer-events-none -top-3/4 -left-3/4 w-full h-full origin-center" ref={lineCanvasRef}></canvas>
+            <canvas id="starCanvas" className="absolute pointer-events-none -top-3/4 -left-3/4 w-full h-full origin-center" ref={starCanvasRef}></canvas>
+            <div className="absolute pointer-events-none" ref={shootingStarRef}></div>
             <img src="./images/foreground.svg" alt="" className="pointer-events-none select-none object-fill absolute bottom-0 w-full min-h-30" />
-            <h1 className="font-(family-name:--font-header) text-3xl/13 md:text-5xl/16 text-white mt-4 md:mt-6 ml-7 md:ml-10"><span aria-hidden="true">&lt; </span>Matthew Hwang<span aria-hidden="true"> /&gt;</span></h1>
-            <h2 className="font-(family-name:--font-header) text-xl md:text-3xl text-white mt-1 ml-7 md:ml-10">Full-stack Developer</h2>
-            <h2 className="font-(family-name:--font-header) text-xl md:text-3xl text-white mt-1 ml-7 md:ml-10">Mechanical Engineer</h2>
+            <h1 className="hero-text text-3xl/13 md:text-5xl/16 mt-4 md:mt-6 ml-7 md:ml-10"><span aria-hidden="true">&lt; </span>Matthew Hwang<span aria-hidden="true"> /&gt;</span></h1>
+            <h2 className="hero-text text-xl md:text-3xl mt-1 ml-7 md:ml-10">Full-stack Developer</h2>
+            <h2 className="hero-text text-xl md:text-3xl mt-1 ml-7 md:ml-10">Mechanical Engineer</h2>
+            <button onClick={() => scrollDown()} id="aboutMeButton" className="border-2 pt-2 pb-2 pl-3 pr-3 ml-13 mt-8 relative z-1 cursor-pointer">
+                Learn more about me !
+                <div id="aboutMeButtonSlider" className="w-110/100 h-3/1 -top-1/1 left-0 absolute -z-1">
+                </div>
+            </button>
         </section>
     )
 }
