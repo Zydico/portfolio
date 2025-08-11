@@ -5,6 +5,7 @@ This is my portfolio website that was developed using React, Next.js, Tailwind, 
 Initially built using Angular, I decided to build a new portfolio website from scratch using React after seeing that React has grown massively in popularity recently.
 
 ## Dev Log
+- 8/10/2025 - Added text to the About page and created the responsive layout
 - 8/7/2025 - Started the About Me page. Added a button on the hero page to navigate to the about page. Made the buttons on the navbar functional. Persistent navbar button color depending on scroll position.
 - 8/6/2025 - Added name and titles to hero page, as well as custom fonts.
 - 8/5/2025 - Added random shooting star animation.
