@@ -32,6 +32,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${rajdhani.variable} ${orbitron.variable} ${inter.variable} scroll-smooth`}>
+      <head>
+        <link rel="icon" href="./images/favicon.ico" />
+      </head>
       <body>
         {children}
       </body>
