@@ -4,6 +4,7 @@ import './Hero.css';
 
 import starsData from './star_data.json';
 import lineData from './line_data.json';
+import { motion } from 'motion/react';
 
 interface MousePosition {
     x: number,
@@ -211,19 +212,34 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null>, homeRef: RefObj
     }
 
     return (
-        <section ref={props.homeRef} id="heroPage" className="mt-(--nav-height) relative overflow-hidden h-full text-white font-(family-name:--font-header)">
+        <section ref={props.homeRef} id="heroPage" className="page mt-(--nav-height) relative overflow-hidden h-full text-white font-(family-name:--font-header)">
             <canvas className="absolute pointer-events-none -top-3/4 -left-3/4 w-full h-full origin-center" ref={lineCanvasRef}></canvas>
             <canvas id="starCanvas" className="absolute pointer-events-none -top-3/4 -left-3/4 w-full h-full origin-center" ref={starCanvasRef}></canvas>
             <div className="absolute pointer-events-none" ref={shootingStarRef}></div>
             <img src="./images/foreground.svg" alt="" className="pointer-events-none select-none object-fill absolute bottom-0 w-full min-h-30" />
-            <h1 className="hero-text text-3xl/13 md:text-5xl/16 mt-4 md:mt-6 ml-7 md:ml-10"><span aria-hidden="true">&lt; </span>Matthew Hwang<span aria-hidden="true"> /&gt;</span></h1>
-            <h2 className="hero-text text-xl md:text-3xl mt-1 ml-7 md:ml-10">Full-stack Developer</h2>
-            <h2 className="hero-text text-xl md:text-3xl mt-1 ml-7 md:ml-10">Mechanical Engineer</h2>
-            <button onClick={() => scrollDown()} id="aboutMeButton" className="border-2 pt-2 pb-2 pl-3 pr-3 ml-13 mt-8 relative z-1 cursor-pointer">
+            <motion.h1 id="nameLabel" className="hero-text text-3xl/13 md:text-5xl/16 mt-4 md:mt-6 ml-7 md:ml-10 z-2 relative"
+                variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }} initial="hidden" whileInView="visible" viewport={{ once: true }}
+                transition={{ duration: 0.5 }}>
+                <span aria-hidden="true">&lt; </span>Matthew Hwang<span aria-hidden="true"> /&gt;</span>
+            </motion.h1>
+            <motion.h2 id="titleLabel1" className="hero-text text-xl md:text-3xl mt-1 ml-7 md:ml-10 z-2 relative"
+                variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }} initial="hidden" whileInView="visible" viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}>
+                Frontend Developer
+            </motion.h2>
+            <motion.h2 id="titleLabel2" className="hero-text text-xl md:text-3xl mt-1 ml-7 md:ml-10 z-2 relative"
+                variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }} initial="hidden" whileInView="visible" viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}>
+                Mechanical Engineer
+            </motion.h2>
+            <motion.button id="aboutMeButton" className="border-2 pt-2 pb-2 pl-3 pr-3 ml-13 mt-8 relative z-1 cursor-pointer" onClick={() => scrollDown()} 
+                variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }} initial="hidden" whileInView="visible" viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.3 }} >
                 Learn more about me !
                 <div id="aboutMeButtonSlider" className="w-110/100 h-3/1 -top-1/1 left-0 absolute -z-1">
                 </div>
-            </button>
+            </motion.button>
+
         </section>
     )
 }

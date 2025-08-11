@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Rajdhani, Orbitron, Exo_2, Audiowide } from "next/font/google";
+import { Rajdhani, Orbitron, Inter } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Matthew Hwang | Developer & Engineer",
@@ -19,13 +19,19 @@ const orbitron = Orbitron({
   variable: "--font-orbitron"
 });
 
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: "--font-inter"
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${rajdhani.variable} ${orbitron.variable} scroll-smooth`}>
+    <html lang="en" className={`${rajdhani.variable} ${orbitron.variable} ${inter.variable} scroll-smooth`}>
       <body>
         {children}
       </body>

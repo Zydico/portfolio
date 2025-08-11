@@ -1,5 +1,5 @@
-section {
-    height: calc(100vh - (var(--spacing) * 14));
+.page {
+    min-height: calc(100vh - (var(--spacing) * 14));
 }
 
 #heroPage {

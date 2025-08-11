@@ -3,20 +3,24 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  overflow-x: hidden;
   --nav-height: calc(var(--spacing) * 14);
   --color-light-red: #DA8A8B;
   --color-lightish-red: #bb6566;
+  --color-light-blue: rgb(168, 168, 253);
+  --color-light-orange: rgb(252, 230, 189);
+  --color-light-green: rgb(130, 199, 130);
   --color-ground: #101010;
 }
 
 @theme inline {
   --font-menu: var(--font-rajdhani);
   --font-header: var(--font-orbitron);
+  --font-body: var(--font-inter);
 }
 
 * {
   box-sizing: border-box;
-  overflow-x: hidden;
 }
 
 body {
