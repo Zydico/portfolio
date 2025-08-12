@@ -218,7 +218,7 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null>, homeRef: RefObj
             <canvas id="lineCanvas" className="absolute pointer-events-none -top-3/4 -left-3/4 w-full h-full origin-center" ref={lineCanvasRef}></canvas>
             <canvas id="starCanvas" className="absolute pointer-events-none -top-3/4 -left-3/4 w-full h-full origin-center" ref={starCanvasRef}></canvas>
             <div className="absolute pointer-events-none" ref={shootingStarRef}></div>
-            <img id="foreground" src="./images/Foreground.svg" alt="" className="pointer-events-none select-none object-fill absolute bottom-0 left-0 w-full min-h-30" />
+            <img id="foreground" src="./images/Ground.svg" alt="" className="pointer-events-none select-none object-fill absolute bottom-0 left-0 w-full min-h-30" />
             <motion.h1 id="nameLabel" className="hero-text text-3xl/13 md:text-5xl/16 mt-4 md:mt-6 ml-7 md:ml-10 z-2 relative"
                 variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }} initial="hidden" whileInView="visible" viewport={{ once: true }}
                 transition={{ duration: 0.5 }}>
