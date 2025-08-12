@@ -12,13 +12,13 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
                 About Me
             </motion.h1>
             <div className="flex flex-wrap items-start justify-between text-xl">
-                <section className="flex flex-col gap-4 md:w-50/100 w-full">
+                <section className="flex flex-col gap-4 md:w-40/100 w-full">
                     <motion.p
                         variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }} initial="hidden" whileInView="visible" viewport={{ once: true }}
                         transition={{ duration: 0.5 }}>
-                        Hi, I'm Matthew! I'm a <span className="text-(--color-light-blue)">Frontend Developer</span> with 2 years of experience building modern, responsive web applications. I specialize in creating
-                        clean, intuitive user interfaces using <span className="text-(--color-light-red)">React</span>, <span className="text-(--color-light-red)">Angular</span>, 
-                        <span className="text-(--color-light-red)"> Javascript</span>, <span className="text-(--color-light-red)">Typescript</span>, and modern <span className="text-(--color-light-red)">CSS</span>. 
+                        Hi, I'm Matthew! I'm a <span className="text-(--color-light-red)">Frontend Developer</span> with 2 years of experience building modern, responsive web applications. I specialize in creating
+                        clean, intuitive user interfaces using <span className="text-(--color-light-blue)">React</span>, <span className="text-(--color-light-blue)">Angular</span>, 
+                        <span className="text-(--color-light-blue)"> Javascript</span>, <span className="text-(--color-light-blue)">Typescript</span>, and modern <span className="text-(--color-light-blue)">CSS</span>. 
                     </motion.p>
                     <motion.p
                         variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }} initial="hidden" whileInView="visible" viewport={{ once: true }}

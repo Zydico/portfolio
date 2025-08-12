@@ -11,6 +11,9 @@
   --color-light-orange: rgb(252, 230, 189);
   --color-light-green: rgb(130, 199, 130);
   --color-ground: #101010;
+  --color-light-background: #3e5572;
+  --color-gray-font: #555555;
+  --color-light-gray: rgb(190, 190, 190);
 }
 
 @theme inline {
