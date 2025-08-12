@@ -1,11 +1,10 @@
 import React, { RefObject } from 'react';
 import { motion } from 'framer-motion';
-import './About.css';
 
 const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
         
     return (
-        <section ref={props.aboutRef} id="aboutPage" className="page pt-5 pl-12 pr-12 text-white w-full bg-[var(--color-ground)] font-(family-name:--font-body)">
+        <section ref={props.aboutRef} id="aboutPage" className="page pt-5 pl-12 pr-12 pb-8 text-white w-full bg-[var(--color-ground)] font-(family-name:--font-body)">
             <motion.h1 id="aboutHeader" className="font-(family-name:--font-header) font-bold text-3xl md:text-5xl/16 mb-4 font-(family-name:--font-header)"
                 variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }} initial="hidden" whileInView="visible" viewport={{ once: true }}
                 transition={{ duration: 0.5 }}>
