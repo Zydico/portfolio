@@ -2,11 +2,11 @@ import React, { RefObject, useEffect, useState } from 'react';
 import './Navigation.css';
 
 const Navigation = (props: { navBarRef: RefObject<HTMLElement | null>, homeRef: RefObject<HTMLElement | null>, aboutRef: RefObject<HTMLElement | null>,
-                             projectsRef: RefObject<HTMLElement | null> }) => {
+                             projectsRef: RefObject<HTMLElement | null>, contactRef: RefObject<HTMLElement | null> }) => {
     const [currentPage, setCurrentPage] = useState('Home');
 
     const navTo = (destination: string) => {
-        if (props.navBarRef.current && props.homeRef.current && props.aboutRef.current && props.projectsRef.current) {
+        if (props.navBarRef.current && props.homeRef.current && props.aboutRef.current && props.projectsRef.current && props.contactRef.current) {
             switch(destination) {
                 case 'Home':
                     window.scrollTo({top: props.homeRef.current.offsetTop - props.navBarRef.current.offsetHeight});
@@ -18,7 +18,7 @@ const Navigation = (props: { navBarRef: RefObject<HTMLElement | null>, homeRef: 
                     window.scrollTo({top: props.projectsRef.current.offsetTop + 40});
                     break;
                 case 'Contact':
-                    // props.homeRef.current.scrollIntoView();
+                    window.scrollTo({top: props.contactRef.current.offsetTop});
                     break;
             }
         }
@@ -26,13 +26,16 @@ const Navigation = (props: { navBarRef: RefObject<HTMLElement | null>, homeRef: 
 
     useEffect(() => {
         const handleScroll = () => {
-            if (props.homeRef.current && props.aboutRef.current) {
+            if (props.homeRef.current && props.aboutRef.current && props.projectsRef.current && props.contactRef.current) {
                 if (window.scrollY < props.aboutRef.current.offsetTop/2) {
                     setCurrentPage('Home');
                 } else if (window.scrollY >= props.aboutRef.current.offsetTop/2 && window.scrollY < props.aboutRef.current.offsetTop + props.aboutRef.current.offsetHeight/2) {
                     setCurrentPage('About');
                 } else if (window.scrollY >= props.aboutRef.current.offsetTop + props.aboutRef.current.offsetHeight/2) {
                     setCurrentPage('Projects');
+                } 
+                if (window.scrollY + window.innerHeight - props.contactRef.current.offsetHeight + 50 >= props.contactRef.current.offsetTop) {
+                    setCurrentPage('Contact');
                 }
             }
         }

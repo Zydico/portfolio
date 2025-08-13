@@ -1,0 +1,10 @@
+#arrow {
+    width: 0;
+    height: 0;
+    border-left: 49.5vw solid transparent;
+    border-right: 49.5vw solid transparent;
+    border-top: 4rem solid var(--color-light-background);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
