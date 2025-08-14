@@ -2,9 +2,10 @@ Website: https://zydico.github.io/portfolio/
 
 This is my portfolio website that was developed using React, Next.js, Tailwind, Typescript, HTML, and CSS.
 
-Initially built using Angular, I decided to build a new portfolio website from scratch using React after seeing that React has grown massively in popularity recently.
+Initially built using Angular (https://zydico.github.io/Website/#/portfolio), I decided to build a new portfolio website from scratch using React after seeing that React has grown massively in popularity recently.
 
 ## Dev Log
+- 8/14/2025 - Added github and linkedin links and icons
 - 8/12/2025 - Hid SVGs for Safari/IOS because of strange behavior... Added Contacts page
 - 8/11/2025 - Added the Projects page
 - 8/10/2025 - Added text to the About page and created the responsive layout. Added fav icon.

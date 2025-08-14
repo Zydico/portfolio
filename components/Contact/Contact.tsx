@@ -28,6 +28,18 @@ const Contact = (props: { contactRef: RefObject<HTMLElement | null> }) => {
                         <a href="tel:+12063720329"><img src="./images/phone.svg" alt="Email Icon" className="w-8 h-8" /></a>
                         <a href="tel:+12063720329">(206) 372-0329</a>
                     </motion.div>
+                    <div className="mt-8 flex flex-wrap items-start gap-5">
+                        <motion.a className="flex items-center gap-4" href="https://github.com/Zydico" title="Link to Matthew's Github page"  target="_blank"
+                            variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }} initial="hidden" whileInView="visible" viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}>
+                            <img src="./images/github.svg" alt="Github Icon" className="w-8 h-8" />
+                        </motion.a>
+                        <motion.a className="flex items-center gap-4" href="https://www.linkedin.com/in/matthewhwang95/" title="Link to Matthew's LinkedIn page" target="_blank"
+                            variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }} initial="hidden" whileInView="visible" viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: 0.1 }}>
+                           <img src="./images/linkedin.svg" alt="LinkedIn Icon" className="w-8 h-8" />
+                        </motion.a>
+                    </div>
                 </div>
             </div>
         </section>
