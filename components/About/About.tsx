@@ -61,14 +61,12 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
             if (skillsCanvas) {
                 const width = skillsCanvas.getBoundingClientRect().width;
                 const height = skillsCanvas.getBoundingClientRect().height;
-                const ratio = window.devicePixelRatio;
-                skillsCanvas.width = width*ratio;
-                skillsCanvas.height = height*ratio;
+                skillsCanvas.width = width;
+                skillsCanvas.height = height;
                 const skillsCanvasContext: CanvasRenderingContext2D | null = skillsCanvas.getContext('2d');
                 skillsCanvasContext?.translate(width/2, height/2);
                 skillsCanvasContextRef.current = skillsCanvas.getContext('2d');
                 if (skillsCanvasContextRef.current) {
-                    skillsCanvasContextRef.current.scale(ratio, ratio);
                     skillsCanvasContextRef.current.imageSmoothingEnabled = true;
                     skillsCanvasContextRef.current.imageSmoothingQuality = 'high';
                 }
