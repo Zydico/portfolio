@@ -113,7 +113,8 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
                     ref.textAlign = 'center';
                     ref.textBaseline = 'middle';
                     ref.fillStyle = '#ffffff';
-                    ref.font = 'bold 1rem Inter';
+                    const fontSize = scale * 0.75;
+                    ref.font = 'bold ' + fontSize + 'rem Inter';
                     ref.fillText(skill.category, x, y);
                     skill.angle += ringRotation;
                     for (let layer of skill.layers) {
@@ -130,7 +131,11 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
                         const childDistance = skill.layers[layer-1] * scale;
                         const childX = childDistance*Math.cos(child.angle);
                         const childY = childDistance*Math.sin(child.angle);
-                        child.angle += 0.5/childDistance;
+                        let rotationSpeed = 0.5/childDistance;
+                        while (rotationSpeed > 0.0075) {
+                            rotationSpeed *= 0.75;
+                        }
+                        child.angle += rotationSpeed;
                         // ref.beginPath();
                         // ref.arc(x + childX, y + childY, child.size, 0, Math.PI*2);
                         // ref.closePath();
