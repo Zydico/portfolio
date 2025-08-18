@@ -6,6 +6,7 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
     const skillsCanvasRef = useRef<HTMLCanvasElement>(null);
     const skillsCanvasContextRef = useRef<CanvasRenderingContext2D>(null);
     const animationFrameId = useRef<number>(0);
+    const ringRotation = 0.0025; // constant set instead of calculating to prevent overlap/collision
     const skills = [
         {
             size: 100,
@@ -13,19 +14,19 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
         },
         {
             category: 'Frontend',
-            size: 40,
-            distance: 30,
+            size: 30,
+            distance: 150,
             angle: 0, 
             color: 'rgb(168, 168, 253)',
             childrenColor: 'rgba(117, 117, 212, 1)',
-            layers: [80, 130],
+            layers: [60, 90],
             skills: [
                 {skill: 'React', url: './images/React.png', size: 20, layer: 1, angle: 0},
                 {skill: 'Next.js', url: './images/Next.png', size: 15, layer: 1, angle: 0.5},
                 {skill: 'Angular', url: './images/Angular.png', size: 20, layer: 1, angle: Math.PI},
-                {skill: 'HTML', url: './images/HTML.png', size: 15, layer: 2, angle: Math.PI/2},
-                {skill: 'CSS', url: './images/CSS.png', size: 15, layer: 2, angle: Math.PI/2-0.3},
-                {skill: 'Javascript', url: './images/Javascript.png', size: 15, layer: 2, angle: Math.PI/2+0.3},
+                {skill: 'HTML', url: './images/HTML.png', size: 13, layer: 2, angle: Math.PI/2},
+                {skill: 'CSS', url: './images/CSS.png', size: 13, layer: 2, angle: Math.PI/2-0.3},
+                {skill: 'Javascript', url: './images/Javascript.png', size: 13, layer: 2, angle: Math.PI/2+0.3},
                 {skill: 'Typescript', url: './images/Typescript.png', size: 15, layer: 1, angle: Math.PI/2},
                 {skill: 'Tailwind', url: './images/Tailwind.png', size: 15, layer: 1, angle: -0.5},
             ],
@@ -89,7 +90,7 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
             const ref = skillsCanvasContextRef.current;
             ref.save(); 
             const width = skillsCanvasRef.current.width;
-            const height = skillsCanvasRef.current.height;
+            const scale = width/500;
             ref.clearRect(-skillsCanvasRef.current.width, -skillsCanvasRef.current.height, skillsCanvasRef.current.width*2, skillsCanvasRef.current.height*2);
             ref.shadowBlur = 10; // adds glow to each line
             ref.shadowColor = 'rgba(255, 255, 255, 0.78)';
@@ -97,11 +98,10 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
                 let x = 0;
                 let y = 0;
                 if (skill.category) {
-                    const distance = skill.distance/100 * width;
-                    let rotation = 0.5/distance;
+                    const distance = skill.distance * scale;
                     ref.strokeStyle = '#ffffffff';
                     ref.beginPath();
-                    ref.lineWidth = 1.25;
+                    ref.lineWidth = 1;
                     ref.arc(0, 0, distance, 0, Math.PI*2);
                     ref.closePath();
                     ref.stroke();
@@ -109,7 +109,7 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
                     x = distance*Math.cos(skill.angle);
                     y = distance*Math.sin(skill.angle);
                     ref.beginPath();
-                    ref.arc(x, y, skill.size, 0, Math.PI*2);
+                    ref.arc(x, y, skill.size*scale, 0, Math.PI*2);
                     ref.closePath();
                     ref.fill();
                     ref.textAlign = 'center';
@@ -117,19 +117,19 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
                     ref.fillStyle = '#ffffff';
                     ref.font = 'bold 1rem Inter';
                     ref.fillText(skill.category, x, y);
-                    skill.angle += rotation;
+                    skill.angle += ringRotation;
                     for (let layer of skill.layers) {
                         ref.strokeStyle = '#ffffffff';
                         ref.beginPath();
-                        ref.lineWidth = 0.75;
-                        ref.arc(x, y, layer, 0, Math.PI*2);
+                        ref.lineWidth = 0.25;
+                        ref.arc(x, y, layer*scale, 0, Math.PI*2);
                         ref.closePath();
                         ref.stroke();
                     }
                     for (let child of skill.skills) {
                         ref.fillStyle = skill.childrenColor;
                         const layer = child.layer;
-                        const childDistance = skill.layers[layer-1];
+                        const childDistance = skill.layers[layer-1] * scale;
                         const childX = childDistance*Math.cos(child.angle);
                         const childY = childDistance*Math.sin(child.angle);
                         child.angle += 0.5/childDistance;
@@ -139,13 +139,15 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
                         // ref.fill();
                         const image = new Image();
                         image.src = child.url;
-                        ref.drawImage(image, x+childX-child.size*0.75, y+childY-child.size*0.75, child.size*1.5, child.size*1.5);
+                        const childScale = scale*1.5;
+                        ref.drawImage(image, x+childX-child.size*childScale/2, y+childY-child.size*childScale/2, child.size*childScale, child.size*childScale);
                     }
                 }
                 if (skill.url) {
                     const image = new Image();
                     image.src = skill.url;
-                    ref.drawImage(image, x-skill.size/2, y-skill.size/2, skill.size, skill.size);
+                    const size = skill.size * scale;
+                    ref.drawImage(image, x-size/2, y-size/2, size, size);
                 }
 
             }
