@@ -47,7 +47,7 @@ const Navigation = (props: { navBarRef: RefObject<HTMLElement | null>, homeRef: 
 
     return (
         <nav ref={props.navBarRef} className="font-(family-name:--font-menu) fixed left-0 top-0 w-full flex items-center justify-center md:justify-end md:pr-30 text-white h-(--nav-height) font-[600]" aria-label="top-menu">
-            <ul className="flex gap-7 text-xl">
+            <ul id="nav-list" className="flex gap-7 text-xl">
                 <li className={currentPage == 'Home' ? 'activeMenuItem' : ''}><button onClick={() => navTo('Home')}>Home</button></li>
                 <li className={currentPage == 'About' ? 'activeMenuItem' : ''}><button onClick={() => navTo('About')}>About</button></li>
                 <li className={currentPage == 'Projects' ? 'activeMenuItem' : ''}><button onClick={() => navTo('Projects')}>Projects</button></li>

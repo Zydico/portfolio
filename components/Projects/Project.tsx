@@ -1,11 +1,19 @@
 import { motion } from 'motion/react';
 import React from 'react';
 
-const Project = (props: { title: string, description: string, url?: string }) => {
+const Project = (props: { title: string, description: string, url?: string, skills: string[] }) => {
 
     const navTo = (destination?: string) => {
         if (destination) {
             window.open(destination, '_blank');
+        }
+    }
+
+    const getColor = (skill: string): string => {
+        if (['Angular', 'HTML', 'CSS', 'Typescript', 'Tailwind', 'React', 'Next.js'].includes(skill)) {
+            return 'skill-frontend';
+        } else {
+            throw new Error('Invalid skill listed');
         }
     }
         
@@ -17,9 +25,14 @@ const Project = (props: { title: string, description: string, url?: string }) =>
                 <div className="project-title text-lg font-bold text-center mb-1">
                     {props.title}
                 </div>
-                <div className="project-description text-sm/5">
+                <div className="project-description md:text-sm/5 text-xs/5">
                     {props.description}
                 </div>
+                <ul className="flex flex-wrap gap-2 absolute bottom-0 left-0 w-full pl-4 pr-4 pb-2 md:text-sm text-xs">
+                    {props.skills.map((item, index) => (
+                        <li key={index} className={`${getColor(item)} rounded-lg px-2 py-0.25 flex`}>{item}</li>
+                    ))}
+                </ul>
             </div>
             <img alt="Project Image" className="w-full block object-cover h-70" src="./images/MaplestoryHelper.jpg" />
         </motion.div>

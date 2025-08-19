@@ -5,11 +5,11 @@ nav {
     z-index: 3;
 }
 
-li:hover, .activeMenuItem {
+#nav-list > li:hover, .activeMenuItem {
     color: var(--color-light-red);
     transition: 0.2s;
 }
 
-li > button {
+#nav-list > li > button {
     cursor: pointer;
 }
