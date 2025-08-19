@@ -208,8 +208,8 @@ const Hero = (props: { navBarRef: RefObject<HTMLElement | null>, homeRef: RefObj
     }
 
     const scrollDown = () => {
-        if (props.aboutRef.current) {
-            props.aboutRef.current.scrollIntoView();
+        if (props.aboutRef.current && props.navBarRef.current) {
+            window.scrollTo({top: props.aboutRef.current.offsetTop - props.navBarRef.current.offsetHeight});
         }
     }
 
