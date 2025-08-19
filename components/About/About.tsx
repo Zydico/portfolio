@@ -87,14 +87,12 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
 
                 const width = skillsCanvas.getBoundingClientRect().width;
                 const height = skillsCanvas.getBoundingClientRect().height;
-                const dpr = window.devicePixelRatio || 1;
-                skillsCanvas.width = width * dpr;
-                skillsCanvas.height = height * dpr;
+                skillsCanvas.width = width;
+                skillsCanvas.height = height;
                 const skillsCanvasContext: CanvasRenderingContext2D | null = skillsCanvas.getContext('2d');
                 skillsCanvasContext?.translate(skillsCanvas.width/2, skillsCanvas.height/2);
                 skillsCanvasContextRef.current = skillsCanvas.getContext('2d');
                 if (skillsCanvasContextRef.current) {
-                    skillsCanvasContextRef.current.scale(dpr, dpr);
                     skillsCanvasContextRef.current.imageSmoothingEnabled = true;
                     skillsCanvasContextRef.current.imageSmoothingQuality = 'high';
                 }

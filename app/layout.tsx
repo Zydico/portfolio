@@ -4,7 +4,7 @@ import { Rajdhani, Orbitron, Inter } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Matthew Hwang | Developer & Engineer",
-  description: "Portfolio showcasing software, simulation, and engineering projects",
+  description: "Matthew Hwang's portfolio showcasing software, simulation, and engineering projects",
 };
 
 const rajdhani = Rajdhani({
