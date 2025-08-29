@@ -20,7 +20,6 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
             distance: 150,
             angle: 0, 
             color: 'rgb(168, 168, 253)',
-            childrenColor: 'rgba(117, 117, 212, 1)',
             layers: [60, 90],
             skills: [
                 {skill: 'React', url: './images/React.png', size: 20, layer: 1, angle: 0},
@@ -37,9 +36,8 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
             category: 'Backend', 
             size: 25,
             distance: 150,
-            angle: Math.PI,
+            angle: 2*Math.PI/3,
             color: 'rgb(130, 199, 130)',
-            childrenColor: 'rgba(87, 153, 87, 1)',
             layers: [50, 80],
             skills: [
                 {skill: 'Node.js', url: './images/NodeJs.svg', size: 13, layer: 1, angle: 0},
@@ -48,6 +46,22 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
                 {skill: 'Java', url: './images/Java.png', size: 15, layer: 1, angle: 3*2*Math.PI/4},
                 {skill: 'PostgreSQL', url: './images/PostgreSQL.svg', size: 13, layer: 2, angle: 0},
                 {skill: 'MongoDB', url: './images/MongoDB.png', size: 13, layer: 2, angle: Math.PI},
+            ],
+        },
+        {
+            category: 'Engineering', 
+            size: 30,
+            distance: 150,
+            angle: 4*Math.PI/3,
+            color: 'rgba(187, 89, 89, 1)',
+            layers: [50, 80],
+            skills: [
+                {skill: 'MATLAB', url: './images/Matlab.png', size: 13, layer: 1, angle: 0},
+                {skill: 'SolidWorks', url: './images/SolidWorks.png', size: 13, layer: 1, angle: 2*Math.PI/4},
+                {skill: 'Autodesk Fusion', url: './images/Fusion.png', size: 13, layer: 1, angle: 2*2*Math.PI/4},
+                {skill: 'Ansys APDL', url: './images/Ansys.png', size: 15, layer: 1, angle: 3*2*Math.PI/4},
+                {skill: 'Ros2', url: './images/Ros2.png', size: 13, layer: 2, angle: 0},
+                {skill: 'Arduino', url: './images/Arduino.png', size: 13, layer: 2, angle: Math.PI},
             ],
         },
     ]
@@ -144,7 +158,7 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
                     ref.textAlign = 'center';
                     ref.textBaseline = 'middle';
                     ref.fillStyle = '#ffffff';
-                    const fontSize = scale * 0.75 * skill.size/30;
+                    const fontSize = scale * 0.75 * skill.size/30 * 7/skill.category.length;
                     ref.font = 'bold ' + fontSize + 'rem Inter';
                     ref.fillText(skill.category, x, y);
                     skill.angle += ringRotation;
@@ -157,7 +171,6 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
                         ref.stroke();
                     }
                     for (let child of skill.skills) {
-                        ref.fillStyle = skill.childrenColor;
                         const layer = child.layer;
                         const childDistance = skill.layers[layer-1] * scale;
                         const childX = childDistance*Math.cos(child.angle);
