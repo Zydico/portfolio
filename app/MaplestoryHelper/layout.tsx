@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import Navigation from "./Navigation/Navigation";
 import './page.css';
 
+export const metadata: Metadata = {
+  title: "Maplestory Helper",
+  description: "A website developed by Zydico to assist players in the game Maplestory",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{

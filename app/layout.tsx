@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Rajdhani, Orbitron, Inter } from "next/font/google";
+import { Rajdhani, Orbitron, Inter, League_Spartan } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Matthew Hwang | Developer & Engineer",
@@ -25,13 +25,19 @@ const inter = Inter({
   variable: "--font-inter"
 });
 
+const spartan = League_Spartan({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: "--font-spartan"
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${rajdhani.variable} ${orbitron.variable} ${inter.variable} scroll-smooth`}>
+    <html lang="en" className={`${rajdhani.variable} ${orbitron.variable} ${inter.variable} ${spartan.variable} scroll-smooth`}>
       <head>
         <link rel="icon" href="./images/favicon.ico" />
       </head>

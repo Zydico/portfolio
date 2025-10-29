@@ -1,0 +1,32 @@
+.mode-info {
+    left: 0;
+}
+
+.mode-crystal {
+    left: 50%;
+}
+
+.boss-table > tbody > tr {
+    background-color: var(--color-maplestory-light-gray);
+}
+
+.boss-table > tbody > tr {
+    background-color: var(--color-maplestory-light-gray-darker);
+}
+
+.boss-table > tbody:nth-child(odd) > tr {
+    background-color: var(--color-maplestory-light-gray);
+}
+
+.boss-table > tbody > tr > td:not(:first-child) {
+    padding-right: 0.5rem;
+}
+
+.simplified {
+    text-align: right;
+    padding-left: 0.75rem;
+}
+
+.darken {
+    background-image: linear-gradient(rgb(0 0 0/10%) 0 0);
+}

@@ -3,9 +3,13 @@ nav {
 }
 
 nav > ul > a:hover > li {
-    background-color: var(--color-maplestory-dark-gray-hover);
+    background-color: var(--color-maplestory-orange-hover);
+}
+
+nav > ul > a {
+    user-select: none;
 }
 
 .active {
-    background-color: var(--color-maplestory-dark-gray-selected) !important;
+    background-color: var(--color-maplestory-orange-selected) !important;
 }
