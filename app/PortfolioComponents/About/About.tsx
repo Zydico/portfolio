@@ -224,17 +224,8 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
                     <motion.p
                         variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }} initial="hidden" whileInView="visible" viewport={{ once: true }}
                         transition={{ duration: 0.5 }}>
-                        Thanks to my background in <span className="text-(--color-light-orange)">Computer Science</span> and <span className="text-(--color-light-orange)">Mechanical Engineering</span>, I approach projects with strong analytical skills and a keen eye for
-                        detail, helping me create software that is both reliable and innovative. I developed my skills with the intention of joining the Aerospace
-                        industry, and I hope my passion shows through my portfolio and projects!
-                    </motion.p>
-                    <motion.p
-                        variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}>
-                        I'm currently expanding my skill set and projects to include backend technologies like <span className="text-(--color-light-green)">Node.js</span>, 
-                        <span className="text-(--color-light-green)"> Express</span>, and <span className="text-(--color-light-green)">PostgreSQL</span> in order to obtain
-                        a position as a Full Stack Developer. I love learning new tools and technologies, and this portfolio website is the perfect little playground
-                        to experiment and showcase my skills.
+                        I have a background in <span className="text-(--color-light-orange)">Computer Science</span> and <span className="text-(--color-light-orange)">Mechanical Engineering</span>, and this portfolio website is the perfect little playground
+                        to experiment and showcase my skills and interests.
                     </motion.p>
                 </section>
                 <section className="md:w-40/100 w-full md:mt-0 md:mr-12 mt-5 w-full aspect-square relative">

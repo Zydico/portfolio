@@ -14,6 +14,11 @@
   --color-light-background: #3e5572;
   --color-gray-font: #555555;
   --color-light-gray: rgb(190, 190, 190);
+  --color-maplestory-background-gray: #F2F2F2;
+  --color-maplestory-dark-gray: #333333;
+  --color-maplestory-dark-gray-hover: #FF8E2E;
+  --color-maplestory-dark-gray-selected: #c46d21;
+  --color-maplestory-light-gray: #E2E2E2;
 }
 
 @theme inline {

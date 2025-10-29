@@ -1,0 +1,11 @@
+nav {
+    background-color: var(--color-maplestory-dark-gray);
+}
+
+nav > ul > a:hover > li {
+    background-color: var(--color-maplestory-dark-gray-hover);
+}
+
+.active {
+    background-color: var(--color-maplestory-dark-gray-selected) !important;
+}
