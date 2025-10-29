@@ -7,15 +7,6 @@ const nextConfig: NextConfig = {
 };
 
 module.exports = {
-  async redirects() {
-    return [
-      {
-        source: '/MaplestoryHelper',
-        destination: '/MaplestoryHelper/Roster',
-        permanent: true
-      }
-    ];
-  }
 }
 
 export default nextConfig;
