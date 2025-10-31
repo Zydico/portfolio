@@ -79,7 +79,7 @@ const general = [
     image: '',
     description: 'A google sheet to assist in deciding which Scrapyard/Haven weeklies to reroll', 
     author: 'GyroBallMetagross', link: 'https://docs.google.com/spreadsheets/d/1FJcMQHfhsDNsRQW_KhrmR3uyWmudv8e8Y_nY5uawKAg/edit?usp=sharing', authorLink: 'https://www.reddit.com/user/GyroBallMetagross',
-    category: 'Guide' },,
+    category: 'Guide' },
   { name: 'Ninja Castle Guide', 
     image: '',
     description: 'A google sheet to assist in completing Ninja Castle', 
