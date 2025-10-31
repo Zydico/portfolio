@@ -53,3 +53,8 @@ table {
 input {
     outline: none;
 }
+
+thead > tr > th {
+    position: sticky;
+    top: 0;
+}
