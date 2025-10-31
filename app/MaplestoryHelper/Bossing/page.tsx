@@ -222,7 +222,7 @@ export default function Bossing() {
                 <div className="absolute up-triangle left-4 top-9"></div>
               </div>
             </th>
-            <th className="w-160">Notes</th>
+            <th className="min-w-180">Notes</th>
           </tr>            
         </thead>
         {[...arcaneBosses.entries()].map(([boss, difficulties]) => (
@@ -317,7 +317,7 @@ export default function Bossing() {
                 <div className="absolute up-triangle left-4 top-9"></div>
               </div>
             </th>
-            <th className="w-160">Notes</th>
+            <th className="min-w-180">Notes</th>
           </tr>            
         </thead>
         {[...grandisBosses.entries()].map(([boss, difficulties]) => (
