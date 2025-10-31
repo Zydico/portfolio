@@ -130,6 +130,21 @@ const general = [
     description: 'A Discord server with information and links for every class', 
     author: '', link: 'https://discord.gg/maple-legion-862672763404025896',
     category: 'Discord' },
+  { name: 'Maplestory Studio', 
+    image: '',
+    description: 'A website to help you simulate/preview your character appearance', 
+    author: '', link: 'https://maplestory.studio/',
+    category: 'Fashion' },
+  { name: 'Maplestory Simulator', 
+    image: '',
+    description: 'A website to help you simulate/preview your character appearance. Runs faster I think', 
+    author: '', link: 'https://maplestory.studio/',
+    category: 'Fashion' },
+  { name: 'Maplesalon', 
+    image: '',
+    description: 'A website to preview color combinations for mix coupons', 
+    author: '丫村', link: 'https://maplesalon.vercel.app/en',
+    category: 'Fashion' }
 ];
 
 export default function Resources() {
