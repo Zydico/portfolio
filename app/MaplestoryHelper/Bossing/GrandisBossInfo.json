@@ -41,6 +41,16 @@
             "SymbolType": "Sacred",
             "MaxParty": 1,
             "Notes": "HSeren solo, but you lose 80% FD"
+        }, 
+        {
+            "Difficulty": "Champion",
+            "Crystal": 0,
+            "Level": 275,
+            "HP": [126000000000000, 357000000000000, 100000],
+            "Symbol": 200,
+            "SymbolType": "Sacred",
+            "MaxParty": 1,
+            "Notes": "HSeren solo within 20 minutes"
         }
     ],
     "Kalos": [
@@ -94,6 +104,16 @@
             "SymbolType": "Sacred",
             "MaxParty": 1,
             "Notes": "CKalos solo, but you only have 3 lives instead of 8"
+        }, 
+        {
+            "Difficulty": "Champion",
+            "Crystal": 0,
+            "Level": 280,
+            "HP": [336000000000000, 720000000000000, 100000],
+            "Symbol": 300,
+            "SymbolType": "Sacred",
+            "MaxParty": 1,
+            "Notes": "NKalos solo within 20 minutes"
         }
     ],
     "Kaling": [

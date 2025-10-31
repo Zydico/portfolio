@@ -39,6 +39,14 @@
             "HP": [10000000000000, 10000000000000, 13700000000000, 100000],
             "MaxParty": 1,
             "Notes": "HLotus solo, and you lose 20% FD"
+        }, 
+        {
+            "Difficulty": "Champion",
+            "Crystal": 0,
+            "Level": 210,
+            "HP": [10000000000000, 10000000000000, 13700000000000, 100000],
+            "MaxParty": 1,
+            "Notes": "HLotus solo within 20 minutes"
         }
     ],
     "Damien": [
@@ -225,6 +233,16 @@
             "SymbolType": "Arcane",
             "MaxParty": 2,
             "Notes": "HVHilla, but she starts at 75% HP. Solo or duo, but if duo, each person loses 50% FD"
+        }, 
+        {
+            "Difficulty": "Champion",
+            "Crystal": 0,
+            "Level": 250,
+            "HP": [176000000000000, 100000],
+            "Symbol": 900,
+            "SymbolType": "Arcane",
+            "MaxParty": 1,
+            "Notes": "HVHilla solo within 20 minutes"
         }
     ],
     "Darknell": [
@@ -271,6 +289,16 @@
             "MaxParty": 6,
             "Traces": 600,
             "Notes": "P1 is level 275"
+        },
+        {
+            "Difficulty": "Champion",
+            "Crystal": 0,
+            "Level": 275,
+            "HP": [63000000000000, 115500000000000, 157500000000000, 136500000000000, 100000],
+            "Symbol": 1320,
+            "SymbolType": "Arcane",
+            "MaxParty": 1,
+            "Notes": "Hard Black Mage solo within 45 minutes"
         }
     ]
 }

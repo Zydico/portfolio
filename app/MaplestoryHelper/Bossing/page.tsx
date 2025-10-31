@@ -243,7 +243,7 @@ export default function Bossing() {
                   <td className="text-right darken">{calculateTotalFD(item.Level, item.Symbol, item.SymbolType)}</td>
                   <td className="text-center">{item.Traces && item.MaxParty ? Math.round(item.Traces / Math.min(partySize ? partySize : 1, item.MaxParty) * 10) / 10 : null}</td>
                   <td className="text-right darken">{simplifyNumber(getTotal(item.HP))}</td>
-                  <td className="text-right darken">{item.Difficulty != 'Genesis' ? simplifyNumber(getTotal(item.HP) * 0.05) : null}</td>
+                  <td className="text-right darken">{(item.Difficulty != 'Genesis' && item.Difficulty != 'Champion') ? simplifyNumber(getTotal(item.HP) * 0.05) : null}</td>
                   <td className="">{item.Notes ? item.Notes : null}</td>
                 </tr>
               ) : null
@@ -340,7 +340,7 @@ export default function Bossing() {
                     </td>
                   <td className="text-center">{item.Traces && item.MaxParty ? Math.round(item.Traces / Math.min(partySize ? partySize : 1, item.MaxParty) * 10) / 10 : null}</td>
                   <td className="text-right darken">{simplifyNumber(getTotal(item.HP))}</td>
-                  <td className="text-right darken">{item.Difficulty != 'Destiny' ? simplifyNumber(getTotal(item.HP) * 0.05) : null}</td>
+                  <td className="text-right darken">{(item.Difficulty != 'Destiny' && item.Difficulty != 'Champion') ? simplifyNumber(getTotal(item.HP) * 0.05) : null}</td>
                   <td className="">{item.Notes ? item.Notes : null}</td>
                 </tr>
               ) : null

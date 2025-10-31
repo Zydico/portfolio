@@ -5,7 +5,7 @@ This is my portfolio website that was developed using React, Next.js, Tailwind, 
 Initially built using Angular (https://zydico.github.io/Website/#/portfolio), I decided to build a new portfolio website from scratch using React after seeing that React has grown massively in popularity recently.
 
 ## Dev Log
-- 10/30/2025 - Added bossing information page. Will add legion champ rows, and add checkboxes to hide genesis/destiny/legion champ rows.
+- 10/30/2025 - Added bossing information page. Will add checkboxes to hide genesis/destiny/legion champ rows.
 - 10/29/2025 - Started working on the new Maplestory Helper page. Added navigation and finished contact page.
 - 8/19/2025 - Added the backend skills to the About page. Added hover detection with logo text labels. Inproved performance by preloading images and storing. Improved mobile performance.
 - 8/17/2025 - Started the orbiting skills section on the About page. Added the Frontend section so far.
