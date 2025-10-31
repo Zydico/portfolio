@@ -1,0 +1,206 @@
+{
+    "Seren": [
+        {
+            "Difficulty": "Normal",
+            "Crystal": 889021875,
+            "Level": 270,
+            "HP": [52500000000000, 155400000000000, 100000],
+            "Symbol": 200,
+            "SymbolType": "Sacred",
+            "MaxParty": 6,
+            "Notes": "P1 is 150 Sacred. 2 deers spawn below 41% HP"
+        }, 
+        {
+            "Difficulty": "Hard",
+            "Crystal": 1096562500,
+            "Level": 275,
+            "HP": [126000000000000, 357000000000000, 100000],
+            "Symbol": 200,
+            "SymbolType": "Sacred",
+            "MaxParty": 6,
+            "Traces": 6,
+            "Notes": "P1 is 150 Sacred. 2 | 3 deers spawn below 41% | 21% HP"
+        }, 
+        {
+            "Difficulty": "Extreme",
+            "Crystal": 4235000000,
+            "Level": 280,
+            "HP": [1320000000000000, 5160000000000000, 100000],
+            "Symbol": 200,
+            "SymbolType": "Sacred",
+            "MaxParty": 6,
+            "Traces": 80,
+            "Notes": "P1 is 150 Sacred. 2 | 3 deers spawn below 76% | 51% HP"
+        }
+    ],
+    "Kalos": [
+        {
+            "Difficulty": "Easy",
+            "Crystal": 937500000,
+            "Level": 270,
+            "HP": [94500000000000, 262500000000000, 100000],
+            "Symbol": 200,
+            "SymbolType": "Sacred",
+            "MaxParty": 6
+        }, 
+        {
+            "Difficulty": "Normal",
+            "Crystal": 1300000000,
+            "Level": 280,
+            "HP": [336000000000000, 720000000000000, 100000],
+            "Symbol": 300,
+            "SymbolType": "Sacred",
+            "MaxParty": 6,
+            "Traces": 10,
+            "Notes": "P1 is level 275 and 250 Sacred"
+        }, 
+        {
+            "Difficulty": "Chaos",
+            "Crystal": 2600000000,
+            "Level": 285,
+            "HP": [1060000000000000, 4060000000000000, 100000],
+            "Symbol": 330,
+            "SymbolType": "Sacred",
+            "MaxParty": 6,
+            "Traces": 70,
+            "Notes": "Systems upgrade when 3 are active at the same time"
+        }, 
+        {
+            "Difficulty": "Extreme",
+            "Crystal": 5200000000,
+            "Level": 285,
+            "HP": [5970000000000000, 15600000000000000, 100000],
+            "Symbol": 440,
+            "SymbolType": "Sacred",
+            "MaxParty": 6,
+            "Traces": 400
+        }
+    ],
+    "Kaling": [
+        {
+            "Difficulty": "Easy",
+            "Crystal": 1031250000,
+            "Level": 275,
+            "HP": [96000000000000, 96000000000000, 96000000000000, 105000000000000, 127000000000000, 127000000000000, 127000000000000, 146000000000000, 100000],
+            "Symbol": 230,
+            "SymbolType": "Sacred",
+            "MaxParty": 6
+        }, 
+        {
+            "Difficulty": "Normal",
+            "Crystal": 1506500000,
+            "Level": 285,
+            "HP": [400000000000000, 400000000000000, 400000000000000, 468000000000000, 512000000000000, 512000000000000, 512000000000000, 722000000000000, 100000],
+            "Symbol": 330,
+            "SymbolType": "Sacred",
+            "MaxParty": 6,
+            "Traces": 20
+        }, 
+        {
+            "Difficulty": "Hard",
+            "Crystal": 2990000000,
+            "Level": 285,
+            "HP": [920000000000000, 920000000000000, 920000000000000, 1404000000000000, 1827000000000000, 1827000000000000, 1827000000000000, 2446000000000000, 100000],
+            "Symbol": 350,
+            "SymbolType": "Sacred",
+            "MaxParty": 6,
+            "Traces": 160
+        }, 
+        {
+            "Difficulty": "Extreme",
+            "Crystal": 6026000000,
+            "Level": 285,
+            "HP": [6063000000000000, 6063000000000000, 6063000000000000, 6930000000000000, 6930000000000000, 6930000000000000, 6930000000000000, 8662000000000000, 100000],
+            "Symbol": 480,
+            "SymbolType": "Sacred",
+            "MaxParty": 6,
+            "Traces": 1200
+        }
+    ],
+    "Limbo": [
+        {
+            "Difficulty": "Normal",
+            "Crystal": 2100000000,
+            "Level": 285,
+            "HP": [1940000000000000, 970000000000000, 2100000000, 970000000000000, 2625000000000000, 100000],
+            "Symbol": 500,
+            "SymbolType": "Sacred",
+            "MaxParty": 3,
+            "Traces": 120,
+            "Notes": "Forced phase in p2-1 at 80% HP"
+        }, 
+        {
+            "Difficulty": "Hard",
+            "Crystal": 3745000000,
+            "Level": 285,
+            "HP": [3780000000000000, 1890000000000000, 2100000000, 1890000000000000, 4993000000000000, 100000],
+            "Symbol": 500,
+            "SymbolType": "Sacred",
+            "MaxParty": 3,
+            "Traces": 360
+        }
+    ],
+    "Baldrix": [
+        {
+            "Difficulty": "Normal",
+            "Crystal": 2800000000,
+            "Level": 290,
+            "HP": [2379755700000000, 2531655000000000, 4145400000000000, 100000],
+            "Symbol": 700,
+            "SymbolType": "Sacred",
+            "MaxParty": 3,
+            "Traces": 150
+        }, 
+        {
+            "Difficulty": "Hard",
+            "Crystal": 6026000000,
+            "Level": 290,
+            "HP": [5344605000000000, 5685750000000000, 9309300000000000],
+            "Symbol": 700,
+            "SymbolType": "Sacred",
+            "MaxParty": 3,
+            "Traces": 450
+        }
+    ],
+    "Adversary": [
+        {
+            "Difficulty": "Easy",
+            "Crystal": 0,
+            "Level": 270,
+            "HP": [171000000000000, 171000000000000, 228000000000000, 100000],
+            "Symbol": 220,
+            "SymbolType": "Sacred",
+            "MaxParty": 3
+        }, 
+        {
+            "Difficulty": "Normal",
+            "Crystal": 0,
+            "Level": 280,
+            "HP": [495000000000000, 495000000000000, 660000000000000, 100000],
+            "Symbol": 320,
+            "SymbolType": "Sacred",
+            "MaxParty": 3,
+            "Traces": 20
+        }, 
+        {
+            "Difficulty": "Hard",
+            "Crystal": 0,
+            "Level": 285,
+            "HP": [3135000000000000, 3135000000000000, 4180000000000000, 100000],
+            "Symbol": 340,
+            "SymbolType": "Sacred",
+            "MaxParty": 3,
+            "Traces": 120
+        }, 
+        {
+            "Difficulty": "Extreme",
+            "Crystal": 0,
+            "Level": 290,
+            "HP": [9655000000000000, 9655000000000000, 12870000000000000, 100000],
+            "Symbol": 340,
+            "SymbolType": "Sacred",
+            "MaxParty": 3,
+            "Traces": 500
+        }
+    ]
+}

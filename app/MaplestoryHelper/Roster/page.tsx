@@ -1,7 +1,7 @@
 export default function Roster() {
   return (
     <div>
-        asdf
+        Roster Placeholder
     </div>
   );
 }

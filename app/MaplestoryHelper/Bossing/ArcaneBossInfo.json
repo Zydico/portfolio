@@ -1,0 +1,230 @@
+{
+    "Gollux": [
+        {
+            "Difficulty": "Hell",
+            "Level": 200,
+            "HP": [350000000000, 350000000000, 70000000000, 10000000],
+            "Notes": "Indicator for guaranteed 5% is green by P2 81%"
+        }
+    ],
+    "Lotus": [
+        {
+            "Difficulty": "Normal",
+            "Crystal": 162562500,
+            "Level": 210,
+            "HP": [472500000000, 472500000000, 630000000000, 100000],
+            "MaxParty": 6,
+            "Traces": 10
+        }, 
+        {
+            "Difficulty": "Hard",
+            "Crystal": 444675000,
+            "Level": 210,
+            "HP": [10000000000000, 10000000000000, 13700000000000, 100000],
+            "MaxParty": 6,
+            "Traces": 50
+        }, 
+        {
+            "Difficulty": "Extreme",
+            "Crystal": 1397500000,
+            "Level": 285,
+            "HP": [540000000000000, 540000000000000, 720000000000000, 100000],
+            "MaxParty": 2,
+            "Traces": 50
+        }
+    ],
+    "Damien": [
+        {
+            "Difficulty": "Normal",
+            "Crystal": 169000000,
+            "Level": 210,
+            "HP": [840000000000, 360000000000, 100000],
+            "MaxParty": 6,
+            "Traces": 10
+        }, 
+        {
+            "Difficulty": "Hard",
+            "Crystal": 421875000,
+            "Level": 210,
+            "HP": [25200000000000, 10800000000000, 13700000000000, 100000],
+            "MaxParty": 6,
+            "Traces": 50
+        }
+    ],
+    "Slime": [
+        {
+            "Difficulty": "Normal",
+            "Crystal": 231673500,
+            "Level": 220,
+            "HP": [5000000000000, 100000],
+            "MaxParty": 6
+        }, 
+        {
+            "Difficulty": "Chaos",
+            "Crystal": 600578125,
+            "Level": 250,
+            "HP": [90000000000000, 100000],
+            "MaxParty": 6
+        }
+    ],
+    "Lucid": [
+        {
+            "Difficulty": "Easy",
+            "Crystal": 237009375,
+            "Level": 230,
+            "HP": [6000000000000, 6000000000000, 100000],
+            "Symbol": 360,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 15
+        }, 
+        {
+            "Difficulty": "Normal",
+            "Crystal": 253828125,
+            "Level": 230,
+            "HP": [12000000000000, 12000000000000, 100000],
+            "Symbol": 360,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 20
+        }, 
+        {
+            "Difficulty": "Hard",
+            "Crystal": 504000000,
+            "Level": 230,
+            "HP": [50800000000000, 54000000000000, 12800000000000, 100000],
+            "Symbol": 360,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 65,
+            "Notes": "Indicator for guaranteed 5% is green by P2 84%"
+        }
+    ],
+    "Will": [
+        {
+            "Difficulty": "Easy",
+            "Crystal": 246744750,
+            "Level": 235,
+            "HP": [5600000000000, 4200000000000, 7000000000000, 100000],
+            "Symbol": 560,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 15,
+            "Notes": "Healing familiars bypass p2 healing restrictions"
+        }, 
+        {
+            "Difficulty": "Normal",
+            "Crystal": 279075000,
+            "Level": 235,
+            "HP": [8400000000000, 6300000000000, 10500000000000, 100000],
+            "Symbol": 760,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 20
+        }, 
+        {
+            "Difficulty": "Hard",
+            "Crystal": 621810000,
+            "Level": 235,
+            "HP": [42000000000000, 31500000000000, 52500000000000, 100000],
+            "Symbol": 360,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 65,
+            "Notes": "Indicator for guaranteed 5% is green by P2 33%"
+        }
+    ],
+    "Gloom": [
+        {
+            "Difficulty": "Normal",
+            "Crystal": 297675000,
+            "Level": 255,
+            "HP": [26000000000000, 100000],
+            "Symbol": 730,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 20,
+            "Notes": "First open 29:05. Vulnerable for 35s, blocks for 20s. Forced open 70% | 40%"
+        }, 
+        {
+            "Difficulty": "Chaos",
+            "Crystal": 563945000,
+            "Level": 255,
+            "HP": [126000000000000, 100000],
+            "Symbol": 730,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 65,
+            "Notes": "Forced open 70% | 40% | 15%"
+        }
+    ],
+    "VHilla": [
+        {
+            "Difficulty": "Normal",
+            "Crystal": 581880000,
+            "Level": 250,
+            "HP": [88000000000000, 100000],
+            "Symbol": 820,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 45,
+            "Notes": "Healing familiars bypass healing restrictions"
+        }, 
+        {
+            "Difficulty": "Hard",
+            "Crystal": 762105000,
+            "Level": 250,
+            "HP": [176000000000000, 100000],
+            "Symbol": 900,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 90
+        }
+    ],
+    "Darknell": [
+        {
+            "Difficulty": "Normal",
+            "Crystal": 316875000,
+            "Level": 265,
+            "HP": [26000000000000, 100000],
+            "Symbol": 850,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 25
+        }, 
+        {
+            "Difficulty": "Hard",
+            "Crystal": 667920000,
+            "Level": 250,
+            "HP": [160000000000000, 100000],
+            "Symbol": 850,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 75
+        }
+    ],
+    "Black Mage": [
+        {
+            "Difficulty": "Hard",
+            "Crystal": 4500000000,
+            "Level": 275,
+            "HP": [63000000000000, 115500000000000, 157500000000000, 136500000000000, 100000],
+            "Symbol": 1320,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 600,
+            "Notes": "P1 and P4 are level 265. Fountain bypasses healing restriction from black curse"
+        }, 
+        {
+            "Difficulty": "Extreme",
+            "Crystal": 18000000000,
+            "Level": 280,
+            "HP": [1180000000000000, 1191000000000000, 1285000000000000, 1155000000000000, 100000],
+            "Symbol": 1320,
+            "SymbolType": "Arcane",
+            "MaxParty": 6,
+            "Traces": 600,
+            "Notes": "P1 is level 275"
+        }
+    ]
+}

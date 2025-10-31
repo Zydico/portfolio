@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Rajdhani, Orbitron, Inter, League_Spartan } from "next/font/google";
+import { Rajdhani, Orbitron, Inter, League_Spartan, Roboto_Mono } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Matthew Hwang | Developer & Engineer",
@@ -31,6 +31,12 @@ const spartan = League_Spartan({
   variable: "--font-spartan"
 });
 
+const roboto_mono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: "--font-roboto"
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -39,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${rajdhani.variable} ${orbitron.variable} ${inter.variable} ${spartan.variable} scroll-smooth`}>
       <head>
-        <link rel="icon" href="./images/favicon.ico" />
+        <link rel="icon" href="../images/favicon.ico" />
       </head>
       <body>
         {children}

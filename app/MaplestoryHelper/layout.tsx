@@ -13,14 +13,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="font-(family-name:--font-body) text-black text-md">
+    <div className="font-(family-name:--font-roboto) text-black text-md bg-(--color-maplestory-background-gray)">
         <div>
           <section>
               <Navigation></Navigation>
           </section>
         </div>
         <section>
-            <div className="pl-50 pt-8 pb-8 pr-8 absolute w-full h-full bg-(--color-maplestory-background-gray)">
+            <div className="pl-50 pt-8 pb-8 pr-8 absolute min-w-full bg-(--color-maplestory-background-gray)">
               {children}
             </div>
         </section>

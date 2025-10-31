@@ -6,27 +6,33 @@
     left: 50%;
 }
 
-.boss-table > tbody > tr {
-    background-color: var(--color-maplestory-light-gray);
+.boss-table > thead > tr > th {
+    position: sticky;
+    top: 0;
 }
 
-.boss-table > tbody > tr {
+.arcane-table > tbody > tr, .grandis-table > tbody > tr {
     background-color: var(--color-maplestory-light-gray-darker);
 }
 
-.boss-table > tbody:nth-child(odd) > tr {
+.arcane-table > tbody:nth-child(odd) > tr {
     background-color: var(--color-maplestory-light-gray);
 }
 
-.boss-table > tbody > tr > td:not(:first-child) {
-    padding-right: 0.5rem;
+.grandis-table > tbody:nth-child(odd) > tr {
+    background-color: var(--color-maplestory-light-gray);
 }
 
-.simplified {
-    text-align: right;
-    padding-left: 0.75rem;
+.arcane-table > tbody > tr > td:not(:first-child), .grandis-table > tbody > tr > td:not(:first-child) {
+    padding-right: 0.7rem;
 }
 
 .darken {
     background-image: linear-gradient(rgb(0 0 0/10%) 0 0);
+}
+
+.up-triangle {
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-bottom: 0.75rem solid var(--color-maplestory-dark-gray);
 }

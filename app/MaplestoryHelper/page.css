@@ -44,9 +44,12 @@ td > a {
 table {
     text-align: left;
     display: block;
-    overflow-x: auto;
     white-space: nowrap;
     max-width: fit-content;
     border-collapse: collapse;
     box-sizing: border-box;
+}
+
+input {
+    outline: none;
 }

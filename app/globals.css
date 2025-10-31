@@ -3,7 +3,6 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  overflow-x: hidden;
   --nav-height: calc(var(--spacing) * 14);
   --color-light-red: #DA8A8B;
   --color-lightish-red: #bb6566;

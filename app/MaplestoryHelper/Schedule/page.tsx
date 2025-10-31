@@ -1,7 +1,7 @@
 export default function Schedule() {
   return (
     <div>
-        asdf
+        Schedule Placeholder
     </div>
   );
 }

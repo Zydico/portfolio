@@ -1,7 +1,8 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import BossInfo from './BossInfo.json';
+import ArcaneBossInfo from './ArcaneBossInfo.json';
+import GrandisBossInfo from './GrandisBossInfo.json';
 import './page.css';
 import { simplifyNumber, roundUp5 } from '../pipes';
 
@@ -11,12 +12,44 @@ interface Boss {
     Level: number,
     HP: number[],
     Symbol?: number,
+    SymbolType?: string,
+    MaxParty?: number,
+    Traces?: number,
+    Notes?: string
 }
 
 export default function Bossing() {
   const slider = useRef(null);
   const [mode, setMode] = useState('info');
-  const bosses = new Map<string, Boss[]>(Object.entries(BossInfo));
+  const arcaneBosses = new Map<string, Boss[]>(Object.entries(ArcaneBossInfo));
+  const grandisBosses = new Map<string, Boss[]>(Object.entries(GrandisBossInfo));
+  const [partySize, setPartySize] = useState(1);
+  const [level, setLevel] = useState(295);
+  const [arcane, setArcane] = useState(1350);
+  const [sacred, setSacred] = useState(660);
+
+  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
+    let value: any = parseInt(e.target.value);
+    if (isNaN(value)) {
+      value = '';
+    }
+    if (value >= 0 && value <= parseInt(e.target.max)) {
+      switch(type) {
+        case 'party':
+          setPartySize(value);
+          break;
+        case 'level':
+          setLevel(value);
+          break;
+        case 'arcane':
+          setArcane(value);
+          break;
+        case 'sacred':
+          setSacred(value);
+          break;
+      }
+    }
+  }
 
   const getTotal = (numberArray: number[]): number => {
     return numberArray.reduce((accumulator, currentValue) => {
@@ -24,133 +57,292 @@ export default function Bossing() {
     });
   }
 
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    e.target.select();
+  }
+
+  const calculateTotalFD = (bossLevel: number, bossSymbol: number | undefined, symbolType: string | undefined): string => {
+    const maxLevelFD = 1.2;
+    let maxSymbolFD = 1.5;
+    let levelFD = 0.0;
+    let symbolFD = 0.0;
+    let totalFD = 0.0;
+    if ((level - bossLevel) >= 0) {
+      levelFD = Math.min(1.0 + 0.1 + 0.02 * (level - bossLevel), maxLevelFD);
+    } else if (((level - bossLevel) >= -4) && (level < bossLevel)) {
+      levelFD = (1.1 - 0.02 * (bossLevel - level)) * (1.0 - Math.floor((2.5 * (bossLevel - level)))/100);
+    } else if ((level - bossLevel < -4)) {
+      levelFD = Math.max(1.0 - Math.floor((2.5 * (bossLevel - level)))/100, 0);
+    }
+
+    if (bossSymbol && symbolType) {
+      let symbol = 0;
+      if (symbolType == 'Arcane') {
+        symbol = arcane;
+        if (bossSymbol == 1320) { // Black Mage
+          maxSymbolFD = 1.3;
+        }
+        if (symbol >= bossSymbol * 1.5) {
+          symbolFD = 1.5;
+        } else if ((symbol >= bossSymbol * 1.3) && (symbol < bossSymbol * 1.5)) {
+          symbolFD = 1.3;
+        } else if ((symbol >= bossSymbol * 1.1) && (symbol < bossSymbol * 1.3)) {
+          symbolFD = 1.1;
+        } else if ((symbol >= bossSymbol * 1.0) && (symbol < bossSymbol * 1.1)) {
+          symbolFD = 1.0;
+        } else if ((symbol >= bossSymbol * 0.7) && (symbol < bossSymbol * 1.0)) {
+          symbolFD = 0.8;
+        } else if ((symbol >= bossSymbol * 0.5) && (symbol < bossSymbol * 0.7)) {
+          symbolFD = 0.7;
+        } else if ((symbol >= bossSymbol * 0.3) && (symbol < bossSymbol * 0.5)) {
+          symbolFD = 0.6;
+        } else if ((symbol >= bossSymbol * 0.1) && (symbol < bossSymbol * 0.3)) {
+          symbolFD = 0.3;
+        } else if ((symbol >= bossSymbol * 0) && (symbol < bossSymbol * 0.1)) {
+          symbolFD = 0.1;
+        }
+      } else if (symbolType == 'Sacred') {
+        symbol = sacred;
+        symbolFD = 1.0;
+      } else {
+        symbolFD = maxSymbolFD;
+      }
+    }
+    totalFD = Math.round(levelFD/maxLevelFD * 100 * symbolFD/maxSymbolFD * 100) / 100;
+    return totalFD.toFixed(2) + '%';
+  }
+
   return (
     <section>
-      <button className="shadow w-100 h-10 bg-white rounded-xl flex justify-center items-center relative cursor-pointer mb-5" onClick={() => setMode(mode == 'info' ? 'crystal' : 'info')}>
-        <div className={`rounded-xl w-49 h-8 bg-[var(--color-maplestory-orange-selected)] absolute transition-all duration-200 ease-in-out ${mode == 'info' ? 'left-1' : 'left-1/2'}`} ref={slider}></div>
-        <div className={`flex-1 z-2 transition duration-200 ${mode == 'info' ? 'text-white' : null}`}>Boss Information</div>
-        <div className={`flex-1 z-2 transition duration-200 ${mode == 'crystal' ? 'text-white' : null}`}>Crystal Calculator</div>
-      </button>
+      <div className="flex flex-wrap gap-5 mb-5">
+        <button className="font-bold shadow w-100 min-w-100 h-10 bg-white rounded-xl flex justify-center items-center relative cursor-pointer" onClick={() => setMode(mode == 'info' ? 'crystal' : 'info')}>
+          <div className={`rounded-xl w-1/2 h-8 bg-[var(--color-maplestory-orange-selected)] absolute transition-all duration-200 ease-in-out ${mode == 'info' ? 'left-1' : 'left-[calc(50%-var(--spacing))]'}`} ref={slider}></div>
+          <div className={`flex-1 z-2 transition duration-200 ${mode == 'info' ? 'text-white' : null}`}>Boss Information</div>
+          <div className={`flex-1 z-2 transition duration-200 ${mode == 'crystal' ? 'text-white' : null}`}>Crystal Calculator</div>
+        </button>
+        <div className="shadow rounded-xl h-10 bg-white font-bold flex items-center py-2 px-4 text-sm">
+          <label>Party Size:
+            <input type="number" className="bg-white shadow pl-2 w-13 ml-2 border-1 border-[var(--color-maplestory-light-gray-darker)]" min="1" max="6" value={partySize} onChange={(e) => handleNumberChange(e, 'party')} onFocus={handleFocus}></input>
+          </label>
+        </div>
+        <div className="shadow rounded-xl h-10 bg-white font-bold flex items-center gap-6 py-2 px-4 text-sm">
+          <label>Level:
+            <input type="number" className="bg-white shadow pl-2 w-15 ml-2 border-1 border-[var(--color-maplestory-light-gray-darker)]" min="0" max="300" value={level} onChange={(e) => handleNumberChange(e, 'level')} onFocus={handleFocus}></input>
+          </label>
+          <label>Arcane:
+            <input type="number" className="bg-white shadow pl-2 w-17 ml-2 border-1 border-[var(--color-maplestory-light-gray-darker)]" min="0" max="1760" step="5" value={arcane} onChange={(e) => handleNumberChange(e, 'arcane')} onFocus={handleFocus}></input>
+          </label>
+          <label>Sacred:
+            <input type="number" className="bg-white shadow pl-2 w-16 ml-2 border-1 border-[var(--color-maplestory-light-gray-darker)]" min="0" max="880" step="10" value={sacred} onChange={(e) => handleNumberChange(e, 'sacred')} onFocus={handleFocus}></input>
+          </label>
+        </div>
+      </div>
 
-      <table className="boss-table">
+      <table className="arcane-table">
         <thead>
           <tr>
-            <th>Boss</th>
+            <th className="min-w-36">Boss</th>
             <th>Difficulty</th>
             <th>Level</th>
-            <th>Mesos</th>
-            <th className="darken">HP</th>
-            <th className="darken">5%</th>
-            <th>AF/SF</th>
-            <th>1.1x</th>
-            <th>1.3x</th>
-            <th>1.5x</th>
+            <th className="relative group i-am-parent min-w-24 text-right">
+              Mesos
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute rounded-md text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  Mesos obtained are split by number of party members
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="relative group i-am-parent w-15 text-center">
+              1.0x
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  FD% Arcane minimum threshhold
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="relative group i-am-parent w-15 text-center">
+              1.1x
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  FD% Arcane minimum threshhold
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="relative group i-am-parent w-15 text-center">
+              1.3x
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  FD% Arcane minimum threshhold
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="relative group i-am-parent w-15 text-center">
+              1.5x
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  FD% Arcane minimum threshhold
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="relative group i-am-parent text-right min-w-20">
+              FD%
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute text-left rounded-md text-wrap w-50 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  Relative FD% proportion compared to maximum from level and Arcane
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="relative group i-am-parent">
+              Points
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute rounded-md text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  Traces of Darkness obtained for Genesis weapon. Split by number of party members
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="text-right min-w-18">HP</th>
+            <th className="relative group i-am-parent text-right min-w-18">
+              5%
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute rounded-md text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  Minimum BA required to do 5% of the total damage and obtain loot
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="w-160">Notes</th>
           </tr>            
         </thead>
-          {[...bosses.entries()].map(([boss, difficulties]) => (
-            <tbody key={boss}>
-              <tr className="h-8">
-                <td className="font-bold boss-label darken" rowSpan={difficulties.length}><div className="flex items-center"><img src={'../images/Maplestory Bosses/' + boss + '.png'} className='w-7 h-7 mr-2'></img>{boss}</div></td>
-                <td className="">{difficulties[0].Difficulty}</td>
-                <td className="text-center">{difficulties[0].Level}</td>
-                <td className="simplified darken">{simplifyNumber(difficulties[0].Crystal ? difficulties[0].Crystal : null)}</td>
-                <td className="simplified">{simplifyNumber(getTotal(difficulties[0].HP))}</td>
-                <td className="simplified">{simplifyNumber(getTotal(difficulties[0].HP) * 0.05)}</td>
-                <td className="darken simplified">{difficulties[0].Symbol ? difficulties[0].Symbol : null}</td>
-                <td className="darken simplified">{difficulties[0].Symbol ? roundUp5(difficulties[0].Symbol*1.1) : null }</td>
-                <td className="darken simplified">{difficulties[0].Symbol ? roundUp5(difficulties[0].Symbol*1.3) : null }</td>
-                <td className="darken simplified">{difficulties[0].Symbol ? roundUp5(difficulties[0].Symbol*1.5) : null }</td>
-              </tr>
-              {difficulties.map((item, index) => (
-                index > 0 ?
+        {[...arcaneBosses.entries()].map(([boss, difficulties]) => (
+          <tbody key={boss}>
+            {difficulties.map((item, index) => (
+              (item.SymbolType != 'Sacred') ? (
                 <tr key={index} className="h-8">
+                  {index == 0 ? (
+                    <td className="font-bold boss-label darken" rowSpan={difficulties.length}><div className="flex items-center"><img src={'../images/Maplestory Bosses/' + boss + '.png'} className='w-7 h-7 mr-2'></img>{boss}</div></td>
+                  ) : null }
                   <td className="">{item.Difficulty}</td>
                   <td className="text-center">{item.Level}</td>
-                  <td className="simplified darken">{simplifyNumber(item.Crystal ? item.Crystal : null)}</td>
-                  <td className="simplified">{simplifyNumber(getTotal(item.HP))}</td>
-                  <td className="simplified">{simplifyNumber(getTotal(item.HP) * 0.05)}</td>
-                  <td className="darken simplified">{item.Symbol ? item.Symbol : null}</td>
-                  <td className="darken simplified">{item.Symbol ? roundUp5(item.Symbol*1.1) : null}</td>
-                  <td className="darken simplified">{item.Symbol ? roundUp5(item.Symbol*1.3) : null}</td>
-                  <td className="darken simplified">{item.Symbol ? roundUp5(item.Symbol*1.5) : null}</td>
-                </tr> : null
-              ))}
-            </tbody>
-
-            
-          ))}
-          {/* {tools.map((tool) => (
-            <tr key={tool.name}>
-              <td>
-                { tool.image ? <img src={tool.image} className="w-6 h-6 mx-auto"></img> : null }
-                </td>
-              <td>{tool.name}</td>
-              <td>{tool.description}</td>
-              <td>{tool.author}</td>
-              <td>
-                { tool.link ? <a target="_blank" href={tool.link}>Link</a> : null }
-              </td>
-            </tr>
-          ))} */}
+                  <td className="text-right darken">{simplifyNumber(item.Crystal && item.MaxParty ? item.Crystal / Math.min(partySize ? partySize : 1, item.MaxParty) : null)}</td>
+                  <td className="text-center">{item.Symbol ? item.Symbol : null}</td>
+                  <td className="text-center">{item.Symbol ? roundUp5(item.Symbol*1.1) : null}</td>
+                  <td className="text-center">{item.Symbol ? roundUp5(item.Symbol*1.3) : null}</td>
+                  <td className="text-center">{(item.Symbol && item.Symbol*1.5 < 1760) ? roundUp5(item.Symbol*1.5) : null}</td>
+                  <td className="text-right darken">{calculateTotalFD(item.Level, item.Symbol, item.SymbolType)}</td>
+                  <td className="text-center">{item.Traces && item.MaxParty ? Math.round(item.Traces / Math.min(partySize ? partySize : 1, item.MaxParty) * 10) / 10 : null}</td>
+                  <td className="text-right darken">{simplifyNumber(getTotal(item.HP))}</td>
+                  <td className="text-right darken">{simplifyNumber(getTotal(item.HP) * 0.05)}</td>
+                  <td className="">{item.Notes ? item.Notes : null}</td>
+                </tr>
+              ) : null
+            ))}
+          </tbody>
+        ))}
       </table>
 
-      {/* <div className="panel shadow w-full">
-        <h1 className="">Tools</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Icon</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Author</th>
-              <th>Link</th>
-            </tr>            
-          </thead>
-          <tbody>
-            {tools.map((tool) => (
-              <tr key={tool.name}>
-                <td>
-                  { tool.image ? <img src={tool.image} className="w-6 h-6 mx-auto"></img> : null }
-                  </td>
-                <td>{tool.name}</td>
-                <td>{tool.description}</td>
-                <td>{tool.author}</td>
-                <td>
-                  { tool.link ? <a target="_blank" href={tool.link}>Link</a> : null }
-                </td>
-              </tr>
+      <table className="grandis-table ">
+        <thead>
+          <tr>
+            <th className="min-w-36">Boss</th>
+            <th>Difficulty</th>
+            <th>Level</th>
+            <th className="relative group i-am-parent min-w-24 text-right">
+              Mesos
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute rounded-md text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  Mesos obtained are split by number of party members
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="relative group i-am-parent w-15 text-center">
+              1.0x
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  FD% Sacred minimum threshhold
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="relative group i-am-parent w-15 text-center">
+              1.25x
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  FD% Sacred minimum threshhold
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="w-15 text-center">
+            </th>
+            <th className="w-15 text-center">
+            </th>
+            <th className="relative group i-am-parent text-right min-w-20">
+              FD%
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute text-left rounded-md text-wrap w-50 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  Relative FD% proportion compared to maximum from level and Sacred
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="relative group i-am-parent">
+              Points
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute rounded-md text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  Adversary's Determination obtained for Destiny weapon. Split by number of party members
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="text-right min-w-18">HP</th>
+            <th className="relative group i-am-parent text-right min-w-18">
+              5%
+              <div className="invisible i-am-child group-hover:visible pointer-events-none">
+                <p className="absolute rounded-md text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                  Minimum BA required to do 5% of the total damage and obtain loot
+                </p>
+                <div className="absolute up-triangle left-4 top-9"></div>
+              </div>
+            </th>
+            <th className="w-160">Notes</th>
+          </tr>            
+        </thead>
+        {[...grandisBosses.entries()].map(([boss, difficulties]) => (
+          <tbody key={boss}>
+            {difficulties.map((item, index) => (
+              (item.SymbolType == 'Sacred') ? (
+                <tr key={index} className="h-8">
+                  {index == 0 ? (
+                    <td className="font-bold boss-label darken" rowSpan={difficulties.length}><div className="flex items-center"><img src={'../images/Maplestory Bosses/' + boss + '.png'} className='w-7 h-7 mr-2'></img>{boss}</div></td>
+                  ) : null }
+                  <td className="">{item.Difficulty}</td>
+                  <td className="text-center">{item.Level}</td>
+                  <td className="text-right darken">{simplifyNumber(item.Crystal && item.MaxParty ? item.Crystal / Math.min(partySize ? partySize : 1, item.MaxParty) : null)}</td>
+                  <td className="text-center">{item.Symbol ? item.Symbol : null}</td>
+                  <td className="text-center">{item.Symbol ? item.Symbol + 50 : null}</td>
+                  <td className="text-center"></td>
+                  <td className="text-center"></td>
+                  <td className="text-right darken">
+                    {/* {calculateTotalFD(item.Level, item.Symbol, item.SymbolType)} */}
+                    </td>
+                  <td className="text-center">{item.Traces && item.MaxParty ? Math.round(item.Traces / Math.min(partySize ? partySize : 1, item.MaxParty) * 10) / 10 : null}</td>
+                  <td className="text-right darken">{simplifyNumber(getTotal(item.HP))}</td>
+                  <td className="text-right darken">{simplifyNumber(getTotal(item.HP) * 0.05)}</td>
+                  <td className="">{item.Notes ? item.Notes : null}</td>
+                </tr>
+              ) : null
             ))}
           </tbody>
-        </table>
-
-        <h1 className="pt-5">General Information</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Icon</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Author</th>
-              <th>Link</th>
-            </tr>            
-          </thead>
-          <tbody>
-            {general.map((general) => (
-              <tr key={general.name}>
-                <td>
-                  { general.image ? <img src={general.image} className="w-6 h-6 mx-auto"></img> : null }
-                  </td>
-                <td>{general.name}</td>
-                <td>{general.description}</td>
-                <td>{general.author}</td>
-                <td>
-                  { general.link ? <a target="_blank" href={general.link}>Link</a> : null }
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div> */}
+        ))}
+      </table>
     </section>
   );
 }
