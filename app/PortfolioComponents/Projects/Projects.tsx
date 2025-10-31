@@ -16,8 +16,8 @@ const Projects = (props: { projectsRef: RefObject<HTMLElement | null> }) => {
             <div className="flex flex-wrap w-full mt-8 relative gap-8">
                 <Project title="Maplestory Helper (New)" description="A collection of resources and tools I developed to aid players in the video game called Maplestory."
                          url="MaplestoryHelper"
-                         imageUrl="./images/MaplestoryHelper.jpg" skills={['React', 'HTML', 'CSS', 'Typescript', 'Tailwind']} />
-                <Project title="Maplestory Helper (Old)" description="A collection of resources and tools I developed to aid players in the video game called Maplestory."
+                         imageUrl="./images/MaplestoryHelper2.jpg" skills={['React', 'HTML', 'CSS', 'Typescript', 'Tailwind']} />
+                <Project title="Maplestory Helper (Deprecated)" description="The first version of the Maplestory Helper website. Has since been rebuilt in React."
                          url="https://zydico.github.io/Website/#/maplestory-helper/boss-crystals"
                          imageUrl="./images/MaplestoryHelper.jpg" skills={['Angular', 'HTML', 'CSS', 'Typescript']} externalLink={true} />
             </div>
