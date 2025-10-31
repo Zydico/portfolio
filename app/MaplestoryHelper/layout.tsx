@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="font-(family-name:--font-roboto) text-black text-md bg-(--color-maplestory-background-gray)">
+    <div className="min-h-screen font-(family-name:--font-roboto) text-black text-md bg-(--color-maplestory-background-gray)">
         <div>
           <section>
               <Navigation></Navigation>
