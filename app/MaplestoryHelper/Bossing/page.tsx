@@ -103,10 +103,15 @@ export default function Bossing() {
         }
       } else if (symbolType == 'Sacred') {
         symbol = sacred;
-        symbolFD = 1.0;
-      } else {
-        symbolFD = maxSymbolFD;
+        if (symbol < bossSymbol) {
+          symbolFD = Math.max(1.0 - 0.01 * (bossSymbol - symbol), 0.05);
+        } else {
+          symbolFD = Math.min(1.0 + 0.01 * Math.floor((symbol - bossSymbol)/2), 1.25);
+        }
+        maxSymbolFD = 1.25;
       }
+    } else {
+      symbolFD = maxSymbolFD;
     }
     totalFD = Math.round(levelFD/maxLevelFD * 100 * symbolFD/maxSymbolFD * 100) / 100;
     return totalFD.toFixed(2) + '%';
@@ -156,7 +161,7 @@ export default function Bossing() {
             <th className="relative group i-am-parent w-15 text-center">
               1.0x
               <div className="invisible i-am-child group-hover:visible pointer-events-none">
-                <p className="absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                <p className="text-left absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
                   FD% Arcane minimum threshhold
                 </p>
                 <div className="absolute up-triangle left-4 top-9"></div>
@@ -165,7 +170,7 @@ export default function Bossing() {
             <th className="relative group i-am-parent w-15 text-center">
               1.1x
               <div className="invisible i-am-child group-hover:visible pointer-events-none">
-                <p className="absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                <p className="text-left absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
                   FD% Arcane minimum threshhold
                 </p>
                 <div className="absolute up-triangle left-4 top-9"></div>
@@ -174,7 +179,7 @@ export default function Bossing() {
             <th className="relative group i-am-parent w-15 text-center">
               1.3x
               <div className="invisible i-am-child group-hover:visible pointer-events-none">
-                <p className="absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                <p className="text-left absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
                   FD% Arcane minimum threshhold
                 </p>
                 <div className="absolute up-triangle left-4 top-9"></div>
@@ -183,7 +188,7 @@ export default function Bossing() {
             <th className="relative group i-am-parent w-15 text-center">
               1.5x
               <div className="invisible i-am-child group-hover:visible pointer-events-none">
-                <p className="absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                <p className="text-left absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
                   FD% Arcane minimum threshhold
                 </p>
                 <div className="absolute up-triangle left-4 top-9"></div>
@@ -193,7 +198,7 @@ export default function Bossing() {
               FD%
               <div className="invisible i-am-child group-hover:visible pointer-events-none">
                 <p className="absolute text-left rounded-md text-wrap w-50 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
-                  Relative FD% proportion compared to maximum from level and Arcane
+                  Relative FD% proportional to the maximum possible from level and Arcane combined. 100% would be the maximum.
                 </p>
                 <div className="absolute up-triangle left-4 top-9"></div>
               </div>
@@ -238,7 +243,7 @@ export default function Bossing() {
                   <td className="text-right darken">{calculateTotalFD(item.Level, item.Symbol, item.SymbolType)}</td>
                   <td className="text-center">{item.Traces && item.MaxParty ? Math.round(item.Traces / Math.min(partySize ? partySize : 1, item.MaxParty) * 10) / 10 : null}</td>
                   <td className="text-right darken">{simplifyNumber(getTotal(item.HP))}</td>
-                  <td className="text-right darken">{simplifyNumber(getTotal(item.HP) * 0.05)}</td>
+                  <td className="text-right darken">{item.Difficulty != 'Genesis' ? simplifyNumber(getTotal(item.HP) * 0.05) : null}</td>
                   <td className="">{item.Notes ? item.Notes : null}</td>
                 </tr>
               ) : null
@@ -265,7 +270,7 @@ export default function Bossing() {
             <th className="relative group i-am-parent w-15 text-center">
               1.0x
               <div className="invisible i-am-child group-hover:visible pointer-events-none">
-                <p className="absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                <p className="text-left absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
                   FD% Sacred minimum threshhold
                 </p>
                 <div className="absolute up-triangle left-4 top-9"></div>
@@ -274,7 +279,7 @@ export default function Bossing() {
             <th className="relative group i-am-parent w-15 text-center">
               1.25x
               <div className="invisible i-am-child group-hover:visible pointer-events-none">
-                <p className="absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
+                <p className="text-left absolute text-wrap w-40 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
                   FD% Sacred minimum threshhold
                 </p>
                 <div className="absolute up-triangle left-4 top-9"></div>
@@ -288,7 +293,7 @@ export default function Bossing() {
               FD%
               <div className="invisible i-am-child group-hover:visible pointer-events-none">
                 <p className="absolute text-left rounded-md text-wrap w-50 top-11 text-sm font-thin px-2 py-1 bg-[var(--color-maplestory-dark-gray)]">
-                  Relative FD% proportion compared to maximum from level and Sacred
+                  Relative FD% proportional to the maximum possible from level and Sacred combined. 100% would be the maximum.
                 </p>
                 <div className="absolute up-triangle left-4 top-9"></div>
               </div>
@@ -331,11 +336,11 @@ export default function Bossing() {
                   <td className="text-center"></td>
                   <td className="text-center"></td>
                   <td className="text-right darken">
-                    {/* {calculateTotalFD(item.Level, item.Symbol, item.SymbolType)} */}
+                    {calculateTotalFD(item.Level, item.Symbol, item.SymbolType)}
                     </td>
                   <td className="text-center">{item.Traces && item.MaxParty ? Math.round(item.Traces / Math.min(partySize ? partySize : 1, item.MaxParty) * 10) / 10 : null}</td>
                   <td className="text-right darken">{simplifyNumber(getTotal(item.HP))}</td>
-                  <td className="text-right darken">{simplifyNumber(getTotal(item.HP) * 0.05)}</td>
+                  <td className="text-right darken">{item.Difficulty != 'Destiny' ? simplifyNumber(getTotal(item.HP) * 0.05) : null}</td>
                   <td className="">{item.Notes ? item.Notes : null}</td>
                 </tr>
               ) : null

@@ -6,7 +6,12 @@
     left: 50%;
 }
 
-.boss-table > thead > tr > th {
+.arcane-table > thead > tr > th {
+    position: sticky;
+    top: 0;
+}
+
+.grandis-table > thead > tr > th {
     position: sticky;
     top: 0;
 }

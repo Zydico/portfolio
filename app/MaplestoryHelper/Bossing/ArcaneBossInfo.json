@@ -31,6 +31,14 @@
             "HP": [540000000000000, 540000000000000, 720000000000000, 100000],
             "MaxParty": 2,
             "Traces": 50
+        }, 
+        {
+            "Difficulty": "Genesis",
+            "Crystal": 0,
+            "Level": 210,
+            "HP": [10000000000000, 10000000000000, 13700000000000, 100000],
+            "MaxParty": 1,
+            "Notes": "HLotus solo, and you lose 20% FD"
         }
     ],
     "Damien": [
@@ -49,6 +57,14 @@
             "HP": [25200000000000, 10800000000000, 13700000000000, 100000],
             "MaxParty": 6,
             "Traces": 50
+        }, 
+        {
+            "Difficulty": "Genesis",
+            "Crystal": 0,
+            "Level": 210,
+            "HP": [25200000000000, 10800000000000, 13700000000000, 100000],
+            "MaxParty": 1,
+            "Notes": "HDamien solo, and you only have 5 lives instead of 10"
         }
     ],
     "Slime": [
@@ -98,6 +114,16 @@
             "MaxParty": 6,
             "Traces": 65,
             "Notes": "Indicator for guaranteed 5% is green by P2 84%"
+        }, 
+        {
+            "Difficulty": "Genesis",
+            "Crystal": 0,
+            "Level": 230,
+            "HP": [50800000000000, 54000000000000, 12800000000000, 100000],
+            "Symbol": 360,
+            "SymbolType": "Arcane",
+            "MaxParty": 2,
+            "Notes": "HLucid, but can only use consumables 50 times. Solo or duo, but if duo, each person loses 50% FD"
         }
     ],
     "Will": [
@@ -132,6 +158,16 @@
             "MaxParty": 6,
             "Traces": 65,
             "Notes": "Indicator for guaranteed 5% is green by P2 33%"
+        }, 
+        {
+            "Difficulty": "Genesis",
+            "Crystal": 0,
+            "Level": 235,
+            "HP": [42000000000000, 31500000000000, 52500000000000, 100000],
+            "Symbol": 360,
+            "SymbolType": "Arcane",
+            "MaxParty": 2,
+            "Notes": "HWill, but you take 10% increased damage. Solo or duo, but if duo, each person loses 50% FD"
         }
     ],
     "Gloom": [
@@ -179,6 +215,16 @@
             "SymbolType": "Arcane",
             "MaxParty": 6,
             "Traces": 90
+        }, 
+        {
+            "Difficulty": "Genesis",
+            "Crystal": 0,
+            "Level": 250,
+            "HP": [132000000000000, 100000],
+            "Symbol": 900,
+            "SymbolType": "Arcane",
+            "MaxParty": 2,
+            "Notes": "HVHilla, but she starts at 75% HP. Solo or duo, but if duo, each person loses 50% FD"
         }
     ],
     "Darknell": [

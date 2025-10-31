@@ -31,6 +31,16 @@
             "MaxParty": 6,
             "Traces": 80,
             "Notes": "P1 is 150 Sacred. 2 | 3 deers spawn below 76% | 51% HP"
+        }, 
+        {
+            "Difficulty": "Destiny",
+            "Crystal": 0,
+            "Level": 275,
+            "HP": [126000000000000, 357000000000000, 100000],
+            "Symbol": 200,
+            "SymbolType": "Sacred",
+            "MaxParty": 1,
+            "Notes": "HSeren solo, but you lose 80% FD"
         }
     ],
     "Kalos": [
@@ -74,6 +84,16 @@
             "SymbolType": "Sacred",
             "MaxParty": 6,
             "Traces": 400
+        }, 
+        {
+            "Difficulty": "Destiny",
+            "Crystal": 0,
+            "Level": 285,
+            "HP": [1060000000000000, 4060000000000000, 100000],
+            "Symbol": 330,
+            "SymbolType": "Sacred",
+            "MaxParty": 1,
+            "Notes": "CKalos solo, but you only have 3 lives instead of 8"
         }
     ],
     "Kaling": [
@@ -115,6 +135,16 @@
             "SymbolType": "Sacred",
             "MaxParty": 6,
             "Traces": 1200
+        }, 
+        {
+            "Difficulty": "Destiny",
+            "Crystal": 0,
+            "Level": 285,
+            "HP": [920000000000000, 920000000000000, 920000000000000, 1404000000000000, 1827000000000000, 1827000000000000, 1827000000000000, 2446000000000000, 100000],
+            "Symbol": 350,
+            "SymbolType": "Sacred",
+            "MaxParty": 1,
+            "Notes": "HKaling solo, but you have an extra 20% FD"
         }
     ],
     "Limbo": [
