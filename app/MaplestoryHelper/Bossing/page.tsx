@@ -146,7 +146,7 @@ export default function Bossing() {
       <table className="arcane-table">
         <thead>
           <tr>
-            <th className="min-w-36">Boss</th>
+            <th className="min-w-36 sticky-column-left">Boss</th>
             <th>Difficulty</th>
             <th>Level</th>
             <th className="relative group i-am-parent min-w-24 text-right">
@@ -326,7 +326,7 @@ export default function Bossing() {
               (item.SymbolType == 'Sacred') ? (
                 <tr key={index} className="h-8">
                   {index == 0 ? (
-                    <td className="font-bold boss-label darken" rowSpan={difficulties.length}><div className="flex items-center"><img src={'../images/Maplestory Bosses/' + boss + '.png'} className='w-7 h-7 mr-2'></img>{boss}</div></td>
+                    <td className="font-bold boss-label darken sticky-column-left" rowSpan={difficulties.length}><div className="flex items-center"><img src={'../images/Maplestory Bosses/' + boss + '.png'} className='w-7 h-7 mr-2'></img>{boss}</div></td>
                   ) : null }
                   <td className="">{item.Difficulty}</td>
                   <td className="text-center">{item.Level}</td>

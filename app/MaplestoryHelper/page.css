@@ -46,7 +46,8 @@ table {
     display: block;
     white-space: nowrap;
     max-width: fit-content;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     box-sizing: border-box;
 }
 
