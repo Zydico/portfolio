@@ -57,10 +57,6 @@ export default function Bossing() {
     });
   }
 
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    e.target.select();
-  }
-
   const calculateTotalFD = (bossLevel: number, bossSymbol: number | undefined, symbolType: string | undefined): string => {
     const maxLevelFD = 1.2;
     let maxSymbolFD = 1.5;
@@ -125,20 +121,20 @@ export default function Bossing() {
           <div className={`flex-1 z-2 transition duration-200 ${mode == 'info' ? 'text-white' : null}`}>Boss Information</div>
           <div className={`flex-1 z-2 transition duration-200 ${mode == 'crystal' ? 'text-white' : null}`}>Crystal Calculator</div>
         </button>
-        <div className="shadow rounded-xl h-10 bg-white font-bold flex items-center py-2 px-4 text-sm">
+        <div className="shadow rounded-xl h-10 bg-white font-bold flex items-center py-2 px-4">
           <label>Party Size:
-            <input type="number" className="bg-white shadow pl-2 w-13 ml-2 border-1 border-[var(--color-maplestory-light-gray-darker)]" min="1" max="6" value={partySize} onChange={(e) => handleNumberChange(e, 'party')} onFocus={handleFocus}></input>
+            <input type="number" className="maple-input w-13 font-normal" min="1" max="6" value={partySize} onChange={(e) => handleNumberChange(e, 'party')}></input>
           </label>
         </div>
-        <div className="shadow rounded-xl h-10 bg-white font-bold flex items-center gap-6 py-2 px-4 text-sm">
+        <div className="shadow rounded-xl h-10 bg-white font-bold flex items-center gap-6 py-2 px-4">
           <label>Level:
-            <input type="number" className="bg-white shadow pl-2 w-15 ml-2 border-1 border-[var(--color-maplestory-light-gray-darker)]" min="0" max="300" value={level} onChange={(e) => handleNumberChange(e, 'level')} onFocus={handleFocus}></input>
+            <input type="number" className="maple-input w-15 font-normal" min="0" max="300" value={level} onChange={(e) => handleNumberChange(e, 'level')}></input>
           </label>
           <label>Arcane:
-            <input type="number" className="bg-white shadow pl-2 w-17 ml-2 border-1 border-[var(--color-maplestory-light-gray-darker)]" min="0" max="1760" step="5" value={arcane} onChange={(e) => handleNumberChange(e, 'arcane')} onFocus={handleFocus}></input>
+            <input type="number" className="maple-input w-17 font-normal" min="0" max="1760" step="5" value={arcane} onChange={(e) => handleNumberChange(e, 'arcane')}></input>
           </label>
           <label>Sacred:
-            <input type="number" className="bg-white shadow pl-2 w-16 ml-2 border-1 border-[var(--color-maplestory-light-gray-darker)]" min="0" max="880" step="10" value={sacred} onChange={(e) => handleNumberChange(e, 'sacred')} onFocus={handleFocus}></input>
+            <input type="number" className="maple-input w-16 font-normal" min="0" max="880" step="10" value={sacred} onChange={(e) => handleNumberChange(e, 'sacred')}></input>
           </label>
         </div>
       </div>
