@@ -22,3 +22,19 @@ export function roundUp5(value: number | null): number | null {
     }
     return Math.ceil(value / 5) * 5;
 }
+
+export function numberInputValidation(e: React.ChangeEvent<HTMLInputElement>) {
+    let n = Math.floor(Number(e.target.value));
+    if (isNaN(n)) {
+        n = 0;
+    }
+    if (n < e.target.minLength) {
+        n = e.target.minLength;
+    } else if (n > e.target.maxLength) {
+        n = e.target.maxLength;
+    }
+    e.target.value = String(n);
+    if (e.target.value == '0') {
+        e.target.select();
+    }
+}

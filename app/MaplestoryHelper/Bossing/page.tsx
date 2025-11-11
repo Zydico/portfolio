@@ -4,18 +4,18 @@ import { useRef, useState } from 'react';
 import ArcaneBossInfo from './ArcaneBossInfo.json';
 import GrandisBossInfo from './GrandisBossInfo.json';
 import './page.css';
-import { simplifyNumber, roundUp5 } from '../pipes';
+import { simplifyNumber, roundUp5, numberInputValidation } from '../pipes';
 
 interface Boss {
-    Difficulty: string,
-    Crystal?: number,
-    Level: number,
-    HP: number[],
-    Symbol?: number,
-    SymbolType?: string,
-    MaxParty?: number,
-    Traces?: number,
-    Notes?: string
+  Difficulty: string,
+  Crystal?: number,
+  Level: number,
+  HP: number[],
+  Symbol?: number,
+  SymbolType?: string,
+  MaxParty?: number,
+  Traces?: number,
+  Notes?: string
 }
 
 export default function Bossing() {
@@ -29,11 +29,9 @@ export default function Bossing() {
   const [sacred, setSacred] = useState(660);
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
-    let value: any = parseInt(e.target.value);
-    if (isNaN(value)) {
-      value = '';
-    }
-    if (value >= 0 && value <= parseInt(e.target.max)) {
+    numberInputValidation(e);
+    let value = Number(e.target.value);
+    if (value >= e.target.minLength && value <= e.target.maxLength) {
       switch(type) {
         case 'party':
           setPartySize(value);
@@ -123,18 +121,18 @@ export default function Bossing() {
         </button>
         <div className="shadow rounded-xl h-10 bg-white font-bold flex items-center py-2 px-4">
           <label>Party Size:
-            <input type="number" className="maple-input w-13 font-normal" min="1" max="6" value={partySize} onChange={(e) => handleNumberChange(e, 'party')}></input>
+            <input type="number" className="maple-input w-13 font-normal" minLength={0} maxLength={6} value={partySize} onChange={(e) => handleNumberChange(e, 'party')}></input>
           </label>
         </div>
         <div className="shadow rounded-xl h-10 bg-white font-bold flex items-center gap-6 py-2 px-4">
           <label>Level:
-            <input type="number" className="maple-input w-15 font-normal" min="0" max="300" value={level} onChange={(e) => handleNumberChange(e, 'level')}></input>
+            <input type="number" className="maple-input w-15 font-normal" minLength={0} maxLength={300} value={level} onChange={(e) => handleNumberChange(e, 'level')}></input>
           </label>
           <label>Arcane:
-            <input type="number" className="maple-input w-17 font-normal" min="0" max="1760" step="5" value={arcane} onChange={(e) => handleNumberChange(e, 'arcane')}></input>
+            <input type="number" className="maple-input w-17 font-normal" minLength={0} maxLength={1760} step="5" value={arcane} onChange={(e) => handleNumberChange(e, 'arcane')}></input>
           </label>
           <label>Sacred:
-            <input type="number" className="maple-input w-16 font-normal" min="0" max="880" step="10" value={sacred} onChange={(e) => handleNumberChange(e, 'sacred')}></input>
+            <input type="number" className="maple-input w-16 font-normal" minLength={0} maxLength={880} step="10" value={sacred} onChange={(e) => handleNumberChange(e, 'sacred')}></input>
           </label>
         </div>
       </div>
@@ -227,7 +225,7 @@ export default function Bossing() {
               (item.SymbolType != 'Sacred') ? (
                 <tr key={index} className="h-8">
                   {index == 0 ? (
-                    <td className="font-bold boss-label darken" rowSpan={difficulties.length}><div className="flex items-center"><img src={'../images/Maplestory Bosses/' + boss + '.png'} className='w-7 h-7 mr-2'></img>{boss}</div></td>
+                    <td className="font-bold boss-label darken" rowSpan={difficulties.length}><div className="flex items-center"><img src={'../images/Maplestory/Bosses/' + boss + '.png'} className='w-7 h-7 mr-2'></img>{boss}</div></td>
                   ) : null }
                   <td className="">{item.Difficulty}</td>
                   <td className="text-center">{item.Level}</td>
@@ -322,7 +320,7 @@ export default function Bossing() {
               (item.SymbolType == 'Sacred') ? (
                 <tr key={index} className="h-8">
                   {index == 0 ? (
-                    <td className="font-bold boss-label darken sticky-column-left" rowSpan={difficulties.length}><div className="flex items-center"><img src={'../images/Maplestory Bosses/' + boss + '.png'} className='w-7 h-7 mr-2'></img>{boss}</div></td>
+                    <td className="font-bold boss-label darken sticky-column-left" rowSpan={difficulties.length}><div className="flex items-center"><img src={'../images/Maplestory/Bosses/' + boss + '.png'} className='w-7 h-7 mr-2'></img>{boss}</div></td>
                   ) : null }
                   <td className="">{item.Difficulty}</td>
                   <td className="text-center">{item.Level}</td>
