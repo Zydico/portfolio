@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { numberInputValidation } from "../pipes";
 import ClassInfo from './ClassInfo.json';
+import './page.css';
 
 const defaultCharacter = {
   class: 'Adele', 
@@ -99,6 +100,13 @@ export default function Roster() {
             <input type="number" className="maple-input font-normal w-16" minLength={0} maxLength={880} value={characters.get(selected).sacred} onChange={(e) => handleCharacterPropertyChange(e, 'sacred')}></input>
           </label>    
         </div> 
+        <div className="flex flex-wrap w-120">
+          <div className="equipment-header w-full z-2">WSE</div>
+          <div className="flex flex-col w-60">
+            <div className="equipment-category">Weapon</div>
+            <div className="equipment-row">Weapon</div>
+          </div>
+        </div>
       </div>
     </section>
   );

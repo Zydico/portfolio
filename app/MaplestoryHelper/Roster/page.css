@@ -1,0 +1,29 @@
+.equipment-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3B495F;
+    color: white;
+    font-weight: bold;
+    padding: 0.1rem 1rem;
+    outline: 1px solid white;
+}
+
+.equipment-category {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.1rem 1rem;
+    background-color: #3C67BC;
+    color: white;
+    font-weight: bold;
+    outline: 1px solid white;
+}
+
+.equipment-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.1rem 1rem;
+    outline: 1px solid white;
+}
