@@ -15,7 +15,7 @@ export default function Contact() {
             <div className="w-25 h-5 text-center font-bold">Yoìmîya</div>
           </div>
           <div className="bg-white w-25 h-32 rounded-md">
-            <img src="../images/Maplestory/Characters/Frostnova.png" alt="Frostnova character image" className="w-25 h-25 p-1"></img>
+            <img src="../images/Maplestory/Characters/FrostNova.png" alt="Frostnova character image" className="w-25 h-25 p-1"></img>
             <div className="w-25 h-5 text-center font-bold">FrostNovâ</div>
           </div>
           <div className="bg-white w-25 h-32 rounded-md">
