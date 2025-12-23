@@ -51,7 +51,11 @@ export default function Roster() {
     const value = newMap.get(selected);
     if (value) {
       if (e.target.type == 'number') {
-        numberInputValidation(e as React.ChangeEvent<HTMLInputElement>);
+        if (property == 'level') {
+          numberInputValidation(e as React.ChangeEvent<HTMLInputElement>, 1);
+        } else if (property == 'arcane' || property == 'sacred') {
+          numberInputValidation(e as React.ChangeEvent<HTMLInputElement>, 0);
+        }        
       }
       newMap.set(selected, {...value, [property]: e.target.value});
     }
@@ -89,7 +93,7 @@ export default function Roster() {
             </select>
           </label>    
           <label className="font-bold">Level:
-            <input type="number" className="maple-input font-normal w-16" minLength={0} maxLength={300} value={characters.get(selected).level} onChange={(e) => handleCharacterPropertyChange(e, 'level')}></input>
+            <input type="number" className="maple-input font-normal w-16" minLength={1} maxLength={300} value={characters.get(selected).level} onChange={(e) => handleCharacterPropertyChange(e, 'level')}></input>
           </label>   
         </div> 
         <div className="flex flex-wrap gap-5">

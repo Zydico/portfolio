@@ -7,6 +7,7 @@ const links = [
     { href: '/MaplestoryHelper/Roster', label: 'Roster'}, 
     { href: '/MaplestoryHelper/Tasks', label: 'Dailies/Weeklies'}, 
     { href: '/MaplestoryHelper/Bossing', label: 'Bossing'}, 
+    { href: '/MaplestoryHelper/MysticFrontier', label: 'Mystic Frontier'}, 
     { href: '/MaplestoryHelper/Schedule', label: 'Schedule'}, 
     { href: '/MaplestoryHelper/Resources', label: 'Useful Resources'}, 
     { href: '/MaplestoryHelper/Contact', label: 'Contact Me'}

@@ -23,18 +23,31 @@ export function roundUp5(value: number | null): number | null {
     return Math.ceil(value / 5) * 5;
 }
 
-export function numberInputValidation(e: React.ChangeEvent<HTMLInputElement>) {
-    let n = Math.floor(Number(e.target.value));
-    if (isNaN(n)) {
-        n = 0;
+export function numberInputValidation(e: React.ChangeEvent<HTMLInputElement>, minValue: number, maxValue?: number) {
+    let n;
+    if (Number.isInteger(e.target.value)) {
+        n = Math.floor(+(e.target.value));
+    } else {
+        n = Number(e.target.value);
+    }
+    let failSafe = false;
+    if (e.target.value == '') {
+        n = minValue;
+        failSafe = true;
     }
     if (n < e.target.minLength) {
         n = e.target.minLength;
+        failSafe = true;
     } else if (n > e.target.maxLength) {
-        n = e.target.maxLength;
+        if (maxValue) {
+            n = maxValue;
+        } else {
+            n = e.target.maxLength;
+        }
+        failSafe = true;
     }
     e.target.value = String(n);
-    if (e.target.value == '0') {
+    if (failSafe) {
         e.target.select();
     }
 }

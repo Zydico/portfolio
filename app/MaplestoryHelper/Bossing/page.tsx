@@ -29,7 +29,11 @@ export default function Bossing() {
   const [sacred, setSacred] = useState(660);
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
-    numberInputValidation(e);
+    if (type == 'party' || type == 'level') {
+      numberInputValidation(e, 1);
+    } else if (type == 'arcane' || type == 'sacred') {
+      numberInputValidation(e, 0);
+    }
     let value = Number(e.target.value);
     if (value >= e.target.minLength && value <= e.target.maxLength) {
       switch(type) {
