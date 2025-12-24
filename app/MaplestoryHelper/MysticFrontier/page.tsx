@@ -182,7 +182,7 @@ export default function MysticFrontier() {
           </label> 
         </div> 
         <div className="font-bold text-xl mt-3 mb-2">Result: {
-            Math.ceil((dice1+dice2+dice3+item1Total+item2Total+item3Total+item4Total+item5Total+fam1Total+fam2Total+fam3Total)*
+            Math.floor((dice1+dice2+dice3+item1Total+item2Total+item3Total+item4Total+item5Total+fam1Total+fam2Total+fam3Total)*
             (Math.max(1, item1FinalMultiplier+item2FinalMultiplier+item3FinalMultiplier+item4FinalMultiplier+item5FinalMultiplier+fam1FinalMultiplier+fam2FinalMultiplier+fam3FinalMultiplier)))  
         }</div>
       </div> 

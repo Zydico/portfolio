@@ -5,6 +5,7 @@ This is my portfolio website that was developed using React, Next.js, Tailwind, 
 Initially built using Angular (https://zydico.github.io/Website/#/portfolio), I decided to build a new portfolio website from scratch using React after seeing that React has grown massively in popularity recently.
 
 ## Dev Log
+- 12/23/2025 - Fixed a Mystic Frontier bug.
 - 12/22/2025 - Added Mystic Frontier page.
 - 11/11/2025 - Added validation on number input fields and automatic correction. Added class information to resources page. Added class dropdown on roster page.
 - 11/4/2025 - Worked more on the roster page, need to add number validation to the number inputs, but also allow empty inputs for ease of typing.

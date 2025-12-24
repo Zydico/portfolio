@@ -38,12 +38,11 @@ export function numberInputValidation(e: React.ChangeEvent<HTMLInputElement>, mi
     if (n < e.target.minLength) {
         n = e.target.minLength;
         failSafe = true;
-    } else if (n > e.target.maxLength) {
-        if (maxValue) {
-            n = maxValue;
-        } else {
-            n = e.target.maxLength;
-        }
+    } else if (!maxValue && n > e.target.maxLength) {
+        n = e.target.maxLength;
+        failSafe = true;
+    } else if (maxValue && n > maxValue) {
+        n = maxValue;
         failSafe = true;
     }
     e.target.value = String(n);
