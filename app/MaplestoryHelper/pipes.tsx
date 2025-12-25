@@ -24,12 +24,7 @@ export function roundUp5(value: number | null): number | null {
 }
 
 export function numberInputValidation(e: React.ChangeEvent<HTMLInputElement>, minValue: number, maxValue?: number) {
-    let n;
-    if (Number.isInteger(e.target.value)) {
-        n = Math.floor(+(e.target.value));
-    } else {
-        n = Number(e.target.value);
-    }
+    let n = +e.target.value;
     let failSafe = false;
     if (e.target.value == '') {
         n = minValue;

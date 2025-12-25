@@ -17,6 +17,8 @@
   --color-maplestory-dark-gray: #333333;
   --color-maplestory-orange-hover: #FF8E2E;
   --color-maplestory-orange-selected: #c46d21;
+  --color-maplestory-red-hover: rgb(235, 108, 103);
+  --color-maplestory-red-selected: rgb(185, 33, 28);
   --color-maplestory-light-gray: #E2E2E2;
   --color-maplestory-light-gray-darker: #CECECE;
 }
