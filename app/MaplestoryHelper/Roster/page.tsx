@@ -145,7 +145,6 @@ export default function Roster() {
             <div className="equipment-category h-7">Category</div>
             <div className="equipment-category h-7">Name</div>
             <div className="equipment-category h-7">Starforce</div>
-            {/* <div className="equipment-category h-7">SF Goal</div> */}
           </div>
           <div className="flex flex-col w-30">
             <div className="equipment-category h-7">Weapon</div>
@@ -167,15 +166,6 @@ export default function Roster() {
                 ))}
               </select>
             </div>
-            {/* <div className="equipment-row row-dark h-7">
-              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponGoalSF} onChange={(e) => handleCharacterPropertyChange(e, 'weaponGoalSF')}>
-                {weaponsGoalSF.map((key) => (
-                  <option key={key} value={key}>
-                    {key}
-                  </option>
-                ))}
-              </select>
-            </div> */}
           </div>
         </div>
       </div>
