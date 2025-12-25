@@ -99,7 +99,7 @@ export default function MysticFrontier() {
     }
   }
 
-  const handleFocus = (e) => {
+  const handleFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.select();
   }
 
