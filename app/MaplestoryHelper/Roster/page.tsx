@@ -12,6 +12,8 @@ const defaultCharacter = {
   sacred: 660,
   weapon: 'Genesis',
   weaponSF: 22,
+  weaponAttack: 'T7',
+  weaponFlame: 0,
 }
 
 interface MaplestoryClass {
@@ -25,6 +27,7 @@ export default function Roster() {
   const classInfo = new Map<string, MaplestoryClass>(Object.entries(ClassInfo));
   const weapons = ['Absolab', 'Arcane', 'Genesis'];
   const weaponsSF = [...Array(31).keys()].reverse();
+  const weaponsAttack = ['T5', 'T6', 'T7'];
 
   const addNewCharacter = () => {
     let defaultName = 'Character ';
@@ -59,6 +62,10 @@ export default function Roster() {
     }
   }
 
+  const handleFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.target.select();
+  }
+
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newMap = new Map();
     const oldKey = selected;
@@ -80,9 +87,9 @@ export default function Roster() {
       if (e.target.type == 'number') {
         if (property == 'level') {
           numberInputValidation(e as React.ChangeEvent<HTMLInputElement>, 1);
-        } else if (property == 'arcane' || property == 'sacred') {
+        } else if (property == 'arcane' || property == 'sacred' || property == 'weaponFlame') {
           numberInputValidation(e as React.ChangeEvent<HTMLInputElement>, 0);
-        }      
+        }
       }
       if (property == 'weapon') {
         if (e.target.value == 'Genesis') {
@@ -128,15 +135,15 @@ export default function Roster() {
             </select>
           </label>    
           <label className="font-bold">Level:
-            <input type="number" className="maple-input font-normal w-16" minLength={1} maxLength={300} value={characters.get(selected).level} onChange={(e) => handleCharacterPropertyChange(e, 'level')}></input>
+            <input type="number" className="maple-input font-normal w-16" onFocus={handleFocus} minLength={1} maxLength={300} value={characters.get(selected).level} onChange={(e) => handleCharacterPropertyChange(e, 'level')}></input>
           </label>   
         </div> 
         <div className="flex flex-wrap gap-5">
           <label className="font-bold">Arcane:
-            <input type="number" className="maple-input font-normal w-16" minLength={0} maxLength={1760} value={characters.get(selected).arcane} onChange={(e) => handleCharacterPropertyChange(e, 'arcane')}></input>
+            <input type="number" className="maple-input font-normal w-16" onFocus={handleFocus} minLength={0} maxLength={1760} value={characters.get(selected).arcane} onChange={(e) => handleCharacterPropertyChange(e, 'arcane')}></input>
           </label>    
           <label className="font-bold">Sacred:
-            <input type="number" className="maple-input font-normal w-16" minLength={0} maxLength={880} value={characters.get(selected).sacred} onChange={(e) => handleCharacterPropertyChange(e, 'sacred')}></input>
+            <input type="number" className="maple-input font-normal w-16" onFocus={handleFocus} minLength={0} maxLength={880} value={characters.get(selected).sacred} onChange={(e) => handleCharacterPropertyChange(e, 'sacred')}></input>
           </label>    
         </div> 
         <div className="flex flex-wrap w-120">
@@ -145,8 +152,19 @@ export default function Roster() {
             <div className="equipment-category h-7">Category</div>
             <div className="equipment-category h-7">Name</div>
             <div className="equipment-category h-7">Starforce</div>
+            <div className="equipment-category h-7">Flame
+              <div className="relative group">
+                <div className="border-1 rounded-lg w-3.5 h-3.5 flex text-xs justify-center items-center ml-2 cursor-pointer">
+                  ?
+                </div>
+                <div className="hidden group-hover:block absolute left-8 top-0 w-100 bg-black p-2 border-1 pointer-events-none">
+                  Use the calculator below to get the flame score.<br /><br />
+                  For the weapon only, the three dropdowns are: Attack/Magic Attack, Boss Damage, and Damage
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col w-30">
+          <div className="flex flex-col w-56">
             <div className="equipment-category h-7">Weapon</div>
             <div className="equipment-row h-7">
               <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weapon} onChange={(e) => handleCharacterPropertyChange(e, 'weapon')}>
@@ -165,6 +183,30 @@ export default function Roster() {
                   </option>
                 ))}
               </select>
+            </div>
+            <div className="equipment-row h-7">
+              <select className="maple-input bg-white text-center font-normal px-2 py-0.5 w-11 h-6" value={characters.get(selected).weaponAttack} onChange={(e) => handleCharacterPropertyChange(e, 'weaponAttack')}>
+                {weaponsAttack.map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select>
+              <select className="maple-input bg-white text-center font-normal px-2 py-0.5 w-11 h-6" value={characters.get(selected).weaponBoss} onChange={(e) => handleCharacterPropertyChange(e, 'weaponBoss')}>
+                {weaponsAttack.map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select>
+              <select className="maple-input bg-white text-center font-normal px-2 py-0.5 w-11 h-6" value={characters.get(selected).weaponDamage} onChange={(e) => handleCharacterPropertyChange(e, 'weaponDamage')}>
+                {weaponsAttack.map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select>
+              <input type="number" className="maple-input font-normal w-14 mr-2 bg-white" minLength={0} maxLength={300} onFocus={handleFocus} value={characters.get(selected).weaponFlame} onChange={(e) => handleCharacterPropertyChange(e, 'weaponFlame')}></input>
             </div>
           </div>
         </div>
