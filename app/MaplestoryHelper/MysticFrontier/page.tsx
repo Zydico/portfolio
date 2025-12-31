@@ -29,7 +29,7 @@ export default function MysticFrontier() {
         if (property == 'item1Total' || property == 'item2Total' || property == 'item3Total' || property == 'item4Total' || property == 'item5Total' ||
             property == 'fam1Total' || property == 'fam2Total' || property == 'fam3Total'
         ) {
-            numberInputValidation(e as React.ChangeEvent<HTMLInputElement>, -1);
+            numberInputValidation(e as React.ChangeEvent<HTMLInputElement>, -2);
         } else if (property == 'item1FinalMultiplier' || property == 'item2FinalMultiplier' || property == 'item3FinalMultiplier' || property == 'item4FinalMultiplier' || property == 'item5FinalMultiplier' ||
                    property == 'fam1FinalMultiplier' || property == 'fam2FinalMultiplier' || property == 'fam3FinalMultiplier'
         ) {
