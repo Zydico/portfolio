@@ -143,7 +143,7 @@ export default function MysticFrontier() {
         <div className="flex flex-wrap gap-5">
           <label className="font-bold mr-8">Item 1:</label>
           <label className="font-bold">Total
-            <input type="number" className="maple-input font-normal w-16" minLength={-1} maxLength={15} value={item1Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item1Total')}></input>
+            <input type="number" className="maple-input font-normal w-16" minLength={-2} maxLength={15} value={item1Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item1Total')}></input>
           </label> 
           <label className="font-bold">Multiplier
             <input type="number" className="maple-input font-normal w-16" minLength={0.0} maxLength={2.4} value={item1FinalMultiplier} step="0.1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item1FinalMultiplier')}></input>
@@ -152,7 +152,7 @@ export default function MysticFrontier() {
         <div className="flex flex-wrap gap-5">
           <label className="font-bold mr-8">Item 2:</label>
           <label className="font-bold">Total
-            <input type="number" className="maple-input font-normal w-16" minLength={-1} maxLength={15} value={item2Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item2Total')}></input>
+            <input type="number" className="maple-input font-normal w-16" minLength={-2} maxLength={15} value={item2Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item2Total')}></input>
           </label> 
           <label className="font-bold">Multiplier
             <input type="number" className="maple-input font-normal w-16" minLength={0.0} maxLength={2.4} value={item2FinalMultiplier} step="0.1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item2FinalMultiplier')}></input>
@@ -161,7 +161,7 @@ export default function MysticFrontier() {
         <div className="flex flex-wrap gap-5">
           <label className="font-bold mr-8">Item 3:</label>
           <label className="font-bold">Total
-            <input type="number" className="maple-input font-normal w-16" minLength={-1} maxLength={15} value={item3Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item3Total')}></input>
+            <input type="number" className="maple-input font-normal w-16" minLength={-2} maxLength={15} value={item3Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item3Total')}></input>
           </label> 
           <label className="font-bold">Multiplier
             <input type="number" className="maple-input font-normal w-16" minLength={0.0} maxLength={2.4} value={item3FinalMultiplier} step="0.1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item3FinalMultiplier')}></input>
@@ -170,7 +170,7 @@ export default function MysticFrontier() {
         <div className="flex flex-wrap gap-5">
           <label className="font-bold mr-8">Item 4:</label>
           <label className="font-bold">Total
-            <input type="number" className="maple-input font-normal w-16" minLength={-1} maxLength={15} value={item4Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item4Total')}></input>
+            <input type="number" className="maple-input font-normal w-16" minLength={-2} maxLength={15} value={item4Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item4Total')}></input>
           </label> 
           <label className="font-bold">Multiplier
             <input type="number" className="maple-input font-normal w-16" minLength={0.0} maxLength={2.4} value={item4FinalMultiplier} step="0.1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item4FinalMultiplier')}></input>
@@ -179,7 +179,7 @@ export default function MysticFrontier() {
         <div className="flex flex-wrap gap-5">
           <label className="font-bold mr-8">Item 5:</label>
           <label className="font-bold">Total
-            <input type="number" className="maple-input font-normal w-16" minLength={-1} maxLength={15} value={item5Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item5Total')}></input>
+            <input type="number" className="maple-input font-normal w-16" minLength={-2} maxLength={15} value={item5Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item5Total')}></input>
           </label> 
           <label className="font-bold">Multiplier
             <input type="number" className="maple-input font-normal w-16" minLength={0.0} maxLength={2.4} value={item5FinalMultiplier} step="0.1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'item5FinalMultiplier')}></input>
@@ -194,7 +194,7 @@ export default function MysticFrontier() {
         <div className="flex flex-wrap gap-5">
           <label className="font-bold mr-8">Familiar 1:</label>
           <label className="font-bold">Total
-            <input type="number" className="maple-input font-normal w-16" minLength={-1} maxLength={18} value={fam1Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'fam1Total')}></input>
+            <input type="number" className="maple-input font-normal w-16" minLength={-2} maxLength={18} value={fam1Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'fam1Total')}></input>
           </label> 
           <label className="font-bold">Multiplier
             <input type="number" className="maple-input font-normal w-16" minLength={0.0} maxLength={2.8} value={fam1FinalMultiplier} step="0.1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'fam1FinalMultiplier')}></input>
@@ -203,7 +203,7 @@ export default function MysticFrontier() {
         <div className="flex flex-wrap gap-5">
           <label className="font-bold mr-8">Familiar 2:</label>
           <label className="font-bold">Total
-            <input type="number" className="maple-input font-normal w-16" minLength={-1} maxLength={18} value={fam2Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'fam2Total')}></input>
+            <input type="number" className="maple-input font-normal w-16" minLength={-2} maxLength={18} value={fam2Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'fam2Total')}></input>
           </label> 
           <label className="font-bold">Multiplier
             <input type="number" className="maple-input font-normal w-16" minLength={0.0} maxLength={2.8} value={fam2FinalMultiplier} step="0.1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'fam2FinalMultiplier')}></input>
@@ -212,7 +212,7 @@ export default function MysticFrontier() {
         <div className="flex flex-wrap gap-5">
           <label className="font-bold mr-8">Familiar 3:</label>
           <label className="font-bold">Total
-            <input type="number" className="maple-input font-normal w-16" minLength={-1} maxLength={18} value={fam3Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'fam3Total')}></input>
+            <input type="number" className="maple-input font-normal w-16" minLength={-2} maxLength={18} value={fam3Total} step="1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'fam3Total')}></input>
           </label> 
           <label className="font-bold">Multiplier
             <input type="number" className="maple-input font-normal w-16" minLength={0.0} maxLength={2.8} value={fam3FinalMultiplier} step="0.1" onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'fam3FinalMultiplier')}></input>
