@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { numberInputValidation } from "../pipes";
+import './page.css';
 
 export default function MysticFrontier() {
   const [dice1, setDice1] = useState(1);
@@ -127,10 +128,12 @@ export default function MysticFrontier() {
 
   return (
     <section className="inline-flex flex-col gap-5">
-    <button className="font-bold shadow rounded-lg px-4 py-1 w-20 bg-[var(--color-maplestory-orange-selected)] hover:bg-[var(--color-maplestory-orange-hover)] text-white flex justify-center items-center relative cursor-pointer" onClick={() => reset()}>
-        Reset
-    </button>
-      <div className="panel inline-flex flex-wrap flex-col gap-3">
+      <div className="temp-background">
+      </div>
+      <button className="font-bold shadow rounded-lg px-4 py-1 w-20 bg-[var(--color-maplestory-orange-selected)] hover:bg-[var(--color-maplestory-orange-hover)] text-white flex justify-center items-center relative cursor-pointer" onClick={() => reset()}>
+          Reset
+      </button>
+      <div className="z-1 panel inline-flex flex-wrap flex-col gap-3 temp-dark">
         <label className="font-bold">Dice 1:
         <input type="number" className="maple-input font-normal w-16" minLength={1} maxLength={6} value={dice1} onFocus={handleFocus} onChange={(e) => handlePropertyChange(e, 'dice1')}></input>
         </label>   
@@ -190,7 +193,7 @@ export default function MysticFrontier() {
             (Math.max(1, item1FinalMultiplier+item2FinalMultiplier+item3FinalMultiplier+item4FinalMultiplier+item5FinalMultiplier+fam1FinalMultiplier+fam2FinalMultiplier+fam3FinalMultiplier)))  
         }</div>
       </div> 
-      <div className="panel inline-flex flex-wrap flex-col gap-3">
+      <div className="z-1 panel inline-flex flex-wrap flex-col gap-3 temp-dark">
         <div className="flex flex-wrap gap-5">
           <label className="font-bold mr-8">Familiar 1:</label>
           <label className="font-bold">Total

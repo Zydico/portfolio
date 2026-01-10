@@ -1,0 +1,17 @@
+.temp-background {
+    background-color: rgb(83, 83, 83);
+    width: 150vw;
+    height: 150vh;
+    position: fixed;
+    left: -10rem;
+    top: -10rem;
+}
+
+.temp-dark {
+    background-color: rgb(43, 43, 43);
+    color: white;
+}
+
+.temp-dark .maple-input {
+    background-color: rgb(85, 85, 85) !important;
+}
