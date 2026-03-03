@@ -31,3 +31,8 @@
 .row-dark {
     background-color: #b89da5;
 }
+
+.roster-link {
+    color: blue;
+    text-decoration: underline;
+}

@@ -30,7 +30,6 @@ export function numberInputValidation(e: React.ChangeEvent<HTMLInputElement>, mi
         n = minValue;
         failSafe = true;
     }
-    console.log(e.target.minLength);
     if (n < minValue) {
         n = minValue;
         failSafe = true;

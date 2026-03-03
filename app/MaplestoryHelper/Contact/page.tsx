@@ -30,10 +30,6 @@ export default function Contact() {
             <img src="../images/Maplestory/Characters/Yaoyao.png" alt="Yaoyao character image" className="w-25 h-25 p-1"></img>
             <div className="w-25 h-5 text-center font-bold">Yaoÿao</div>
           </div>
-          <div className="bg-white w-25 h-32 rounded-md">
-            <img src="../images/Maplestory/Characters/Astra.png" alt="Astra character image" className="w-25 h-25 p-1"></img>
-            <div className="w-25 h-5 text-center font-bold">Âstra</div>
-          </div>
         </div>
       </div>
     </section>

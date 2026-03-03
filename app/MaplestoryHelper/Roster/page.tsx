@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { numberInputValidation } from "../pipes";
 import ClassInfo from './ClassInfo.json';
 import './page.css';
@@ -14,6 +14,13 @@ const defaultCharacter = {
   weaponSF: 22,
   weaponAttack: 'T7',
   weaponFlame: 0,
+  secondaryEquivalency: 0.1,
+  attEquivalency: 3,
+  allStatEquivalency: 10,
+  calculatorMainStat: '0',
+  calculatorSecondaryStat: '0.0',
+  calculatorAtt: '0.0',
+  calculatorAllStat: '0.0',
 }
 
 interface MaplestoryClass {
@@ -24,10 +31,23 @@ interface MaplestoryClass {
 export default function Roster() {
   const [characters, setCharacters] = useState(new Map().set('Character 1', defaultCharacter));
   const [selected, setSelected] = useState('Character 1');
+  const [calculatorResult, setCalculatorResult] = useState(0);
   const classInfo = new Map<string, MaplestoryClass>(Object.entries(ClassInfo));
-  const weapons = ['Absolab', 'Arcane', 'Genesis'];
+  const weapons = ['Absolab', 'Arcane', 'Genesis', 'Destiny'];
   const weaponsSF = [...Array(31).keys()].reverse();
   const weaponsAttack = ['T5', 'T6', 'T7'];
+
+  useEffect(() => {
+    const newMap = new Map(characters);
+    let value = newMap.get(selected);
+    if (value) {
+      let main = Number(value.calculatorMainStat);
+      let secondary = Number(value.calculatorSecondaryStat) * Number(value.secondaryEquivalency);
+      let att = Number(value.calculatorAtt) * Number(value.attEquivalency);
+      let allStat = Number(value.calculatorAllStat) * Number(value.allStatEquivalency);
+      setCalculatorResult(main + secondary + att + allStat);
+    }
+  }, [characters])
 
   const addNewCharacter = () => {
     let defaultName = 'Character ';
@@ -92,7 +112,7 @@ export default function Roster() {
         }
       }
       if (property == 'weapon') {
-        if (e.target.value == 'Genesis') {
+        if (e.target.value == 'Genesis' || e.target.value == 'Destiny') {
           value.weaponSF = '22';
         }
       }
@@ -157,9 +177,9 @@ export default function Roster() {
                 <div className="border-1 rounded-lg w-3.5 h-3.5 flex text-xs justify-center items-center ml-2 cursor-pointer">
                   ?
                 </div>
-                <div className="hidden group-hover:block absolute left-8 top-0 w-100 bg-black p-2 border-1 pointer-events-none">
-                  Use the calculator below to get the flame score.<br /><br />
-                  For the weapon only, the three dropdowns are: Attack/Magic Attack, Boss Damage, and Damage
+                <div className="hidden group-hover:block absolute left-8 top-0 w-120 bg-black p-2 border-1 pointer-events-none">
+                  Use the flame score and percentage upgrade values from whackybeanz's website below.<br /><br />
+                  For the weapon only, the fields are are: Attack/Magic Attack, Boss Damage, Damage, and stat flame score.
                 </div>
               </div>
             </div>
@@ -210,6 +230,56 @@ export default function Roster() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="panel mt-4 flex flex-wrap flex-col gap-2">
+        <p>For flame score and percentage upgrade values, use WhackyBeanz's website <a className="roster-link" href="https://www.whackybeanz.com/calc/equips/flames" target="_blank">here</a></p>
+        <p>Or if you want a simple calculator, plug values into the one below.</p>
+        <h1 className="mt-4">Stat Equivalencies</h1>
+        <div className="flex flex-row">
+          <div className="flex flex-col w-40">
+            <label className="font-bold h-6">1 Secondary Stat</label>
+            <label className="font-bold h-6">1 ATT/M.ATT</label>
+            <label className="font-bold h-6">1% All Stat</label>
+          </div> 
+          <div className="flex flex-col">
+            <label className="h-6">
+              <input className="maple-input font-normal w-16 mr-3" onFocus={handleFocus} value={characters.get(selected).secondaryEquivalency} onChange={(e) => handleCharacterPropertyChange(e, 'secondaryEquivalency')}></input>
+              Primary Stat
+            </label>
+            <label className="h-6">
+              <input className="maple-input font-normal w-16 mr-3" onFocus={handleFocus} value={characters.get(selected).attEquivalency} onChange={(e) => handleCharacterPropertyChange(e, 'attEquivalency')}></input>
+              Primary Stat
+            </label>
+            <label className="h-6">
+              <input className="maple-input font-normal w-16 mr-3" onFocus={handleFocus} value={characters.get(selected).allStatEquivalency} onChange={(e) => handleCharacterPropertyChange(e, 'allStatEquivalency')}></input>
+              Primary Stat
+            </label>
+          </div>
+        </div>
+        <h1 className="mt-4">Flame Calculator</h1>
+        <div className="flex flex-row">
+          <div className="flex flex-col w-40">
+            <label className="font-bold h-6">Main Stat</label>
+            <label className="font-bold h-6">Secondary Stat</label>
+            <label className="font-bold h-6">ATT/M.ATT</label>
+            <label className="font-bold h-6">All Stat %</label>
+          </div> 
+          <div className="flex flex-col">
+            <label className="h-6">
+              <input className="maple-input font-normal w-16 mr-3" onFocus={handleFocus} value={characters.get(selected).calculatorMainStat} onChange={(e) => handleCharacterPropertyChange(e, 'calculatorMainStat')}></input>
+            </label>
+            <label className="h-6">
+              <input className="maple-input font-normal w-16 mr-3" onFocus={handleFocus} value={characters.get(selected).calculatorSecondaryStat} onChange={(e) => handleCharacterPropertyChange(e, 'calculatorSecondaryStat')}></input>
+            </label>
+            <label className="h-6">
+              <input className="maple-input font-normal w-16 mr-3" onFocus={handleFocus} value={characters.get(selected).calculatorAtt} onChange={(e) => handleCharacterPropertyChange(e, 'calculatorAtt')}></input>
+            </label>
+            <label className="h-6">
+            <input className="maple-input font-normal w-16 mr-3" onFocus={handleFocus} value={characters.get(selected).calculatorAllStat} onChange={(e) => handleCharacterPropertyChange(e, 'calculatorAllStat')}></input>
+            </label>
+          </div>
+        </div>
+        <h1 className="mt-4">Flame Score: <span className="text-red-500">{calculatorResult}</span></h1>
       </div>
     </section>
   );
