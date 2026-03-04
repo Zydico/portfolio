@@ -14,13 +14,13 @@ const defaultCharacter = {
   weaponSF: 22,
   weaponAttack: 'T7',
   weaponFlame: 0,
-  secondaryEquivalency: 0.1,
-  attEquivalency: 3,
-  allStatEquivalency: 10,
+  secondaryEquivalency: '0.1',
+  attEquivalency: '3',
+  allStatEquivalency: '10',
   calculatorMainStat: '0',
-  calculatorSecondaryStat: '0.0',
-  calculatorAtt: '0.0',
-  calculatorAllStat: '0.0',
+  calculatorSecondaryStat: '0',
+  calculatorAtt: '0',
+  calculatorAllStat: '0',
 }
 
 interface MaplestoryClass {
@@ -31,7 +31,7 @@ interface MaplestoryClass {
 export default function Roster() {
   const [characters, setCharacters] = useState(new Map().set('Character 1', defaultCharacter));
   const [selected, setSelected] = useState('Character 1');
-  const [calculatorResult, setCalculatorResult] = useState(0);
+  const [calculatorResult, setCalculatorResult] = useState('0');
   const classInfo = new Map<string, MaplestoryClass>(Object.entries(ClassInfo));
   const weapons = ['Absolab', 'Arcane', 'Genesis', 'Destiny'];
   const weaponsSF = [...Array(31).keys()].reverse();
@@ -42,10 +42,17 @@ export default function Roster() {
     let value = newMap.get(selected);
     if (value) {
       let main = Number(value.calculatorMainStat);
-      let secondary = Number(value.calculatorSecondaryStat) * Number(value.secondaryEquivalency);
-      let att = Number(value.calculatorAtt) * Number(value.attEquivalency);
-      let allStat = Number(value.calculatorAllStat) * Number(value.allStatEquivalency);
-      setCalculatorResult(main + secondary + att + allStat);
+      let secondaryStat = Number(value.calculatorSecondaryStat);
+      let secondaryEquivalency = Number(value.secondaryEquivalency);
+      let att = Number(value.calculatorAtt);
+      let attEquivalency = Number(value.attEquivalency);
+      let allStat = Number(value.calculatorAllStat);
+      let allStatEquivalency = Number(value.allStatEquivalency);
+      if (!isNaN(main) && !isNaN(secondaryStat) && !isNaN(secondaryEquivalency) && !isNaN(att) && !isNaN(attEquivalency) && !isNaN(allStat) && !isNaN(allStatEquivalency)) {
+        setCalculatorResult((main + secondaryStat*secondaryEquivalency + att*attEquivalency + allStat*allStatEquivalency).toString());        
+      } else {
+        setCalculatorResult('Invalid');   
+      }
     }
   }, [characters])
 
@@ -80,6 +87,26 @@ export default function Roster() {
       setCharacters(newMap);
       setSelected('Character 1');
     }
+  }
+
+  const setCharacterProperty = (characterName: string, newValues: {[key: string]: any}) => {
+    const newMap = new Map(characters);
+    let value = newMap.get(characterName);
+    if (value) {
+      for (let propertyName in newValues) {
+        newMap.set(characterName, {...value, [propertyName]: newValues[propertyName]});
+        value = newMap.get(characterName);
+      }
+    }
+    setCharacters(newMap);
+  }
+
+  const defaultStatEquivalencies = () => {
+    setCharacterProperty(selected, {
+      'secondaryEquivalency': '0.1',
+      'attEquivalency': '3',
+      'allStatEquivalency': '10',
+    });
   }
 
   const handleFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,7 +150,7 @@ export default function Roster() {
 
   return (
     <section>
-      <div className="inline-flex panel flex-wrap gap-5 mb-5">
+      <div className="inline-flex panel flex-wrap gap-5 mb-5 shadow">
         <label className="font-bold">Character:
           <select className="maple-input font-normal px-2 py-1 w-33" value={selected} onChange={(event) => setSelected(event.target.value)}>
             {[...characters.entries()].map(([key, character]) => (
@@ -140,7 +167,7 @@ export default function Roster() {
           Delete Character
         </button>
       </div>
-      <div className="panel flex flex-wrap flex-col gap-3">
+      <div className="panel flex flex-wrap flex-col gap-3 shadow">
         <div className="flex flex-wrap gap-5">
           <label className="font-bold">Name:
             <input type="text" className="maple-input font-normal w-33" minLength={0} maxLength={12} value={selected} onChange={(e) => handleNameChange(e)}></input>
@@ -231,7 +258,7 @@ export default function Roster() {
           </div>
         </div>
       </div>
-      <div className="panel mt-4 flex flex-wrap flex-col gap-2">
+      <div className="panel mt-4 flex flex-wrap flex-col gap-2 shadow">
         <p>For flame score and percentage upgrade values, use WhackyBeanz's website <a className="roster-link" href="https://www.whackybeanz.com/calc/equips/flames" target="_blank">here</a></p>
         <p>Or if you want a simple calculator, plug values into the one below.</p>
         <h1 className="mt-4">Stat Equivalencies</h1>
@@ -256,6 +283,9 @@ export default function Roster() {
             </label>
           </div>
         </div>
+        <button className="font-bold shadow rounded-lg w-22 px-4 py-1 bg-[var(--color-maplestory-orange-selected)] hover:bg-[var(--color-maplestory-orange-hover)] text-white flex justify-center items-center relative cursor-pointer" onClick={() => defaultStatEquivalencies()}>
+          Default
+        </button>
         <h1 className="mt-4">Flame Calculator</h1>
         <div className="flex flex-row">
           <div className="flex flex-col w-40">
@@ -280,6 +310,14 @@ export default function Roster() {
           </div>
         </div>
         <h1 className="mt-4">Flame Score: <span className="text-red-500">{calculatorResult}</span></h1>
+        <h1 className="mt-4">How to find stat equivalencies?</h1>
+        <ol>
+          <li>1. Go to MapleScouter and after inputting all your data correctly, go to the detailed information page.</li>
+          <li>2. Under the Stat Efficiency panel on the left, switch to Details, change the Final Damage dropdown to Main Stat to find equivalencies.</li>
+        </ol>
+        <div>
+          <img src="../images/Maplestory/Roster/StatEquivalency.png" alt="MapleScouter Stat Equivalency Guide" className=""></img>
+        </div>
       </div>
     </section>
   );
