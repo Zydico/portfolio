@@ -16,6 +16,7 @@ const defaultCharacter = {
   weaponFlame: 0,
   weaponFlamePercentage: 0.0,
   weaponPotential: ['---', '---', '---'],
+  secondarySF: '---',
 
   secondaryEquivalency: '0.1',
   attEquivalency: '3',
@@ -40,6 +41,8 @@ export default function Roster() {
   const weaponsSF = [...Array(31).keys()].reverse();
   const weaponsAttack = ['T5', 'T6', 'T7'];
   const weaponsPotentials = ['---', '10% ATT', '13% ATT', '30% Boss', '35% Boss', '40% Boss'];
+  const secondaries = ['ilvl <= 150', 'ilvl > 150'];
+  const secondariesSF = ['---', ...Array(31).keys()].reverse();
 
   useEffect(() => {
     const newMap = new Map(characters);
@@ -157,6 +160,10 @@ export default function Roster() {
     setCharacters(newMap);
   }
 
+  const getRating = (property: string) => {
+    return '';
+  }
+
   return (
     <section>
       <div className="inline-flex panel flex-wrap gap-5 mb-5 shadow">
@@ -202,7 +209,7 @@ export default function Roster() {
             <input type="number" className="maple-input font-normal w-16" onFocus={handleFocus} minLength={0} maxLength={880} value={characters.get(selected).sacred} onChange={(e) => handleCharacterPropertyChange(e, 'sacred')}></input>
           </label>    
         </div> 
-        <div className="flex flex-wrap w-120">
+        <div className="flex flex-wrap w-200">
           <div className="equipment-header w-full z-2 h-7">WSE</div>
           <div className="flex flex-col w-25">
             <div className="equipment-category h-7">Category</div>
@@ -230,7 +237,9 @@ export default function Roster() {
               </div>
             </div>
             <div className="equipment-category h-21">Potential</div>
+            <div className="equipment-category h-7">Rating</div>
           </div>
+
           <div className="flex flex-col w-56">
             <div className="equipment-category h-7">Weapon</div>
             <div className="equipment-row h-7">
@@ -305,9 +314,67 @@ export default function Roster() {
                 ))}
               </select>
             </div>
+            <div className="equipment-row h-7">
+              <b>{getRating('weapon')}</b>
+            </div>
+          </div>
+          
+          <div className="flex flex-col w-56">
+            <div className="equipment-category h-7">Secondary</div>
+            <div className="equipment-row h-7">
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).secondary} onChange={(e) => handleCharacterPropertyChange(e, 'secondary')}>
+                {secondaries.map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="equipment-row row-dark h-7">
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).secondarySF} onChange={(e) => handleCharacterPropertyChange(e, 'secondarySF')}>
+                {secondariesSF.map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="equipment-row h-7"></div>
+            <div className="equipment-row h-7"></div>
+            <div className="equipment-row row-dark h-7">
+              {/* <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponPotential[0]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 1)}>
+                {weaponsPotentials.map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select> */}
+            </div>
+            <div className="equipment-row row-dark h-7">
+              {/* <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponPotential[1]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 2)}>
+                {weaponsPotentials.map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select> */}
+            </div>
+            <div className="equipment-row row-dark h-7">
+              {/* <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponPotential[2]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 3)}>
+                {weaponsPotentials.map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select> */}
+            </div>
+            <div className="equipment-row h-7">
+              <b>{getRating('weapon')}</b>
+            </div>
           </div>
         </div>
       </div>
+
       <div className="panel mt-4 flex flex-wrap flex-col gap-2 shadow">
         <p>For flame score and percentage upgrade values, use WhackyBeanz's website <a className="roster-link" href="https://www.whackybeanz.com/calc/equips/flames" target="_blank">here</a></p>
         <p>Or if you want a simple calculator, plug values into the one below.</p>
