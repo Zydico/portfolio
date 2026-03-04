@@ -14,6 +14,9 @@ const defaultCharacter = {
   weaponSF: 22,
   weaponAttack: 'T7',
   weaponFlame: 0,
+  weaponFlamePercentage: 0.0,
+  weaponPotential: ['---', '---', '---'],
+
   secondaryEquivalency: '0.1',
   attEquivalency: '3',
   allStatEquivalency: '10',
@@ -36,6 +39,7 @@ export default function Roster() {
   const weapons = ['Absolab', 'Arcane', 'Genesis', 'Destiny'];
   const weaponsSF = [...Array(31).keys()].reverse();
   const weaponsAttack = ['T5', 'T6', 'T7'];
+  const weaponsPotentials = ['---', '10% ATT', '13% ATT', '30% Boss', '35% Boss', '40% Boss'];
 
   useEffect(() => {
     const newMap = new Map(characters);
@@ -127,10 +131,11 @@ export default function Roster() {
     setSelected(e.target.value);
   }
 
-  const handleCharacterPropertyChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, property: string) => {
+  const handleCharacterPropertyChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, property: string, propertyLine?: number) => {
     const newMap = new Map(characters);
     let value = newMap.get(selected);
     if (value) {
+      let newValue: any = e.target.value;
       if (e.target.type == 'number') {
         if (property == 'level') {
           numberInputValidation(e as React.ChangeEvent<HTMLInputElement>, 1);
@@ -143,7 +148,11 @@ export default function Roster() {
           value.weaponSF = '22';
         }
       }
-      newMap.set(selected, {...value, [property]: e.target.value});
+      if (property == 'weaponPotential' && propertyLine) {
+        newValue = value[property] as string[];
+        newValue[propertyLine-1] = e.target.value;
+      }
+      newMap.set(selected, {...value, [property]: newValue});
     }
     setCharacters(newMap);
   }
@@ -210,6 +219,17 @@ export default function Roster() {
                 </div>
               </div>
             </div>
+            <div className="equipment-category h-7">%
+              <div className="relative group">
+                <div className="border-1 rounded-lg w-3.5 h-3.5 flex text-xs justify-center items-center ml-2 cursor-pointer">
+                  ?
+                </div>
+                <div className="hidden group-hover:block absolute left-8 top-0 w-71 bg-black p-2 border-1 pointer-events-none">
+                  The chance of upgrading the flame
+                </div>
+              </div>
+            </div>
+            <div className="equipment-category h-21">Potential</div>
           </div>
           <div className="flex flex-col w-56">
             <div className="equipment-category h-7">Weapon</div>
@@ -254,6 +274,36 @@ export default function Roster() {
                 ))}
               </select>
               <input type="number" className="maple-input font-normal w-14 mr-2 bg-white" minLength={0} maxLength={300} onFocus={handleFocus} value={characters.get(selected).weaponFlame} onChange={(e) => handleCharacterPropertyChange(e, 'weaponFlame')}></input>
+            </div>
+            <div className="equipment-row h-7">
+              <input type="text" className="maple-input-center bg-white font-normal text-center w-15 ml-5 mr-2" value={characters.get(selected).weaponFlamePercentage} onChange={(e) => handleCharacterPropertyChange(e, 'weaponFlamePercentage')}></input>%
+            </div>
+            <div className="equipment-row row-dark h-7">
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponPotential[0]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 1)}>
+                {weaponsPotentials.map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="equipment-row row-dark h-7">
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponPotential[1]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 2)}>
+                {weaponsPotentials.map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="equipment-row row-dark h-7">
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponPotential[2]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 3)}>
+                {weaponsPotentials.map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>

@@ -68,3 +68,10 @@ thead > tr > th {
     font-size: var(--text-sm);
     line-height: var(--text-sm--line-height);
 }
+
+.maple-input-center {
+    border: 1px solid var(--color-maplestory-light-gray-darker);
+    box-shadow: var(--shadow-sm);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+}
