@@ -17,6 +17,8 @@ const defaultCharacter = {
   weaponFlamePercentage: 0.0,
   weaponPotential: ['---', '---', '---'],
   secondarySF: '---',
+  secondary: 'ilvl <= 150',
+  secondaryPotential: ['---', '---', '---'],
 
   secondaryEquivalency: '0.1',
   attEquivalency: '3',
@@ -40,9 +42,11 @@ export default function Roster() {
   const weapons = ['Absolab', 'Arcane', 'Genesis', 'Destiny'];
   const weaponsSF = [...Array(31).keys()].reverse();
   const weaponsAttack = ['T5', 'T6', 'T7'];
-  const weaponsPotentials = ['---', '10% ATT', '13% ATT', '30% Boss', '35% Boss', '40% Boss'];
+  const weaponsPotentials = ['---', '13% ATT/M.ATT', '10% ATT/M.ATT', '40% Boss', '35% Boss', '30% Boss'];
   const secondaries = ['ilvl <= 150', 'ilvl > 150'];
   const secondariesSF = ['---', ...Array(31).keys()].reverse();
+  const secondaryPotentialsLow = ['---', '12% ATT/M.ATT', '9% ATT/M.ATT', '40% Boss', '35% Boss', '30% Boss'];
+  const secondaryPotentialsHigh = ['---', '13% ATT/M.ATT', '10% ATT/M.ATT', '40% Boss', '35% Boss', '30% Boss'];
 
   useEffect(() => {
     const newMap = new Map(characters);
@@ -152,6 +156,10 @@ export default function Roster() {
         }
       }
       if (property == 'weaponPotential' && propertyLine) {
+        newValue = value[property] as string[];
+        newValue[propertyLine-1] = e.target.value;
+      }
+      if (property == 'secondaryPotential' && propertyLine) {
         newValue = value[property] as string[];
         newValue[propertyLine-1] = e.target.value;
       }
@@ -288,7 +296,7 @@ export default function Roster() {
               <input type="text" className="maple-input-center bg-white font-normal text-center w-15 ml-5 mr-2" value={characters.get(selected).weaponFlamePercentage} onChange={(e) => handleCharacterPropertyChange(e, 'weaponFlamePercentage')}></input>%
             </div>
             <div className="equipment-row row-dark h-7">
-              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponPotential[0]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 1)}>
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-35 h-6" value={characters.get(selected).weaponPotential[0]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 1)}>
                 {weaponsPotentials.map((key) => (
                   <option key={key} value={key}>
                     {key}
@@ -297,7 +305,7 @@ export default function Roster() {
               </select>
             </div>
             <div className="equipment-row row-dark h-7">
-              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponPotential[1]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 2)}>
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-35 h-6" value={characters.get(selected).weaponPotential[1]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 2)}>
                 {weaponsPotentials.map((key) => (
                   <option key={key} value={key}>
                     {key}
@@ -306,7 +314,7 @@ export default function Roster() {
               </select>
             </div>
             <div className="equipment-row row-dark h-7">
-              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponPotential[2]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 3)}>
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-35 h-6" value={characters.get(selected).weaponPotential[2]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 3)}>
                 {weaponsPotentials.map((key) => (
                   <option key={key} value={key}>
                     {key}
@@ -315,7 +323,7 @@ export default function Roster() {
               </select>
             </div>
             <div className="equipment-row h-7">
-              <b>{getRating('weapon')}</b>
+              {/* <b>{getRating('weapon')}</b> */}
             </div>
           </div>
           
@@ -342,31 +350,52 @@ export default function Roster() {
             <div className="equipment-row h-7"></div>
             <div className="equipment-row h-7"></div>
             <div className="equipment-row row-dark h-7">
-              {/* <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponPotential[0]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 1)}>
-                {weaponsPotentials.map((key) => (
-                  <option key={key} value={key}>
-                    {key}
-                  </option>
-                ))}
-              </select> */}
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-35 h-6" value={characters.get(selected).secondaryPotential[0]} onChange={(e) => handleCharacterPropertyChange(e, 'secondaryPotential', 1)}>
+                {characters.get(selected).secondary == 'ilvl <= 150' ? 
+                  secondaryPotentialsLow.map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  )) :
+                  secondaryPotentialsHigh.map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  ))
+                }
+              </select>
             </div>
             <div className="equipment-row row-dark h-7">
-              {/* <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponPotential[1]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 2)}>
-                {weaponsPotentials.map((key) => (
-                  <option key={key} value={key}>
-                    {key}
-                  </option>
-                ))}
-              </select> */}
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-35 h-6" value={characters.get(selected).secondaryPotential[1]} onChange={(e) => handleCharacterPropertyChange(e, 'secondaryPotential', 2)}>
+                {characters.get(selected).secondary == 'ilvl <= 150' ? 
+                  secondaryPotentialsLow.map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  )) :
+                  secondaryPotentialsHigh.map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  ))
+                }
+              </select>
             </div>
             <div className="equipment-row row-dark h-7">
-              {/* <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).weaponPotential[2]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 3)}>
-                {weaponsPotentials.map((key) => (
-                  <option key={key} value={key}>
-                    {key}
-                  </option>
-                ))}
-              </select> */}
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-35 h-6" value={characters.get(selected).secondaryPotential[2]} onChange={(e) => handleCharacterPropertyChange(e, 'secondaryPotential', 3)}>
+                {characters.get(selected).secondary == 'ilvl <= 150' ? 
+                  secondaryPotentialsLow.map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  )) :
+                  secondaryPotentialsHigh.map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  ))
+                }
+              </select>
             </div>
             <div className="equipment-row h-7">
               <b>{getRating('weapon')}</b>
