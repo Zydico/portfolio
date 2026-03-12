@@ -19,6 +19,8 @@ const defaultCharacter = {
   secondarySF: '---',
   secondary: 'ilvl <= 150',
   secondaryPotential: ['---', '---', '---'],
+  emblem: 'Gold',
+  emblemPotential: ['---', '---', '---'],
 
   secondaryEquivalency: '0.1',
   attEquivalency: '3',
@@ -47,6 +49,9 @@ export default function Roster() {
   const secondariesSF = ['---', ...Array(31).keys()].reverse();
   const secondaryPotentialsLow = ['---', '12% ATT/M.ATT', '9% ATT/M.ATT', '40% Boss', '35% Boss', '30% Boss'];
   const secondaryPotentialsHigh = ['---', '13% ATT/M.ATT', '10% ATT/M.ATT', '40% Boss', '35% Boss', '30% Boss'];
+  const emblems = ['Gold', "Mitra's"];
+  const emblemPotentialsLow = ['---', '12% ATT/M.ATT', '9% ATT/M.ATT'];
+  const emblemPotentialsHigh = ['---', '13% ATT/M.ATT', '10% ATT/M.ATT'];
 
   useEffect(() => {
     const newMap = new Map(characters);
@@ -100,7 +105,8 @@ export default function Roster() {
     }
   }
 
-  const setCharacterProperty = (characterName: string, newValues: {[key: string]: any}) => {
+  // Used for setting multiple character properties at once
+  const setMultipleCharacterProperties = (characterName: string, newValues: {[key: string]: any}) => {
     const newMap = new Map(characters);
     let value = newMap.get(characterName);
     if (value) {
@@ -112,8 +118,9 @@ export default function Roster() {
     setCharacters(newMap);
   }
 
+  // Default flame calculator stat equivalencies
   const defaultStatEquivalencies = () => {
-    setCharacterProperty(selected, {
+    setMultipleCharacterProperties(selected, {
       'secondaryEquivalency': '0.1',
       'attEquivalency': '3',
       'allStatEquivalency': '10',
@@ -140,9 +147,9 @@ export default function Roster() {
 
   const handleCharacterPropertyChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, property: string, propertyLine?: number) => {
     const newMap = new Map(characters);
-    let value = newMap.get(selected);
-    if (value) {
-      let newValue: any = e.target.value;
+    let characterProperties = newMap.get(selected); // character properties
+    if (characterProperties) {
+      let newValue: any = e.target.value; // new character property value
       if (e.target.type == 'number') {
         if (property == 'level') {
           numberInputValidation(e as React.ChangeEvent<HTMLInputElement>, 1);
@@ -150,26 +157,55 @@ export default function Roster() {
           numberInputValidation(e as React.ChangeEvent<HTMLInputElement>, 0);
         }
       }
-      if (property == 'weapon') {
-        if (e.target.value == 'Genesis' || e.target.value == 'Destiny') {
-          value.weaponSF = '22';
-        }
+      if (property == 'weapon' && (newValue == 'Genesis' || newValue == 'Destiny')) {
+        characterProperties.weaponSF = '22';
       }
-      if (property == 'weaponPotential' && propertyLine) {
-        newValue = value[property] as string[];
+      if ((property == 'weaponPotential' || property == 'secondaryPotential' || property == 'emblemPotential') && propertyLine) {
+        newValue = characterProperties[property] as string[];
         newValue[propertyLine-1] = e.target.value;
       }
-      if (property == 'secondaryPotential' && propertyLine) {
-        newValue = value[property] as string[];
-        newValue[propertyLine-1] = e.target.value;
-      }
-      newMap.set(selected, {...value, [property]: newValue});
+      newMap.set(selected, {...characterProperties, [property]: newValue});
     }
     setCharacters(newMap);
   }
 
   const getRating = (property: string) => {
-    return '';
+    let rating = '';
+    const newMap = new Map(characters);
+    let characterProperties = newMap.get(selected); // character properties
+    if (characterProperties) {
+      if (property == 'Emblem') {
+        let total = 0;
+        if (characterProperties.emblemPotential[0] == '12% ATT/M.ATT' || characterProperties.emblemPotential[0] == '13% ATT/M.ATT') {
+          total += 12;
+        }
+        if (characterProperties.emblemPotential[1] == '12% ATT/M.ATT' || characterProperties.emblemPotential[1] == '13% ATT/M.ATT') {
+          total += 12;
+        }
+        if (characterProperties.emblemPotential[1] == '9% ATT/M.ATT' || characterProperties.emblemPotential[1] == '10% ATT/M.ATT') {
+          total += 9;
+        }
+        if (characterProperties.emblemPotential[2] == '12% ATT/M.ATT' || characterProperties.emblemPotential[2] == '13% ATT/M.ATT') {
+          total += 12;
+        }
+        if (characterProperties.emblemPotential[2] == '9% ATT/M.ATT' || characterProperties.emblemPotential[2] == '10% ATT/M.ATT') {
+          total += 9;
+        }
+        if (total == 21) {
+          rating = '2L';
+        } else if (total == 30) {
+          rating = '3L';
+        } else if (total == 24) {
+          rating = '2L+';
+        } else if (total == 33) {
+          rating = 'Double Prime';
+        } else if (total == 36) {
+          rating = 'Triple Prime';
+        }
+      }
+    }
+    console.log(rating);
+    return rating;
   }
 
   return (
@@ -297,10 +333,12 @@ export default function Roster() {
             </div>
             <div className="equipment-row row-dark h-7">
               <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-35 h-6" value={characters.get(selected).weaponPotential[0]} onChange={(e) => handleCharacterPropertyChange(e, 'weaponPotential', 1)}>
-                {weaponsPotentials.map((key) => (
-                  <option key={key} value={key}>
-                    {key}
-                  </option>
+                {weaponsPotentials.map((key, index) => (
+                  (index == 0 || index == 1 || index == 3) ? 
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                    : null
                 ))}
               </select>
             </div>
@@ -323,7 +361,6 @@ export default function Roster() {
               </select>
             </div>
             <div className="equipment-row h-7">
-              {/* <b>{getRating('weapon')}</b> */}
             </div>
           </div>
           
@@ -352,15 +389,19 @@ export default function Roster() {
             <div className="equipment-row row-dark h-7">
               <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-35 h-6" value={characters.get(selected).secondaryPotential[0]} onChange={(e) => handleCharacterPropertyChange(e, 'secondaryPotential', 1)}>
                 {characters.get(selected).secondary == 'ilvl <= 150' ? 
-                  secondaryPotentialsLow.map((key) => (
-                    <option key={key} value={key}>
-                      {key}
-                    </option>
+                  secondaryPotentialsLow.map((key, index) => (
+                    (index == 0 || index == 1 || index == 3) ? 
+                      <option key={key} value={key}>
+                        {key}
+                      </option>
+                      : null
                   )) :
-                  secondaryPotentialsHigh.map((key) => (
-                    <option key={key} value={key}>
-                      {key}
-                    </option>
+                  secondaryPotentialsHigh.map((key, index) => (
+                    (index == 0 || index == 1 || index == 3) ? 
+                      <option key={key} value={key}>
+                        {key}
+                      </option>
+                      : null
                   ))
                 }
               </select>
@@ -398,7 +439,78 @@ export default function Roster() {
               </select>
             </div>
             <div className="equipment-row h-7">
-              <b>{getRating('weapon')}</b>
+            </div>
+          </div>
+
+          <div className="flex flex-col w-56">
+            <div className="equipment-category h-7">Emblem</div>
+            <div className="equipment-row h-7">
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-25 h-6" value={characters.get(selected).emblem} onChange={(e) => handleCharacterPropertyChange(e, 'emblem')}>
+                {emblems.map((key) => (
+                  <option key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="equipment-row row-dark h-7">
+            </div>
+            <div className="equipment-row h-7"></div>
+            <div className="equipment-row h-7"></div>
+            <div className="equipment-row row-dark h-7">
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-35 h-6" value={characters.get(selected).emblemPotential[0]} onChange={(e) => handleCharacterPropertyChange(e, 'emblemPotential', 1)}>
+                {characters.get(selected).emblem == 'Gold' ? 
+                  emblemPotentialsLow.map((key, index) => (
+                    (index == 0 || index == 1) ? 
+                      <option key={key} value={key}>
+                        {key}
+                      </option>
+                      : null
+                  )) :
+                  emblemPotentialsHigh.map((key, index) => (
+                    (index == 0 || index == 1) ? 
+                      <option key={key} value={key}>
+                        {key}
+                      </option>
+                      : null
+                  ))
+                }
+              </select>
+            </div>
+            <div className="equipment-row row-dark h-7">
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-35 h-6" value={characters.get(selected).emblemPotential[1]} onChange={(e) => handleCharacterPropertyChange(e, 'emblemPotential', 2)}>
+                {characters.get(selected).emblem == 'Gold' ? 
+                  emblemPotentialsLow.map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  )) :
+                  emblemPotentialsHigh.map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  ))
+                }
+              </select>
+            </div>
+            <div className="equipment-row row-dark h-7">
+              <select className="maple-input bg-white text-center font-normal px-2 mr-2 py-0.5 w-35 h-6" value={characters.get(selected).emblemPotential[2]} onChange={(e) => handleCharacterPropertyChange(e, 'emblemPotential', 3)}>
+                {characters.get(selected).emblem == 'Gold' ? 
+                  emblemPotentialsLow.map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  )) :
+                  emblemPotentialsHigh.map((key) => (
+                    <option key={key} value={key}>
+                      {key}
+                    </option>
+                  ))
+                }
+              </select>
+            </div>
+            <div className="equipment-row h-7">
+              <b>{getRating('Emblem')}</b>
             </div>
           </div>
         </div>
