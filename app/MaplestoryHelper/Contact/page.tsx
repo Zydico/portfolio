@@ -1,3 +1,5 @@
+import Character from './character'
+
 export default function Contact() {
   return (
     <section>
@@ -10,26 +12,11 @@ export default function Contact() {
         </div>
         <p>Or you can try to contact me in-game on the GMS Hyperion server on one of my main characters if I'm online:</p>
         <div className="flex flex-wrap w-fit gap-2 my-2 p-2 rounded-md bg-[var(--color-maplestory-light-gray)]">
-          <div className="bg-white w-25 h-32 rounded-md">
-            <img src="../images/Maplestory/Characters/Yoimiya.png" alt="Yoimiya character image" className="w-25 h-25 p-1"></img>
-            <div className="w-25 h-5 text-center font-bold">Yoìmîya</div>
-          </div>
-          <div className="bg-white w-25 h-32 rounded-md">
-            <img src="../images/Maplestory/Characters/FrostNova.png" alt="Frostnova character image" className="w-25 h-25 p-1"></img>
-            <div className="w-25 h-5 text-center font-bold">FrostNovâ</div>
-          </div>
-          <div className="bg-white w-25 h-32 rounded-md">
-            <img src="../images/Maplestory/Characters/Yotsuyu.png" alt="Yotsuyu character image" className="w-25 h-25 p-1"></img>
-            <div className="w-25 h-5 text-center font-bold">Yotsuyù</div>
-          </div>
-          <div className="bg-white w-25 h-32 rounded-md">
-            <img src="../images/Maplestory/Characters/Hestia.png" alt="Hestia character image" className="w-25 h-25 p-1"></img>
-            <div className="w-25 h-5 text-center font-bold">Hêstiá</div>
-          </div>
-          <div className="bg-white w-25 h-32 rounded-md">
-            <img src="../images/Maplestory/Characters/Yaoyao.png" alt="Yaoyao character image" className="w-25 h-25 p-1"></img>
-            <div className="w-25 h-5 text-center font-bold">Yaoÿao</div>
-          </div>
+          <Character url="Yoimiya" text="Yoìmîya" />
+          <Character url="FrostNova" text="FrostNovâ" />
+          <Character url="Yotsuyu" text="Yotsuyù" />
+          <Character url="Hestia" text="Hêstiá" />
+          <Character url="Yaoyao" text="Yaoÿao" />
         </div>
       </div>
     </section>
