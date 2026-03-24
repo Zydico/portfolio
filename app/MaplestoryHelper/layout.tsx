@@ -4,7 +4,7 @@ import './page.css';
 
 export const metadata: Metadata = {
   title: "Maplestory Helper",
-  description: "A website developed by Zydico to assist players in the game Maplestory",
+  description: "A website developed by Zydico to assist players in Maplestory",
 };
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen font-(family-name:--font-roboto) text-black text-md bg-(--color-maplestory-background-gray)">
+    <div className="min-h-screen text-black text-md bg-(--color-maplestory-background-gray)">
         <div>
           <section>
               <Navigation></Navigation>

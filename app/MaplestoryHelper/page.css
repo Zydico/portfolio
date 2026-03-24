@@ -1,3 +1,19 @@
+:root {
+  --color-maplestory-background-gray: #F2F2F2;
+  --color-maplestory-dark-gray: #333333;
+  --color-maplestory-orange-hover: #FF8E2E;
+  --color-maplestory-orange-selected: #c46d21;
+  --color-maplestory-red-hover: rgb(235, 108, 103);
+  --color-maplestory-red-selected: rgb(185, 33, 28);
+  --color-maplestory-invalid-input: rgb(187, 73, 69);
+  --color-maplestory-light-gray: #E2E2E2;
+  --color-maplestory-light-gray-darker: #CECECE;
+}
+
+body {
+    font-family: sans-serif;
+}
+
 .panel {
     border-radius: 0.5rem;
     background-color: white;
@@ -7,7 +23,6 @@
 h1 {
     font-weight: 700;
     font-size: 1.5rem;
-    font-family: var(--font-spartan);
 }
 
 th {
@@ -23,27 +38,25 @@ td {
     box-sizing: border-box;
 }
 
-td:not(:first-child) {
+td:not(:first-child) { /* Icon Column */
     padding-right: 1rem;
 }
 
 tr {
     background-color: var(--color-maplestory-light-gray);
-    box-sizing: border-box;
 }
 
 tr:nth-child(odd) {
     background-color: var(--color-maplestory-light-gray-darker);
 }
 
-td > a {
+td > a { /* Links in the table */
     color: #1f51db;
     text-decoration: underline;
 }
 
 table {
     text-align: left;
-    display: block;
     white-space: nowrap;
     max-width: fit-content;
     border-collapse: separate;
@@ -53,6 +66,11 @@ table {
 
 input {
     outline: none;
+}
+
+.invalid-input {
+    background-color: var(--color-maplestory-invalid-input) !important;
+    color: white;
 }
 
 thead > tr > th {
