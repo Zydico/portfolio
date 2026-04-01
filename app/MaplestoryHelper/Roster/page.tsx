@@ -195,7 +195,7 @@ export default function Roster() {
       </div>
 
       {/* CHARACTER INFORMATION ---------------------------------------------------------------------------------------------------- */}
-      <div className="panel flex flex-wrap flex-col gap-3 shadow"> 
+      <div className="panel inline-flex flex-wrap flex-col gap-3 shadow"> 
         <div className="flex flex-row gap-6">
           <TextInput label='Name' value={selectedCharacter.name} onChange={(v) => updateCharacter(selectedCharacter.id, {
             name: v,
@@ -216,7 +216,7 @@ export default function Roster() {
             sacred: v,
           })} min={0} max={880} size="w-15" />
         </div>
-        <div className="flex flex-wrap w-200">
+        <div className="flex flex-wrap">
           <table>
             <thead>
               <tr>
@@ -249,7 +249,7 @@ export default function Roster() {
       </div>
 
       {/* FAQ ---------------------------------------------------------------------------------------------------- */}
-      <div className="panel mt-4 flex flex-wrap flex-col gap-2 shadow">
+      <div className="panel mt-4 inline-flex flex-wrap flex-col gap-2 shadow">
         <h1 className="">FAQ</h1>
         <h2 className="mt-4">How do you find stat equivalencies for WhackyBeanz's Flame Calculator?</h2>
         <ol>

@@ -367,7 +367,7 @@ const classInfo = [
 export default function Resources() {
   return (
     <section id="resourcesPage">
-      <div className="panel shadow w-full">
+      <div className="panel shadow inline-flex flex-wrap flex-col">
         <h1 className="">Tools</h1>
         <table>
           <thead>
