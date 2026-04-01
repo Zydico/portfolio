@@ -1,0 +1,3 @@
+#resourcesPage td:not(:first-child) { /* If not Icon Column */
+    padding-right: 1rem;
+}

@@ -1,7 +1,6 @@
 'use client';
 
 import { Dispatch, SetStateAction, useState } from "react";
-import { numberInputValidation } from "../pipes";
 import './page.css';
 import NumberInput from "../numberInput";
 import Spacer from "../spacer";
