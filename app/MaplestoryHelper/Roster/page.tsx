@@ -13,7 +13,7 @@ type Equipment = {
   id: string;
   type: string;
   name: string;
-  sf?: string;
+  sf: string;
   attackFlame?: string;
   bossFlame?: string;
   damageFlame?: string;
@@ -28,6 +28,7 @@ const defaultEquipment: Equipment = {
   id: '',
   type: '---',
   name: '---',
+  sf: '0',
 };
 
 type Character = {
@@ -81,9 +82,17 @@ export default function Roster() {
     'Lara', 'Luminous', 'Lynn', 'Marksman', 'Mercedes', 'Mechanic', 'Mihile', 'Mo Xuan', 'Night Lord', 'Night Walker', 'Paladin', 'Pathfinder', 'Phantom', 'Ren', 'Shade',
     'Shadower', 'Sia Astelle', 'Thunder Breaker', 'Wild Hunter', 'Wind Archer', 'Xenon', 'Zero'
   ];
+
   const weapons = ['---', 'Absolab', 'Arcane', 'Genesis', 'Destiny'];
   const emblems = ['---', 'Gold', "Mitra's"];
-  const secondaries = ['---', 'PNo', 'Deimos', 'RFS'];
+  const secondaries = ['---', 'PNo', 'Deimos', 'Astra', 'RFS', 'Arcane', 'Sweetwater', 'Evolving'];
+  const hats = ['---', 'CRA', 'Eternal'];
+  const tops = ['---', 'CRA', 'Eternal'];
+  const bottoms = ['---', 'CRA', 'Eternal'];
+  const capes = ['---', 'Absolab', 'Arcane', 'Eternal'];
+  const gloves = ['---', 'Absolab', 'Arcane', 'Eternal'];
+  const shoes = ['---', 'Absolab', 'Arcane', 'Eternal'];
+  const shoulders = ['---', 'Absolab', 'Arcane', 'Eternal'];
 
   const [characters, setCharacters] = useState<Character[]>([defaultCharacter]);
   const [selectedId, setSelectedId] = useState<string>(defaultCharacter.id);
@@ -159,6 +168,7 @@ export default function Roster() {
           case 'Weapon':
             return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                       name: v,
+                      sf: (v === 'Genesis' || v === 'Destiny') ? '22' : equipment.sf,
                     })} list={weapons} size="w-22" />
           case 'Secondary':
             return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
@@ -168,6 +178,35 @@ export default function Roster() {
             return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                       name: v,
                     })} list={emblems} size="w-19" />
+          case 'Hat':
+            return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                      name: v,
+                    })} list={hats} size="w-19" />
+          case 'Top':
+            return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                      name: v,
+                    })} list={tops} size="w-19" />
+          case 'Bottom':
+            return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                      name: v,
+                    })} list={bottoms} size="w-19" />
+        }
+      case 'Starforce':
+        const sfList: string[] = [];
+        switch (equipment.type) {
+          case 'Weapon':
+            if (equipment.name === 'Absolab' || equipment.name === 'Arcane') {
+              for (let i = 0; i <= 30; i++) {
+                sfList.push(i.toString());
+              }
+            } else if (equipment.name === 'Genesis' || equipment.name === 'Destiny') {
+              sfList.push('22');
+            }
+            if (sfList.length > 0) {
+              return  <DropdownInput value={equipment.sf} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                        sf: v,
+                      })} list={sfList.reverse()} size="w-16" />
+            }
         }
     }
     return 'placeholder';
