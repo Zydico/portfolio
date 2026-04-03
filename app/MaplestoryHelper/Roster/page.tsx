@@ -41,7 +41,7 @@ type Character = {
   equipments: Equipment[];
 }
 
-const equipmentTypes: string[] = ['Weapon', 'Secondary', 'Emblem', 'Hat', 'Top', 'Bottom', 'Gloves', 'Shoes', 'Cape', 'Shoulder'];
+const equipmentTypes: string[] = ['Weapon', 'Secondary', 'Emblem', 'Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape', 'Shoulder'];
 const equipmentList: Equipment[] = [];
 for (let i = 0; i < equipmentTypes.length; i++) {
   equipmentList.push({
@@ -83,16 +83,18 @@ export default function Roster() {
     'Shadower', 'Sia Astelle', 'Thunder Breaker', 'Wild Hunter', 'Wind Archer', 'Xenon', 'Zero'
   ];
 
-  const weapons = ['---', 'Absolab', 'Arcane', 'Genesis', 'Destiny'];
-  const emblems = ['---', 'Gold', "Mitra's"];
-  const secondaries = ['---', 'PNo', 'Deimos', 'Astra', 'RFS', 'Arcane', 'Sweetwater', 'Evolving'];
-  const hats = ['---', 'CRA', 'Eternal'];
-  const tops = ['---', 'CRA', 'Eternal'];
-  const bottoms = ['---', 'CRA', 'Eternal'];
-  const capes = ['---', 'Absolab', 'Arcane', 'Eternal'];
-  const gloves = ['---', 'Absolab', 'Arcane', 'Eternal'];
-  const shoes = ['---', 'Absolab', 'Arcane', 'Eternal'];
-  const shoulders = ['---', 'Absolab', 'Arcane', 'Eternal'];
+  const equipmentLists: Record<string, string[]> = {
+    Weapon: ['---', 'Absolab', 'Arcane', 'Genesis', 'Destiny'],
+    Emblem: ['---', 'Gold', "Mitra's"],
+    Secondary: ['---', 'PNo', 'Deimos', 'Astra', 'RFS', 'Arcane', 'Sweetwater', 'Evolving'],
+    Hat: ['---', 'CRA', 'Eternal'],
+    Top: ['---', 'CRA', 'Eternal'],
+    Bottom: ['---', 'CRA', 'Eternal'],
+    Cape: ['---', 'Absolab', 'Arcane', 'Eternal'],
+    Glove: ['---', 'Absolab', 'Arcane', 'Eternal'],
+    Shoe: ['---', 'Absolab', 'Arcane', 'Eternal'],
+    Shoulder: ['---', 'Absolab', 'Arcane', 'Eternal'],
+  };
 
   const [characters, setCharacters] = useState<Character[]>([defaultCharacter]);
   const [selectedId, setSelectedId] = useState<string>(defaultCharacter.id);
@@ -161,55 +163,54 @@ export default function Roster() {
     )
   };
 
-  const renderCell = (field: string, equipment: Equipment) => {
-    switch (field) {
-      case 'Name':
-        switch (equipment.type) {
-          case 'Weapon':
-            return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
-                      name: v,
-                      sf: (v === 'Genesis' || v === 'Destiny') ? '22' : equipment.sf,
-                    })} list={weapons} size="w-22" />
-          case 'Secondary':
-            return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
-                      name: v,
-                    })} list={secondaries} size="w-20" />
-          case 'Emblem':
-            return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
-                      name: v,
-                    })} list={emblems} size="w-19" />
-          case 'Hat':
-            return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
-                      name: v,
-                    })} list={hats} size="w-19" />
-          case 'Top':
-            return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
-                      name: v,
-                    })} list={tops} size="w-19" />
-          case 'Bottom':
-            return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
-                      name: v,
-                    })} list={bottoms} size="w-19" />
-        }
-      case 'Starforce':
-        const sfList: string[] = [];
-        switch (equipment.type) {
-          case 'Weapon':
-            if (equipment.name === 'Absolab' || equipment.name === 'Arcane') {
-              for (let i = 0; i <= 30; i++) {
-                sfList.push(i.toString());
-              }
-            } else if (equipment.name === 'Genesis' || equipment.name === 'Destiny') {
-              sfList.push('22');
-            }
-            if (sfList.length > 0) {
-              return  <DropdownInput value={equipment.sf} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
-                        sf: v,
-                      })} list={sfList.reverse()} size="w-16" />
-            }
-        }
+  const createSFList = (min: number, max: number): string[] => {
+    const sfList: string[] = [];
+    for (let i = min; i <= max; i++) {
+      sfList.push(i.toString());
     }
-    return 'placeholder';
+    return sfList.reverse();
+  }
+
+  const renderCell = (field: string, equipment: Equipment) => {
+    if (field === 'Name') {
+      if (equipment.type == 'Weapon') {
+        return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                  name: v,
+                  sf: (v === 'Genesis' || v === 'Destiny') ? '22' : equipment.sf,
+                })} list={equipmentLists[equipment.type]} size="w-22" />
+      } else if (equipment.type === 'Secondary') {
+        return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                  name: v,
+                })} list={equipmentLists[equipment.type]} size="w-27" />
+      } else {
+        return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                  name: v,
+                })} list={equipmentLists[equipment.type]} size="w-19" />
+      }
+    } else if (field === 'Starforce') {
+      let sfList: string[] = [];
+      if (equipment.type === 'Weapon') {
+        if (equipment.name === 'Absolab' || equipment.name === 'Arcane') {
+          sfList = createSFList(0, 30);
+        } else if (equipment.name === 'Genesis' || equipment.name === 'Destiny') {
+          sfList = createSFList(22, 22);
+        }
+      } else if (equipment.type === 'Secondary') {
+        if (equipment.name === 'Deimos') {
+          sfList = createSFList(0, 20);
+        } else if (equipment.name === 'Astra' || equipment.name === 'Arcane' || equipment.name === 'Sweetwater') {
+          sfList = createSFList(0, 30);
+        }
+      } else if (equipment.name !== '---') {
+        sfList = createSFList(0, 30);
+      }
+      if (sfList.length > 0) {
+        return <DropdownInput value={equipment.sf} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                  sf: v,
+                })} list={sfList} size="w-16" />
+      }
+    }
+    return '';
   };
 
   return (
