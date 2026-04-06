@@ -1,6 +1,26 @@
 import './page.css';
 
-const tools = [
+type Tool = {
+  name: string,
+  image?: string,
+  description: string,
+  author?: string,
+  link?: string,
+};
+
+type General = Tool & {
+  category: string;
+  authorLink?: string;
+};
+
+type ClassInfo = {
+  name: string;
+  image?: string;
+  guide?: string;
+  discord?: string;
+};
+
+const tools: Tool[] = [
   { name: 'Maple Scouter', 
     image: '../images/Maplestory/Icons/Scouter.png',
     description: 'Popular website to optimize your character and find out which bosses you can clear', 
@@ -35,7 +55,7 @@ const tools = [
     author: 'WhackyBeanz', link: 'https://www.whackybeanz.com/calc/equips/flames' },
 ];
 
-const general = [
+const general: General[] = [
   { name: 'Maple Wiki', 
     image: '../images/Maplestory/Icons/Wiki.png',
     description: 'The new and updated wiki page (not Fandom)', 
@@ -153,7 +173,7 @@ const general = [
     category: 'Fashion' }
 ];
 
-const classInfo = [
+const classInfo: ClassInfo[] = [
   { name: 'Adele', 
     image: '../images/Maplestory/Classes/Icons/Adele.png',
     guide: 'https://docs.google.com/document/d/1FYhaPrUcSZtJM19-oxnKyVocewpHro9w3pTkwg3IiKU/edit?usp=sharing',

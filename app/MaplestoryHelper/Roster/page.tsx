@@ -1,9 +1,6 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { numberInputValidation } from "../pipes";
-import ClassInfo from './ClassInfo.json';
-import './page.css';
 import NumberInput from "../numberInput";
 import TextInput from "../textInput";
 import DropdownInput from "../dropDownInput";
@@ -17,8 +14,8 @@ type Equipment = {
   attackFlame?: string;
   bossFlame?: string;
   damageFlame?: string;
-  flame?: string;
-  flameChance?: string;
+  flame: string;
+  flameChance: string;
   potentials?: [string, string, string];
   potentialGoals?: [string, string, string];
   potentialFDDifference?: string;
@@ -29,6 +26,8 @@ const defaultEquipment: Equipment = {
   type: '---',
   name: '---',
   sf: '0',
+  flame: '0',
+  flameChance: '0.0',
 };
 
 type Character = {
@@ -201,13 +200,28 @@ export default function Roster() {
         } else if (equipment.name === 'Astra' || equipment.name === 'Arcane' || equipment.name === 'Sweetwater') {
           sfList = createSFList(0, 30);
         }
-      } else if (equipment.name !== '---') {
+      } else if (equipment.name !== '---' && equipment.type !== 'Emblem') {
         sfList = createSFList(0, 30);
       }
       if (sfList.length > 0) {
         return <DropdownInput value={equipment.sf} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                   sf: v,
                 })} list={sfList} size="w-16" />
+      }
+    } else if (field === 'Flame') {
+      const hasNormalFlame = ['Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape'];
+      if (equipment.type == 'Weapon') { // Will have special Attack + Boss Damage + Damage + Flame Score
+      } else if (hasNormalFlame.includes(equipment.type)) {
+        return  <NumberInput value={equipment.flame} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                  flame: v,
+                })} min={0} max={300} size="w-13" />
+      }
+    } else if (field === 'Flame Upgrade %') {
+      const hasFlame = ['Weapon', 'Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape'];
+      if (hasFlame.includes(equipment.type)) {
+        return  <NumberInput value={equipment.flameChance} inLabel={'%'} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                  flameChance: v,
+                })} min={0.0} max={100.0} size="w-18" />
       }
     }
     return '';
@@ -277,7 +291,7 @@ export default function Roster() {
                     <td rowSpan={(field.label == 'Potentials') ? 3 : 1} className="th">{field.label}</td>
                   }
                   {selectedCharacter.equipments.map((eq) => (
-                    <td key={eq.type}>
+                    <td key={eq.type} className="text-center">
                       {renderCell(field.label, eq)}
                     </td>
                   ))}

@@ -67,6 +67,10 @@ table {
     box-sizing: border-box;
 }
 
+label {
+    position: relative;
+}
+
 input {
     outline: none;
 }
@@ -74,6 +78,19 @@ input {
 .invalid-input {
     background-color: var(--color-maplestory-invalid-input) !important;
     color: white;
+}
+
+.input-inLabel {
+    position: absolute;
+    top: 0;
+    right: 7;
+    transform: translateX(-50%);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    font-size: var(--text-sm);
 }
 
 thead > tr > th {
