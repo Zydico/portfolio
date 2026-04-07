@@ -8,7 +8,7 @@ type prop = {
 
 export default function DropdownInput({label, value, onChange, list, size}: prop) {
   return (
-    <label className="font-bold">{label}
+    <label className="font-bold">{label && <span>{label}</span>}
       <select className={`maple-input font-normal bg-white ${size} px-2 py-1`} value={value} onChange={(e) => onChange(e.target.value)}>
         {list.map((opt) => (
           <option key={opt} value={opt}>

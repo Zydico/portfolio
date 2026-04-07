@@ -27,7 +27,7 @@ const defaultEquipment: Equipment = {
   name: '---',
   sf: '0',
   flame: '0',
-  flameChance: '0.0',
+  flameChance: '0.00',
 };
 
 type Character = {
@@ -75,7 +75,7 @@ const fields: { label: string }[] = [
 ];
 
 export default function Roster() {
-  const classes = [
+  const classes: string[] = [
     'Adele', 'Angelic Buster', 'Aran', 'Ark', 'Battle Mage', 'Bishop', 'Blaster', 'Blaze Wizard', 'Bowmaster', 'Buccaneer', 'Cadena', 'Cannoneer', 'Corsair', 'Dark Knight',
     'Demon Avenger', 'Demon Slayer', 'Dual Blade', 'Evan', 'Fire/Poison', 'Hayato', 'Hero', 'Hoyoung', 'Ice/Lightning', 'Illium', 'Kain', 'Kaiser', 'Kanna', 'Khali', 'Kinesis',
     'Lara', 'Luminous', 'Lynn', 'Marksman', 'Mercedes', 'Mechanic', 'Mihile', 'Mo Xuan', 'Night Lord', 'Night Walker', 'Paladin', 'Pathfinder', 'Phantom', 'Ren', 'Shade',
@@ -94,6 +94,8 @@ export default function Roster() {
     Shoe: ['---', 'Absolab', 'Arcane', 'Eternal'],
     Shoulder: ['---', 'Absolab', 'Arcane', 'Eternal'],
   };
+
+  const tierList: string[] = ['---', 'T3', 'T4', 'T5', 'T6', 'T7'];
 
   const [characters, setCharacters] = useState<Character[]>([defaultCharacter]);
   const [selectedId, setSelectedId] = useState<string>(defaultCharacter.id);
@@ -167,7 +169,7 @@ export default function Roster() {
     for (let i = min; i <= max; i++) {
       sfList.push(i.toString());
     }
-    return sfList.reverse();
+    return sfList;
   }
 
   const renderCell = (field: string, equipment: Equipment) => {
@@ -211,6 +213,20 @@ export default function Roster() {
     } else if (field === 'Flame') {
       const hasNormalFlame = ['Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape'];
       if (equipment.type == 'Weapon') { // Will have special Attack + Boss Damage + Damage + Flame Score
+        return  <div className="flex gap-1">
+                  <DropdownInput value={equipment.attackFlame} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                    attackFlame: v,
+                  })} list={tierList} size="w-12" />
+                  <DropdownInput value={equipment.bossFlame} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                    bossFlame: v,
+                  })} list={tierList} size="w-12" />
+                  <DropdownInput value={equipment.damageFlame} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                    damageFlame: v,
+                  })} list={tierList} size="w-12" />
+                  <NumberInput value={equipment.flame} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                    flame: v,
+                  })} min={0} max={300} size="w-13" />
+                </div>
       } else if (hasNormalFlame.includes(equipment.type)) {
         return  <NumberInput value={equipment.flame} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                   flame: v,
@@ -231,7 +247,7 @@ export default function Roster() {
     <section>
       {/* CHARACTER SELECTION ---------------------------------------------------------------------------------------------------- */}
       <div className="inline-flex panel flex-wrap gap-5 mb-5 shadow">
-        <label className="font-bold">Character:
+        <label className="font-bold"><span>Character:</span>
           <select className="maple-input font-normal px-2 py-1 w-33" value={selectedId} onChange={(e) => setSelectedId(e.target.value)}>
             {characters.map((c) => (
               <option key={c.id} value={c.id}>{c.name}</option>
@@ -305,6 +321,8 @@ export default function Roster() {
       {/* FAQ ---------------------------------------------------------------------------------------------------- */}
       <div className="panel mt-4 inline-flex flex-wrap flex-col gap-2 shadow">
         <h1 className="">FAQ</h1>
+        <h2 className="mt-4">What are the fields for the Weapon flame?</h2>
+        From left to right, they are: Att/M.Att, Boss%, Dmg%, and Stat.
         <h2 className="mt-4">How do you find stat equivalencies for WhackyBeanz's Flame Calculator?</h2>
         <ol>
           <li>1. Go to MapleScouter and after inputting all your data correctly, go to the detailed information page.</li>

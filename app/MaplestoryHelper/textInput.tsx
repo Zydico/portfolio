@@ -1,5 +1,5 @@
 type prop = {
-  label: string;
+  label?: string;
   value: string;
   onChange: (value: string) => void;
   maxLength: number;
@@ -8,7 +8,7 @@ type prop = {
 
 export default function TextInput({label, value, onChange, maxLength, size}: prop) {
   return (
-    <label className="font-bold">{label}
+    <label className="font-bold">{label && <span>{label}</span>}
       <input className={`maple-input font-normal ${size}`} maxLength={maxLength} value={value} onFocus={(e) => e.target.select()} onChange={(e) => onChange(e.target.value)}></input>
     </label>   
   );
