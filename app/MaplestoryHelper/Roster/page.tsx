@@ -11,14 +11,14 @@ type Equipment = {
   type: string;
   name: string;
   sf: string;
-  attackFlame?: string;
-  bossFlame?: string;
-  damageFlame?: string;
+  attackFlame: string;
+  bossFlame: string;
+  damageFlame: string;
   flame: string;
   flameChance: string;
-  potentials?: [string, string, string];
-  potentialGoals?: [string, string, string];
-  potentialFDDifference?: string;
+  potentials: [string, string, string];
+  potentialGoals: [string, string, string];
+  potentialFDDifference: string;
 };
 
 const defaultEquipment: Equipment = {
@@ -26,8 +26,14 @@ const defaultEquipment: Equipment = {
   type: '---',
   name: '---',
   sf: '0',
+  attackFlame: '---',
+  bossFlame: '---',
+  damageFlame: '---',
   flame: '0',
   flameChance: '0.00',
+  potentials: ['---', '---', '---'],
+  potentialGoals: ['---', '---', '---'],
+  potentialFDDifference: '0.00',
 };
 
 type Character = {
@@ -49,6 +55,7 @@ for (let i = 0; i < equipmentTypes.length; i++) {
     type: equipmentTypes[i],
   });
 }
+equipmentList[0].name = 'Genesis';
 
 const defaultCharacter: Character = {
   id: crypto.randomUUID(),
@@ -83,7 +90,7 @@ export default function Roster() {
   ];
 
   const equipmentLists: Record<string, string[]> = {
-    Weapon: ['---', 'Absolab', 'Arcane', 'Genesis', 'Destiny'],
+    Weapon: ['Absolab', 'Arcane', 'Genesis', 'Destiny'],
     Emblem: ['---', 'Gold', "Mitra's"],
     Secondary: ['---', 'PNo', 'Deimos', 'Astra', 'RFS', 'Arcane', 'Sweetwater', 'Evolving'],
     Hat: ['---', 'CRA', 'Eternal'],
@@ -96,6 +103,12 @@ export default function Roster() {
   };
 
   const tierList: string[] = ['---', 'T3', 'T4', 'T5', 'T6', 'T7'];
+  const lowerWSEList: string[] = ['---', '12% Att/M.Att', '9% Att/M.Att', '40% Boss', '35% Boss', '30% Boss'];
+  const higherWSEList: string[] = ['---', '13% Att/M.Att', '10% Att/M.Att', '40% Boss', '35% Boss', '30% Boss'];
+  const lowerList: string[] = ['Gold', 'PNo', 'Deimos', 'RFS', 'Evolving', 'CRA'];
+  //const higherList: string[] = ['Absolab', 'Arcane', 'Genesis', 'Destiny', "Mitra's", 'Astra', 'Arcane', 'Sweetwater', 'Eternal']; might not need this
+  const lowerGeneralList: string[] = ['---', '12% Main', '9% Main', '9% All', '6% All', '12% Sub', '9% Sub'];
+  const higherGeneralList: string[] = ['---', '13% Main', '10% Main', '10% All', '7% All', '13% Sub', '10% Sub'];
 
   const [characters, setCharacters] = useState<Character[]>([defaultCharacter]);
   const [selectedId, setSelectedId] = useState<string>(defaultCharacter.id);
@@ -174,7 +187,7 @@ export default function Roster() {
 
   const renderCell = (field: string, equipment: Equipment) => {
     if (field === 'Name') {
-      if (equipment.type == 'Weapon') {
+      if (equipment.type === 'Weapon') {
         return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                   name: v,
                   sf: (v === 'Genesis' || v === 'Destiny') ? '22' : equipment.sf,
@@ -212,7 +225,7 @@ export default function Roster() {
       }
     } else if (field === 'Flame') {
       const hasNormalFlame = ['Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape'];
-      if (equipment.type == 'Weapon') { // Will have special Attack + Boss Damage + Damage + Flame Score
+      if (equipment.type === 'Weapon') { // Will have special Attack + Boss Damage + Damage + Flame Score
         return  <div className="flex gap-1">
                   <DropdownInput value={equipment.attackFlame} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                     attackFlame: v,
@@ -238,6 +251,43 @@ export default function Roster() {
         return  <NumberInput value={equipment.flameChance} inLabel={'%'} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                   flameChance: v,
                 })} min={0.0} max={100.0} size="w-18" />
+      }
+    } else if (field === 'Potentials' || field === 'PotentialsLine2' || field === 'PotentialsLine3') {
+      if (equipment.name === '---') {
+        return '';
+      }
+      const line = Number(field.at(-1)) || 1;
+      const potentials: [string, string, string] = [...equipment.potentials];
+      if (equipment.type === 'Weapon' || equipment.type === 'Secondary') {
+        return  <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
+          {
+            potentials[line-1] = v;
+            updateEquipment(selectedCharacter.id, equipment.id, {
+              potentials: potentials,
+            })
+          }
+        }
+        list={lowerList.includes(equipment.name) ? lowerWSEList : higherWSEList} size="w-24" />
+      } else if (equipment.type === 'Emblem') {
+        return  <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
+          {
+            potentials[line-1] = v;
+            updateEquipment(selectedCharacter.id, equipment.id, {
+              potentials: potentials,
+            })
+          }
+        }
+        list={lowerList.includes(equipment.name) ? lowerWSEList.slice(0, -3) : higherWSEList.slice(0, -2)} size="w-24" />
+      } else {
+        return  <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
+          {
+            potentials[line-1] = v;
+            updateEquipment(selectedCharacter.id, equipment.id, {
+              potentials: potentials,
+            })
+          }
+        }
+        list={lowerList.includes(equipment.name) ? lowerGeneralList : higherGeneralList} size="w-24" />
       }
     }
     return '';
@@ -307,7 +357,7 @@ export default function Roster() {
                     <td rowSpan={(field.label == 'Potentials') ? 3 : 1} className="th">{field.label}</td>
                   }
                   {selectedCharacter.equipments.map((eq) => (
-                    <td key={eq.type} className="text-center">
+                    <td key={eq.type} className="text-center min-w-29">
                       {renderCell(field.label, eq)}
                     </td>
                   ))}

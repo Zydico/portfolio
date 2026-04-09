@@ -5,6 +5,7 @@ This is my portfolio website that was developed using React, Next.js, Tailwind, 
 Initially built using Angular (https://zydico.github.io/Website/#/portfolio), I decided to build a new portfolio website from scratch using React after seeing that React has grown massively in popularity recently.
 
 ## Dev Log
+- 4/9/2026 - Added potential inputs
 - 4/7/2026 - Added 4 inputs for weapon flame
 - 4/6/2026 - Added flame and flame upgrade % inputs to roster page. Need to add 4 flame inputs for weapon
 - 4/3/2026 - Added starforce dropdowns on roster page
