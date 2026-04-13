@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CharacterProvider } from './characterContext';
 import Navigation from "./Navigation/Navigation";
 import './page.css';
 
@@ -21,7 +22,9 @@ export default function RootLayout({
         </div>
         <section>
             <div className="pl-44 pt-8 pb-8 pr-8 absolute min-w-full bg-(--color-maplestory-background-gray)">
-              {children}
+              <CharacterProvider>
+                {children}
+              </CharacterProvider>
             </div>
         </section>
     </div>

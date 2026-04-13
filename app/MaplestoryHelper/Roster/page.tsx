@@ -5,70 +5,8 @@ import NumberInput from "../numberInput";
 import TextInput from "../textInput";
 import DropdownInput from "../dropDownInput";
 import Spacer from "../spacer";
-
-type Equipment = {
-  [key: string]: any;
-  id: string;
-  type: string;
-  name: string;
-  sf: string;
-  attackFlame: string;
-  bossFlame: string;
-  damageFlame: string;
-  flame: string;
-  flameChance: string;
-  potentials: [string, string, string];
-  potentialGoals: string;
-  potentialFDDifference: string;
-};
-
-const defaultEquipment: Equipment = {
-  id: '',
-  type: '---',
-  name: '---',
-  sf: '0',
-  attackFlame: '---',
-  bossFlame: '---',
-  damageFlame: '---',
-  flame: '0',
-  flameChance: '0.00',
-  potentials: ['---', '---', '---'],
-  potentialGoals: '---',
-  potentialFDDifference: '0.00',
-};
-
-type Character = {
-  id: string;
-  name: string;
-  class: string;
-  level: string;
-  arcane: string;
-  sacred: string;
-  equipments: Equipment[];
-}
-
-const equipmentTypes: string[] = ['Weapon', 'Secondary', 'Emblem', 'Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape', 'Shoulder'];
-const equipmentList: Equipment[] = [];
-for (let i = 0; i < equipmentTypes.length; i++) {
-  equipmentList.push({
-    ...defaultEquipment,
-    id: i.toString(),
-    type: equipmentTypes[i],
-  });
-}
-equipmentList[0].name = 'Genesis';
-equipmentList[1].name = 'PNo';
-equipmentList[2].name = 'Gold';
-
-const defaultCharacter: Character = {
-  id: crypto.randomUUID(),
-  name: 'Character 1',
-  class: 'Adele',
-  level: '290',
-  arcane: '1350',
-  sacred: '660',
-  equipments: equipmentList,
-}
+import { useCharacters } from "../characterContext";
+import { Character, Equipment, defaultCharacter } from "../character";
 
 const fields: { label: string }[] = [
   { label: 'Name' },
@@ -111,14 +49,13 @@ export default function Roster() {
   const lowerWSEGoalList: string[] = ['---', '30% Att/M.Att', '33% Att/M.Att', '36% Att/M.Att', '20% Att/M.Att + 40% Boss'];
   const higherWSEGoalList: string[] = ['---', '33% Att/M.Att', '36% Att/M.Att', '39% Att/M.Att', '23% Att/M.Att + 40% Boss'];
   const lowerList: string[] = ['Gold', 'PNo', 'Deimos', 'RFS', 'Evolving', 'CRA'];
-  //const higherList: string[] = ['Absolab', 'Arcane', 'Genesis', 'Destiny', "Mitra's", 'Astra', 'Arcane', 'Sweetwater', 'Eternal']; might not need this
   const lowerGeneralList: string[] = ['---', '12% Main', '9% Main', '12% Sub', '9% Sub', '9% All', '6% All'];
   const higherGeneralList: string[] = ['---', '13% Main', '10% Main', '13% Sub', '10% Sub', '10% All', '7% All'];
   const lowerPotentialGoalList: string[] = ['---', '30% Main', '33% Main', '36% Main'];
   const higherPotentialGoalList: string[] = ['---', '33% Main', '36% Main', '39% Main'];
 
-  const [characters, setCharacters] = useState<Character[]>([defaultCharacter]);
-  const [selectedId, setSelectedId] = useState<string>(defaultCharacter.id);
+  const { characters, setCharacters } = useCharacters();
+  const [selectedId, setSelectedId] = useState<string>(characters[0].id);
   const selectedCharacter = characters.find(c => c.id === selectedId) ?? characters[0];
 
   const addCharacter = () => {
@@ -133,20 +70,17 @@ export default function Roster() {
 
   const deleteCharacter = () => {
     if (characters.length > 1) {
-      setCharacters(prev => {
-        const index = prev.findIndex(c => c.id === selectedId);
-        const newCharacters = prev.filter(c => c.id !== selectedId);
-        let nextSelectedId: string;
-        if (index < newCharacters.length) {
-          // Select the next character if same index after deletion
-          nextSelectedId = newCharacters[index].id;
-        } else {
-          // Select previous character if last character is deleted
-          nextSelectedId = newCharacters[newCharacters.length-1].id;
-        }
-        setSelectedId(nextSelectedId);
-        return newCharacters;
-      });
+      const index = characters.findIndex(c => c.id === selectedId);
+      const newCharacters = characters.filter(c => c.id !== selectedId); 
+      let nextSelectedId: string;
+      
+      if (index < newCharacters.length) {
+        nextSelectedId = newCharacters[index].id;
+      } else {
+        nextSelectedId = newCharacters[newCharacters.length - 1].id;
+      }
+      setCharacters(newCharacters);
+      setSelectedId(nextSelectedId);
     }
   }
 
@@ -192,6 +126,7 @@ export default function Roster() {
     return sfList;
   }
 
+  // Used for creating a generic equipment dropdown input (no extra logic)
   const createEquipmentDropdownInput = (equipment: Equipment, variable: string, list: string[], size: string) => {
     return <DropdownInput value={equipment[variable]} onChange={(v) => 
       {
@@ -295,7 +230,7 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerWSEList.slice(0, -3) : higherWSEList.slice(0, -3)} size="w-30" />
+        list={lowerList.includes(equipment.name) ? lowerWSEList.slice(0, -3) : higherWSEList.slice(0, -3)} size="w-30" /> // Slice off boss damage from list
       } else {
         return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
@@ -322,6 +257,14 @@ export default function Roster() {
     }
     return '';
   };
+
+  useEffect(() => { // Self healing effect to fix the desync issue for the selectedid when the very first character in the list is selected
+    if (!characters.length) return;
+    const exists = characters.some(c => c.id === selectedId);
+    if (!exists) {
+      setSelectedId(characters[0].id);
+    }
+  }, [characters, selectedId]);
 
   return (
     <section>
