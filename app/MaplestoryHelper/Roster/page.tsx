@@ -7,6 +7,7 @@ import DropdownInput from "../dropDownInput";
 import Spacer from "../spacer";
 
 type Equipment = {
+  [key: string]: any;
   id: string;
   type: string;
   name: string;
@@ -17,7 +18,7 @@ type Equipment = {
   flame: string;
   flameChance: string;
   potentials: [string, string, string];
-  potentialGoals: [string, string, string];
+  potentialGoals: string;
   potentialFDDifference: string;
 };
 
@@ -32,7 +33,7 @@ const defaultEquipment: Equipment = {
   flame: '0',
   flameChance: '0.00',
   potentials: ['---', '---', '---'],
-  potentialGoals: ['---', '---', '---'],
+  potentialGoals: '---',
   potentialFDDifference: '0.00',
 };
 
@@ -56,6 +57,8 @@ for (let i = 0; i < equipmentTypes.length; i++) {
   });
 }
 equipmentList[0].name = 'Genesis';
+equipmentList[1].name = 'PNo';
+equipmentList[2].name = 'Gold';
 
 const defaultCharacter: Character = {
   id: crypto.randomUUID(),
@@ -105,10 +108,14 @@ export default function Roster() {
   const tierList: string[] = ['---', 'T3', 'T4', 'T5', 'T6', 'T7'];
   const lowerWSEList: string[] = ['---', '12% Att/M.Att', '9% Att/M.Att', '40% Boss', '35% Boss', '30% Boss'];
   const higherWSEList: string[] = ['---', '13% Att/M.Att', '10% Att/M.Att', '40% Boss', '35% Boss', '30% Boss'];
+  const lowerWSEGoalList: string[] = ['---', '30% Att/M.Att', '33% Att/M.Att', '36% Att/M.Att', '20% Att/M.Att + 40% Boss'];
+  const higherWSEGoalList: string[] = ['---', '33% Att/M.Att', '36% Att/M.Att', '39% Att/M.Att', '23% Att/M.Att + 40% Boss'];
   const lowerList: string[] = ['Gold', 'PNo', 'Deimos', 'RFS', 'Evolving', 'CRA'];
   //const higherList: string[] = ['Absolab', 'Arcane', 'Genesis', 'Destiny', "Mitra's", 'Astra', 'Arcane', 'Sweetwater', 'Eternal']; might not need this
-  const lowerGeneralList: string[] = ['---', '12% Main', '9% Main', '9% All', '6% All', '12% Sub', '9% Sub'];
-  const higherGeneralList: string[] = ['---', '13% Main', '10% Main', '10% All', '7% All', '13% Sub', '10% Sub'];
+  const lowerGeneralList: string[] = ['---', '12% Main', '9% Main', '12% Sub', '9% Sub', '9% All', '6% All'];
+  const higherGeneralList: string[] = ['---', '13% Main', '10% Main', '13% Sub', '10% Sub', '10% All', '7% All'];
+  const lowerPotentialGoalList: string[] = ['---', '30% Main', '33% Main', '36% Main'];
+  const higherPotentialGoalList: string[] = ['---', '33% Main', '36% Main', '39% Main'];
 
   const [characters, setCharacters] = useState<Character[]>([defaultCharacter]);
   const [selectedId, setSelectedId] = useState<string>(defaultCharacter.id);
@@ -185,6 +192,17 @@ export default function Roster() {
     return sfList;
   }
 
+  const createEquipmentDropdownInput = (equipment: Equipment, variable: string, list: string[], size: string) => {
+    return <DropdownInput value={equipment[variable]} onChange={(v) => 
+      {
+        updateEquipment(selectedCharacter.id, equipment.id, {
+          [variable]: v,
+        })
+      }
+    }
+    list={list} size={size} />
+  }
+
   const renderCell = (field: string, equipment: Equipment) => {
     if (field === 'Name') {
       if (equipment.type === 'Weapon') {
@@ -193,13 +211,9 @@ export default function Roster() {
                   sf: (v === 'Genesis' || v === 'Destiny') ? '22' : equipment.sf,
                 })} list={equipmentLists[equipment.type]} size="w-22" />
       } else if (equipment.type === 'Secondary') {
-        return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
-                  name: v,
-                })} list={equipmentLists[equipment.type]} size="w-27" />
+        return createEquipmentDropdownInput(equipment, 'name', equipmentLists[equipment.type], 'w-27');
       } else {
-        return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
-                  name: v,
-                })} list={equipmentLists[equipment.type]} size="w-19" />
+        return createEquipmentDropdownInput(equipment, 'name', equipmentLists[equipment.type], 'w-21');
       }
     } else if (field === 'Starforce') {
       let sfList: string[] = [];
@@ -219,11 +233,12 @@ export default function Roster() {
         sfList = createSFList(0, 30);
       }
       if (sfList.length > 0) {
-        return <DropdownInput value={equipment.sf} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
-                  sf: v,
-                })} list={sfList} size="w-16" />
+        return createEquipmentDropdownInput(equipment, 'sf', sfList, 'w-16');
       }
     } else if (field === 'Flame') {
+      if (equipment.name === '---') {
+        return '';
+      }
       const hasNormalFlame = ['Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape'];
       if (equipment.type === 'Weapon') { // Will have special Attack + Boss Damage + Damage + Flame Score
         return  <div className="flex gap-1">
@@ -246,6 +261,9 @@ export default function Roster() {
                 })} min={0} max={300} size="w-13" />
       }
     } else if (field === 'Flame Upgrade %') {
+      if (equipment.name === '---') {
+        return '';
+      }
       const hasFlame = ['Weapon', 'Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape'];
       if (hasFlame.includes(equipment.type)) {
         return  <NumberInput value={equipment.flameChance} inLabel={'%'} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
@@ -259,7 +277,7 @@ export default function Roster() {
       const line = Number(field.at(-1)) || 1;
       const potentials: [string, string, string] = [...equipment.potentials];
       if (equipment.type === 'Weapon' || equipment.type === 'Secondary') {
-        return  <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
+        return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
             potentials[line-1] = v;
             updateEquipment(selectedCharacter.id, equipment.id, {
@@ -267,9 +285,9 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerWSEList : higherWSEList} size="w-24" />
+        list={lowerList.includes(equipment.name) ? lowerWSEList : higherWSEList} size="w-30" />
       } else if (equipment.type === 'Emblem') {
-        return  <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
+        return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
             potentials[line-1] = v;
             updateEquipment(selectedCharacter.id, equipment.id, {
@@ -277,9 +295,9 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerWSEList.slice(0, -3) : higherWSEList.slice(0, -2)} size="w-24" />
+        list={lowerList.includes(equipment.name) ? lowerWSEList.slice(0, -3) : higherWSEList.slice(0, -3)} size="w-30" />
       } else {
-        return  <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
+        return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
             potentials[line-1] = v;
             updateEquipment(selectedCharacter.id, equipment.id, {
@@ -289,6 +307,18 @@ export default function Roster() {
         }
         list={lowerList.includes(equipment.name) ? lowerGeneralList : higherGeneralList} size="w-24" />
       }
+    } else if (field === 'Potential Goals') {
+      if (equipment.name === '---') {
+        return '';
+      }
+      if (equipment.type === 'Weapon' || equipment.type === 'Secondary') {
+        return createEquipmentDropdownInput(equipment, 'potentialGoals', lowerList.includes(equipment.name) ? lowerWSEGoalList : higherWSEGoalList, 'w-50');
+      } else if (equipment.type === 'Emblem') {
+        return createEquipmentDropdownInput(equipment, 'potentialGoals', lowerList.includes(equipment.name) ? lowerWSEGoalList.slice(0, -1) : higherWSEGoalList.slice(0, -1), 'w-30');
+      } else {
+        return createEquipmentDropdownInput(equipment, 'potentialGoals', lowerList.includes(equipment.name) ? lowerPotentialGoalList : higherPotentialGoalList, 'w-24');
+      }
+
     }
     return '';
   };
@@ -369,11 +399,16 @@ export default function Roster() {
       </div>
 
       {/* FAQ ---------------------------------------------------------------------------------------------------- */}
-      <div className="panel mt-4 inline-flex flex-wrap flex-col gap-2 shadow">
+      <div className="panel mt-4 inline-flex flex-wrap flex-col gap-2 shadow max-w-300">
         <h1 className="">FAQ</h1>
         <h2 className="mt-4">What are the fields for the Weapon flame?</h2>
         From left to right, they are: Att/M.Att, Boss%, Dmg%, and Stat.
+        <h2 className="mt-4">How do I find the Potential FD% Diff?</h2>
+        On Scouter, go to Additional Spec Simulation and toggle it on, then go to input and insert the Potential Diff and Apply.
         <h2 className="mt-4">How do you find stat equivalencies for WhackyBeanz's Flame Calculator?</h2>
+        Most people just do a simple calculation for the the Flame Score as (Main Stat) + (All Stat% x 10) + (Substat / 10) + (Att or M.Att x 3).
+        However, if you really want to go in-depth, you can use flame scores relative to a character's progression.
+
         <ol>
           <li>1. Go to MapleScouter and after inputting all your data correctly, go to the detailed information page.</li>
           <li>2. Under the Stat Efficiency panel on the left, switch to Details, change the Final Damage dropdown to Main Stat to find equivalencies.</li>
