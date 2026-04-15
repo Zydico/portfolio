@@ -19,6 +19,7 @@ const fields: { label: string }[] = [
   { label: 'Potential Goals' },
   { label: 'Potential Diff' },
   { label: 'Potential FD% Diff'} ,
+  { label: 'Goal Avg Cost (B)'} ,
   { label: 'Pot FD% / Avg Bil' },
 ];
 
@@ -62,7 +63,7 @@ export default function Roster() {
     const newChar: Character = {
       ...defaultCharacter,
       id: crypto.randomUUID(),
-      name: 'Character ' + (characters.length+1)
+      name: 'Unnamed Char'
     }
     setCharacters(prev => [...prev, newChar]);
     setSelectedId(newChar.id);
@@ -203,7 +204,7 @@ export default function Roster() {
       if (hasFlame.includes(equipment.type)) {
         return  <NumberInput value={equipment.flameChance} inLabel={'%'} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                   flameChance: v,
-                })} min={0.0} max={100.0} size="w-18" />
+                })} min={0.00} max={100.00} size="w-18" />
       }
     } else if (field === 'Potentials' || field === 'PotentialsLine2' || field === 'PotentialsLine3') {
       if (equipment.name === '---') {
@@ -253,10 +254,69 @@ export default function Roster() {
       } else {
         return createEquipmentDropdownInput(equipment, 'potentialGoals', lowerList.includes(equipment.name) ? lowerPotentialGoalList : higherPotentialGoalList, 'w-24');
       }
+    } else if (field === 'Potential Diff') {
+      if (equipment.name === '---') {
+        return '';
+      }
+      if (equipment.type === 'Weapon' || equipment.type === 'Secondary' || equipment.type === 'Emblem') {
+        return <div>
+          {getWSEDiff(equipment)}
+        </div>
+      }
 
+    } else if (field === 'Potential FD% Diff') {
+      if (equipment.name === '---') {
+        return '';
+      }
+      return  <NumberInput value={equipment.potentialFDDifference} inLabel={'%'} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
+                potentialFDDifference: v,
+              })} min={0.00} max={100.00} size="w-18" />
     }
     return '';
   };
+
+  const splitPotential = (potential: string): [number, string] => {
+    if (potential === '---') {
+      return [0, 'Att/M.Att'];
+    }
+    const split = potential.split(' ');
+    return [Number(split[0].slice(0, -1)), split[1]];
+  }
+
+  const getWSEDiff = (equipment: Equipment): string => {
+    let att: number = 0;
+    let boss: number = 0;
+    for (const line of equipment.potentials) {
+      const split = splitPotential(line);
+      if (split[1] === 'Att/M.Att') {
+        att += split[0];
+      } else if (split[1] === 'Boss') {
+        boss += split[0];
+      }
+    }
+    const goal = equipment.potentialGoals.split(' ');
+    let goalAtt: number = 0;
+    let goalBoss: number = 0;
+    if (equipment.potentialGoals !== '---') {
+      goalAtt += Number(goal[0].slice(0, -1));      
+      if (goal.length > 2) { // Has Boss 
+        goalBoss += Number(goal[3].slice(0, -1));
+      }
+    }
+    let result: string = '';
+    const attDiff: number = goalAtt - att;
+    const bossDiff: number = goalBoss - boss;
+    if (attDiff !== 0) {
+      if (attDiff > 0) { result += '+' };
+      result += (attDiff + '% Att/M.Att');
+    }
+    if (bossDiff !== 0) { 
+      result += ' ' 
+      if (bossDiff > 0) { result += '+' };
+      result += (bossDiff + '% Boss');
+    };
+    return result;
+  }
 
   useEffect(() => { // Self healing effect to fix the desync issue for the selectedid when the very first character in the list is selected
     if (!characters.length) return;

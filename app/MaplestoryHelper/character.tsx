@@ -32,7 +32,7 @@ const defaultEquipment: Equipment = {
   attackFlame: '---',
   bossFlame: '---',
   damageFlame: '---',
-  flame: '0',
+  flame: '0.00',
   flameChance: '0.00',
   potentials: ['---', '---', '---'],
   potentialGoals: '---',
@@ -54,7 +54,7 @@ equipmentList[2].name = 'Gold';
 
 export const defaultCharacter: Character = {
   id: crypto.randomUUID(),
-  name: 'Character 1',
+  name: 'Unnamed Char',
   class: 'Adele',
   level: '290',
   arcane: '1350',
