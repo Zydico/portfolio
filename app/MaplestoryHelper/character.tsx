@@ -22,6 +22,8 @@ export type Equipment = {
   potentials: [string, string, string];
   potentialGoals: string;
   potentialFDDifference: string;
+  potentialGoalAvgCost: string;
+  potentialCostEffectiveness: string;
 };
 
 const defaultEquipment: Equipment = {
@@ -37,6 +39,8 @@ const defaultEquipment: Equipment = {
   potentials: ['---', '---', '---'],
   potentialGoals: '---',
   potentialFDDifference: '0.00',
+  potentialGoalAvgCost: '',
+  potentialCostEffectiveness: '',
 };
 
 const equipmentTypes: string[] = ['Weapon', 'Secondary', 'Emblem', 'Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape', 'Shoulder'];

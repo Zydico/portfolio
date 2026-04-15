@@ -19,8 +19,8 @@ const fields: { label: string }[] = [
   { label: 'Potential Goals' },
   { label: 'Potential Diff' },
   { label: 'Potential FD% Diff'} ,
-  { label: 'Goal Avg Cost (B)'} ,
-  { label: 'Pot FD% / Avg Bil' },
+  { label: 'Goal Avg Cost'} ,
+  { label: 'Cost Effectiveness' },
 ];
 
 export default function Roster() {
@@ -47,13 +47,45 @@ export default function Roster() {
   const tierList: string[] = ['---', 'T3', 'T4', 'T5', 'T6', 'T7'];
   const lowerWSEList: string[] = ['---', '12% Att/M.Att', '9% Att/M.Att', '40% Boss', '35% Boss', '30% Boss'];
   const higherWSEList: string[] = ['---', '13% Att/M.Att', '10% Att/M.Att', '40% Boss', '35% Boss', '30% Boss'];
-  const lowerWSEGoalList: string[] = ['---', '30% Att/M.Att', '33% Att/M.Att', '36% Att/M.Att', '20% Att/M.Att + 40% Boss'];
+  const lowerWSEGoalList: string[] = ['---', '30% Att/M.Att', '33% Att/M.Att', '36% Att/M.Att', '21% Att/M.Att + 40% Boss'];
   const higherWSEGoalList: string[] = ['---', '33% Att/M.Att', '36% Att/M.Att', '39% Att/M.Att', '23% Att/M.Att + 40% Boss'];
   const lowerList: string[] = ['Gold', 'PNo', 'Deimos', 'RFS', 'Evolving', 'CRA'];
   const lowerGeneralList: string[] = ['---', '12% Main', '9% Main', '12% Sub', '9% Sub', '9% All', '6% All'];
   const higherGeneralList: string[] = ['---', '13% Main', '10% Main', '13% Sub', '10% Sub', '10% All', '7% All'];
   const lowerPotentialGoalList: string[] = ['---', '30% Main', '33% Main', '36% Main'];
   const higherPotentialGoalList: string[] = ['---', '33% Main', '36% Main', '39% Main'];
+  const lowerGoalCosts: Record<string, Record<string, { cost: string; cube: string }>> = {
+    'Secondary': {
+      '30% Att/M.Att': { 'cost': '86.79', 'cube': 'Glowing' },
+      '33% Att/M.Att': { 'cost': '886.07', 'cube': 'Bright' },
+      '36% Att/M.Att': { 'cost': '29054.31', 'cube': 'Bright' },
+      '21% Att/M.Att + 40% Boss': { 'cost': '436.40', 'cube': 'Bright' },
+    },
+    'Emblem': {
+      '30% Att/M.Att': { 'cost': '38.42', 'cube': 'Glowing' },
+      '33% Att/M.Att': { 'cost': '378.48', 'cube': 'Bright' },
+      '36% Att/M.Att': { 'cost': '11804.14', 'cube': 'Bright' },
+    },
+  };
+  const higherGoalCosts: Record<string, Record<string, { cost: string; cube: string }>> = {
+    'Weapon': {
+      '33% Att/M.Att': { 'cost': '54.49', 'cube': 'Glowing' },
+      '36% Att/M.Att': { 'cost': '572.19', 'cube': 'Bright' },
+      '39% Att/M.Att': { 'cost': '19394.94', 'cube': 'Bright' },
+      '23% Att/M.Att + 40% Boss': { 'cost': '281.94', 'cube': 'Bright' },
+    },
+    'Secondary': {
+      '33% Att/M.Att': { 'cost': '89.65', 'cube': 'Glowing' },
+      '36% Att/M.Att': { 'cost': '902.22', 'cube': 'Bright' },
+      '39% Att/M.Att': { 'cost': '29583.71', 'cube': 'Bright' },
+      '23% Att/M.Att + 40% Boss': { 'cost': '444.35', 'cube': 'Bright' },
+    },
+    'Emblem': {
+      '33% Att/M.Att': { 'cost': '40.90', 'cube': 'Glowing' },
+      '36% Att/M.Att': { 'cost': '391.80', 'cube': 'Bright' },
+      '39% Att/M.Att': { 'cost': '12219.50', 'cube': 'Bright' },
+    }
+  };
 
   const { characters, setCharacters } = useCharacters();
   const [selectedId, setSelectedId] = useState<string>(characters[0].id);
@@ -248,9 +280,27 @@ export default function Roster() {
         return '';
       }
       if (equipment.type === 'Weapon' || equipment.type === 'Secondary') {
-        return createEquipmentDropdownInput(equipment, 'potentialGoals', lowerList.includes(equipment.name) ? lowerWSEGoalList : higherWSEGoalList, 'w-50');
+        return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
+          {
+            updateEquipment(selectedCharacter.id, equipment.id, {
+              potentialGoals: v,
+              potentialGoalAvgCost: getGoalAvgCost(equipment, v),
+              potentialCostEffectiveness: getCostEffectiveness(equipment, 'GoalChange', v)
+            })
+          }
+        }
+        list={lowerList.includes(equipment.name) ? lowerWSEGoalList : higherWSEGoalList} size="w-50" />
       } else if (equipment.type === 'Emblem') {
-        return createEquipmentDropdownInput(equipment, 'potentialGoals', lowerList.includes(equipment.name) ? lowerWSEGoalList.slice(0, -1) : higherWSEGoalList.slice(0, -1), 'w-30');
+        return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
+          {
+            updateEquipment(selectedCharacter.id, equipment.id, {
+              potentialGoals: v,
+              potentialGoalAvgCost: getGoalAvgCost(equipment, v),
+              potentialCostEffectiveness: getCostEffectiveness(equipment, 'GoalChange', v)
+            })
+          }
+        }
+        list={lowerList.includes(equipment.name) ? lowerWSEGoalList.slice(0, -1) : higherWSEGoalList.slice(0, -1)} size="w-40" />
       } else {
         return createEquipmentDropdownInput(equipment, 'potentialGoals', lowerList.includes(equipment.name) ? lowerPotentialGoalList : higherPotentialGoalList, 'w-24');
       }
@@ -263,14 +313,18 @@ export default function Roster() {
           {getWSEDiff(equipment)}
         </div>
       }
-
     } else if (field === 'Potential FD% Diff') {
-      if (equipment.name === '---') {
-        return '';
-      }
+      if (equipment.name === '---' || equipment.potentialGoals === '---') return '';
       return  <NumberInput value={equipment.potentialFDDifference} inLabel={'%'} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                 potentialFDDifference: v,
+                potentialCostEffectiveness: getCostEffectiveness(equipment, 'FDChange', v)
               })} min={0.00} max={100.00} size="w-18" />
+    } else if (field === 'Goal Avg Cost') {
+      if (equipment.name === '---') return '';
+      return <div>{equipment.potentialGoalAvgCost}</div>
+    } else if (field === 'Cost Effectiveness') {
+      if (equipment.name === '---') return '';
+      return <div>{equipment.potentialCostEffectiveness}</div>
     }
     return '';
   };
@@ -318,10 +372,34 @@ export default function Roster() {
     return result;
   }
 
+  const getGoalAvgCost = (equipment: Equipment, goal: string) => {
+    if (goal === '---') return '';
+    const list = lowerList.includes(equipment.name) ? lowerGoalCosts : higherGoalCosts;
+    const properties = list[equipment.type][goal];
+    return properties.cost + ' B (' + properties.cube + ')';
+  }
+
+  const getCostEffectiveness = (equipment: Equipment, changeType: string, newValue: string) => {
+    let output = '';
+    if (changeType === 'GoalChange') {
+      const avg = getGoalAvgCost(equipment, newValue);
+      const value = Number(avg.split(' ')[0]);
+      if (isNaN(Number(equipment.potentialFDDifference))) return '';
+      output = (Number(equipment.potentialFDDifference) / value * 1000).toFixed(2).toString();
+    } else if (changeType === 'FDChange') {
+      const avg = equipment.potentialGoalAvgCost;
+      const value = Number(avg.split(' ')[0]);
+      if (isNaN(value) || isNaN(Number(newValue))) return '';
+      output = (Number(newValue) / value * 1000).toFixed(2).toString();
+    }
+    if (output === '0' || output === '0.00' || output === 'NaN' || output === 'Infinity') return '';
+    return output;
+  }
+
   useEffect(() => { // Self healing effect to fix the desync issue for the selectedid when the very first character in the list is selected
     if (!characters.length) return;
     const exists = characters.some(c => c.id === selectedId);
-    if (!exists) {
+    if (!exists) { 
       setSelectedId(characters[0].id);
     }
   }, [characters, selectedId]);
@@ -408,6 +486,9 @@ export default function Roster() {
         From left to right, they are: Att/M.Att, Boss%, Dmg%, and Stat.
         <h2 className="mt-4">How do I find the Potential FD% Diff?</h2>
         On Scouter, go to Additional Spec Simulation and toggle it on, then go to input and insert the Potential Diff and Apply.
+        <h2 className="mt-4">What is the cost effectiveness?</h2>
+        It is simply, (Potential FD% Diff / Goal Avg Cost)
+        <p>It is also multiplied by 1000 to get a cleaner value. The higher the number, the better.</p>
         <h2 className="mt-4">How do you find stat equivalencies for WhackyBeanz's Flame Calculator?</h2>
         Most people just do a simple calculation for the the Flame Score as (Main Stat) + (All Stat% x 10) + (Substat / 10) + (Att or M.Att x 3).
         However, if you really want to go in-depth, you can use flame scores relative to a character's progression.
