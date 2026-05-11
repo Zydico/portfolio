@@ -45,10 +45,10 @@ export default function Roster() {
   };
 
   const tierList: string[] = ['---', 'T3', 'T4', 'T5', 'T6', 'T7'];
-  const lowerWSEList: string[] = ['---', '12% Att/M.Att', '9% Att/M.Att', '40% Boss', '35% Boss', '30% Boss'];
-  const higherWSEList: string[] = ['---', '13% Att/M.Att', '10% Att/M.Att', '40% Boss', '35% Boss', '30% Boss'];
-  const lowerWSEGoalList: string[] = ['---', '30% Att/M.Att', '33% Att/M.Att', '36% Att/M.Att', '21% Att/M.Att + 40% Boss'];
-  const higherWSEGoalList: string[] = ['---', '33% Att/M.Att', '36% Att/M.Att', '39% Att/M.Att', '23% Att/M.Att + 40% Boss'];
+  const lowerWSEList: string[] = ['---', '12% M/Att', '9% M/Att', '40% Boss', '35% Boss', '30% Boss'];
+  const higherWSEList: string[] = ['---', '13% M/Att', '10% M/Att', '40% Boss', '35% Boss', '30% Boss'];
+  const lowerWSEGoalList: string[] = ['---', '30% M/Att', '33% M/Att', '36% M/Att', '21% M/Att + 40% Boss'];
+  const higherWSEGoalList: string[] = ['---', '33% M/Att', '36% M/Att', '39% M/Att', '23% M/Att + 40% Boss'];
   const lowerList: string[] = ['Gold', 'PNo', 'Deimos', 'RFS', 'Evolving', 'CRA'];
   const lowerGeneralList: string[] = ['---', '12% Main', '9% Main', '12% Sub', '9% Sub', '9% All', '6% All'];
   const higherGeneralList: string[] = ['---', '13% Main', '10% Main', '13% Sub', '10% Sub', '10% All', '7% All'];
@@ -56,35 +56,65 @@ export default function Roster() {
   const higherPotentialGoalList: string[] = ['---', '33% Main', '36% Main', '39% Main'];
   const lowerGoalCosts: Record<string, Record<string, { cost: string; cube: string }>> = {
     'Secondary': {
-      '30% Att/M.Att': { 'cost': '86.79', 'cube': 'Glowing' },
-      '33% Att/M.Att': { 'cost': '886.07', 'cube': 'Bright' },
-      '36% Att/M.Att': { 'cost': '29054.31', 'cube': 'Bright' },
-      '21% Att/M.Att + 40% Boss': { 'cost': '436.40', 'cube': 'Bright' },
+      '30% M/Att': { 'cost': '86.79 B', 'cube': 'Glowing' },
+      '33% M/Att': { 'cost': '886.07 B', 'cube': 'Bright' },
+      '36% M/Att': { 'cost': '29.05 T', 'cube': 'Bright' },
+      '21% M/Att + 40% Boss': { 'cost': '436.40 B', 'cube': 'Bright' },
     },
     'Emblem': {
-      '30% Att/M.Att': { 'cost': '38.42', 'cube': 'Glowing' },
-      '33% Att/M.Att': { 'cost': '378.48', 'cube': 'Bright' },
-      '36% Att/M.Att': { 'cost': '11804.14', 'cube': 'Bright' },
+      '30% M/Att': { 'cost': '38.42 B', 'cube': 'Glowing' },
+      '33% M/Att': { 'cost': '378.48 B', 'cube': 'Bright' },
+      '36% M/Att': { 'cost': '11.80 T', 'cube': 'Bright' },
+    },
+    'Hat': {
+      '30% Main': { 'cost': '10.97 B', 'cube': 'Glowing' },
+      '33% Main': { 'cost': '93.28 B', 'cube': 'Bright' },
+      '36% Main': { 'cost': '2.42 T', 'cube': 'Bright' },
+    },
+    'Top': {
+      '30% Main': { 'cost': '13.81 B', 'cube': 'Glowing' },
+      '33% Main': { 'cost': '97.52 B', 'cube': 'Bright' },
+      '36% Main': { 'cost': '2.08 T', 'cube': 'Bright' },
+    },
+    'Bottom': {
+      '30% Main': { 'cost': '8.24 B', 'cube': 'Glowing' },
+      '33% Main': { 'cost': '58.64 B', 'cube': 'Bright' },
+      '36% Main': { 'cost': '1.26 T', 'cube': 'Bright' },
     },
   };
   const higherGoalCosts: Record<string, Record<string, { cost: string; cube: string }>> = {
     'Weapon': {
-      '33% Att/M.Att': { 'cost': '54.49', 'cube': 'Glowing' },
-      '36% Att/M.Att': { 'cost': '572.19', 'cube': 'Bright' },
-      '39% Att/M.Att': { 'cost': '19394.94', 'cube': 'Bright' },
-      '23% Att/M.Att + 40% Boss': { 'cost': '281.94', 'cube': 'Bright' },
+      '33% M/Att': { 'cost': '54.49 B', 'cube': 'Glowing' },
+      '36% M/Att': { 'cost': '572.19 B', 'cube': 'Bright' },
+      '39% M/Att': { 'cost': '19.39 T', 'cube': 'Bright' },
+      '23% M/Att + 40% Boss': { 'cost': '281.94 B', 'cube': 'Bright' },
     },
     'Secondary': {
-      '33% Att/M.Att': { 'cost': '89.65', 'cube': 'Glowing' },
-      '36% Att/M.Att': { 'cost': '902.22', 'cube': 'Bright' },
-      '39% Att/M.Att': { 'cost': '29583.71', 'cube': 'Bright' },
-      '23% Att/M.Att + 40% Boss': { 'cost': '444.35', 'cube': 'Bright' },
+      '33% M/Att': { 'cost': '89.65 B', 'cube': 'Glowing' },
+      '36% M/Att': { 'cost': '902.22 B', 'cube': 'Bright' },
+      '39% M/Att': { 'cost': '29.58 T', 'cube': 'Bright' },
+      '23% M/Att + 40% Boss': { 'cost': '444.35', 'cube': 'Bright' },
     },
     'Emblem': {
-      '33% Att/M.Att': { 'cost': '40.90', 'cube': 'Glowing' },
-      '36% Att/M.Att': { 'cost': '391.80', 'cube': 'Bright' },
-      '39% Att/M.Att': { 'cost': '12219.50', 'cube': 'Bright' },
-    }
+      '33% M/Att': { 'cost': '40.90 B', 'cube': 'Glowing' },
+      '36% M/Att': { 'cost': '391.80 B', 'cube': 'Bright' },
+      '39% M/Att': { 'cost': '12.22 T', 'cube': 'Bright' },
+    },
+    'Hat': {
+      '33% Main': { 'cost': '11.67 B', 'cube': 'Glowing' },
+      '36% Main': { 'cost': '96.60 B', 'cube': 'Bright' },
+      '39% Main': { 'cost': '2.50 T', 'cube': 'Bright' },
+    },
+    'Top': {
+      '33% Main': { 'cost': '14.69 B', 'cube': 'Glowing' },
+      '36% Main': { 'cost': '101.00 B', 'cube': 'Bright' },
+      '39% Main': { 'cost': '2.16 T', 'cube': 'Bright' },
+    },
+    'Bottom': {
+      '33% Main': { 'cost': '8.77 B', 'cube': 'Glowing' },
+      '36% Main': { 'cost': '60.73 B', 'cube': 'Bright' },
+      '39% Main': { 'cost': '1.31 T', 'cube': 'Bright' },
+    },
   };
 
   const { characters, setCharacters } = useCharacters();
@@ -289,7 +319,7 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerWSEGoalList : higherWSEGoalList} size="w-50" />
+        list={lowerList.includes(equipment.name) ? lowerWSEGoalList : higherWSEGoalList} size="w-43" />
       } else if (equipment.type === 'Emblem') {
         return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
           {
@@ -300,7 +330,18 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerWSEGoalList.slice(0, -1) : higherWSEGoalList.slice(0, -1)} size="w-40" />
+        list={lowerList.includes(equipment.name) ? lowerWSEGoalList.slice(0, -1) : higherWSEGoalList.slice(0, -1)} size="w-24" />
+      } else if (equipment.type === 'Hat' || equipment.type === 'Top' || equipment.type === 'Bottom') {
+        return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
+          {
+            updateEquipment(selectedCharacter.id, equipment.id, {
+              potentialGoals: v,
+              potentialGoalAvgCost: getGoalAvgCost(equipment, v),
+              potentialCostEffectiveness: getCostEffectiveness(equipment, 'GoalChange', v)
+            })
+          }
+        }
+        list={lowerList.includes(equipment.name) ? lowerPotentialGoalList : higherPotentialGoalList} size="w-23" />
       } else {
         return createEquipmentDropdownInput(equipment, 'potentialGoals', lowerList.includes(equipment.name) ? lowerPotentialGoalList : higherPotentialGoalList, 'w-24');
       }
@@ -311,6 +352,10 @@ export default function Roster() {
       if (equipment.type === 'Weapon' || equipment.type === 'Secondary' || equipment.type === 'Emblem') {
         return <div>
           {getWSEDiff(equipment)}
+        </div>
+      } else if (equipment.type === 'Hat' || equipment.type === 'Top' || equipment.type === 'Bottom') {
+        return <div>
+          {getPotentialDiff(equipment)}
         </div>
       }
     } else if (field === 'Potential FD% Diff') {
@@ -331,7 +376,7 @@ export default function Roster() {
 
   const splitPotential = (potential: string): [number, string] => {
     if (potential === '---') {
-      return [0, 'Att/M.Att'];
+      return [0, 'M/Att'];
     }
     const split = potential.split(' ');
     return [Number(split[0].slice(0, -1)), split[1]];
@@ -342,7 +387,7 @@ export default function Roster() {
     let boss: number = 0;
     for (const line of equipment.potentials) {
       const split = splitPotential(line);
-      if (split[1] === 'Att/M.Att') {
+      if (split[1] === 'M/Att') {
         att += split[0];
       } else if (split[1] === 'Boss') {
         boss += split[0];
@@ -362,7 +407,7 @@ export default function Roster() {
     const bossDiff: number = goalBoss - boss;
     if (attDiff !== 0) {
       if (attDiff > 0) { result += '+' };
-      result += (attDiff + '% Att/M.Att');
+      result += (attDiff + '% M/Att');
     }
     if (bossDiff !== 0) { 
       result += ' ' 
@@ -372,23 +417,60 @@ export default function Roster() {
     return result;
   }
 
+  const getPotentialDiff = (equipment: Equipment): string => {
+    let main: number = 0;
+    let sub: number = 0;
+    for (const line of equipment.potentials) {
+      const split = splitPotential(line);
+      if (split[1] === 'Main') {
+        main += split[0];
+      } else if (split[1] === 'Sub') {
+        sub += split[0];
+      } else if (split[1] === 'All') {
+        main += split[0];
+        sub += split[0];
+      }
+    }
+    const goal = equipment.potentialGoals.split(' ');
+    let goalStat: number = 0;
+    if (equipment.potentialGoals !== '---') {
+      goalStat += Number(goal[0].slice(0, -1));      
+    }
+    let result: string = '';
+    const statDiff: number = goalStat - main;
+    const subDiff: number = -sub;
+    if (statDiff !== 0) {
+      if (statDiff > 0) { result += '+' };
+      result += (statDiff + '% Main');
+    }
+    if (subDiff !== 0) { 
+      result += ' ' 
+      if (subDiff > 0) { result += '+' };
+      result += (subDiff + '% Sub');
+    };
+    return result;
+  }
+
   const getGoalAvgCost = (equipment: Equipment, goal: string) => {
     if (goal === '---') return '';
     const list = lowerList.includes(equipment.name) ? lowerGoalCosts : higherGoalCosts;
+    console.log(list);
     const properties = list[equipment.type][goal];
-    return properties.cost + ' B (' + properties.cube + ')';
+    return properties.cost + ' (' + properties.cube + ')';
   }
 
   const getCostEffectiveness = (equipment: Equipment, changeType: string, newValue: string) => {
     let output = '';
     if (changeType === 'GoalChange') {
       const avg = getGoalAvgCost(equipment, newValue);
-      const value = Number(avg.split(' ')[0]);
+      let value = Number(avg.split(' ')[0]);
+      if (Number(avg.split(' ')[1] == 'T')) value *= 1000;
       if (isNaN(Number(equipment.potentialFDDifference))) return '';
       output = (Number(equipment.potentialFDDifference) / value * 1000).toFixed(2).toString();
     } else if (changeType === 'FDChange') {
       const avg = equipment.potentialGoalAvgCost;
-      const value = Number(avg.split(' ')[0]);
+      let value = Number(avg.split(' ')[0]);
+      if (Number(avg.split(' ')[1] == 'T')) value *= 1000;
       if (isNaN(value) || isNaN(Number(newValue))) return '';
       output = (Number(newValue) / value * 1000).toFixed(2).toString();
     }
@@ -426,7 +508,7 @@ export default function Roster() {
       </div>
 
       {/* CHARACTER INFORMATION ---------------------------------------------------------------------------------------------------- */}
-      <div className="panel inline-flex flex-wrap flex-col gap-3 shadow"> 
+      <div className="panel inline-flex flex-wrap flex-col gap-3 shadow text-[10pt]"> 
         <div className="flex flex-row gap-6">
           <TextInput label='Name' value={selectedCharacter.name} onChange={(v) => updateCharacter(selectedCharacter.id, {
             name: v,
@@ -468,7 +550,7 @@ export default function Roster() {
                     <td rowSpan={(field.label == 'Potentials') ? 3 : 1} className="th">{field.label}</td>
                   }
                   {selectedCharacter.equipments.map((eq) => (
-                    <td key={eq.type} className="text-center min-w-29">
+                    <td key={eq.type} className="text-center min-w-37">
                       {renderCell(field.label, eq)}
                     </td>
                   ))}
@@ -483,7 +565,7 @@ export default function Roster() {
       <div className="panel mt-4 inline-flex flex-wrap flex-col gap-2 shadow max-w-300">
         <h1 className="">FAQ</h1>
         <h2 className="mt-4">What are the fields for the Weapon flame?</h2>
-        From left to right, they are: Att/M.Att, Boss%, Dmg%, and Stat.
+        From left to right, they are: M/Att, Boss%, Dmg%, and Stat.
         <h2 className="mt-4">How do I find the Potential FD% Diff?</h2>
         On Scouter, go to Additional Spec Simulation and toggle it on, then go to input and insert the Potential Diff and Apply.
         <h2 className="mt-4">What is the cost effectiveness?</h2>

@@ -21,7 +21,7 @@ export default function RootLayout({
           </section>
         </div>
         <section>
-            <div className="pl-44 pt-8 pb-8 pr-8 absolute min-w-full bg-(--color-maplestory-background-gray)">
+            <div className="pl-30 pt-3 pb-8 pr-8 absolute min-w-full bg-(--color-maplestory-background-gray)">
               <CharacterProvider>
                 {children}
               </CharacterProvider>
