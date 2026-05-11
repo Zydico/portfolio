@@ -97,11 +97,6 @@ input {
     font-size: var(--text-sm);
 }
 
-thead > tr > th {
-    position: sticky;
-    top: 0;
-}
-
 .maple-input {
     border: 1px solid var(--color-maplestory-light-gray-darker);
     box-shadow: var(--shadow-sm);

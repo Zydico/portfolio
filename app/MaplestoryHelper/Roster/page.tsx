@@ -571,6 +571,9 @@ export default function Roster() {
         <h2 className="mt-4">What is the cost effectiveness?</h2>
         It is simply, (Potential FD% Diff / Goal Avg Cost)
         <p>It is also multiplied by 1000 to get a cleaner value. The higher the number, the better.</p>
+        <h2 className="mt-4">How were the goal average costs found?</h2>
+        Values were simply collected using MathBro's cubing calculator. For items below level 160, the values are those for an item at level 150. 
+        For items level 160 or above, the values are those for an item at level 200.
         <h2 className="mt-4">How do you find stat equivalencies for WhackyBeanz's Flame Calculator?</h2>
         Most people just do a simple calculation for the the Flame Score as (Main Stat) + (All Stat% x 10) + (Substat / 10) + (Att or M.Att x 3).
         However, if you really want to go in-depth, you can use flame scores relative to a character's progression.

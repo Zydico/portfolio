@@ -387,7 +387,7 @@ const classInfo: ClassInfo[] = [
 export default function Resources() {
   return (
     <section id="resourcesPage">
-      <div className="panel shadow inline-flex flex-wrap flex-col">
+      <div className="panel shadow inline-flex flex-wrap flex-col resourcesPage">
         <h1 className="">Tools</h1>
         <table>
           <thead>
