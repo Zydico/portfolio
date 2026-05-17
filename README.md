@@ -5,7 +5,8 @@ This is my portfolio website that was developed using React, Next.js, Tailwind, 
 Initially built using Angular (https://zydico.github.io/Website/#/portfolio), I decided to build a new portfolio website from scratch using React after seeing that React has grown massively in popularity recently.
 
 ## Dev Log
-- 5/11/2026 - Aded avg cost and cost effectivness for Hat/Top/Bottom. TODO: Recalculate values for level 200 instead of 250 for higher level items.
+- 5/16/2026 - Added cd to hats and crit to gloves. Added potential functionality to all other armors too. 
+- 5/11/2026 - Added avg cost and cost effectiveness for Hat/Top/Bottom. TODO: Recalculate values for level 200 instead of 250 for higher level items.
 - 4/15/2026 - Added avg cost and cost effectiveness for WSE. TODO: Implement potential diff for armors including fake 3L, and avg cost + cost effectiveness
 - 4/14/2026 - Added potential Diff and potential FD Diff for WSE
 - 4/13/2026 - Added potential goal inputs. Moved character and equipment info into parent component for future use in other child components.

@@ -6,6 +6,7 @@ export type Character = {
   arcane: string;
   sacred: string;
   equipments: Equipment[];
+  showAdvanced: boolean;
 }
 
 export type Equipment = {
@@ -55,6 +56,13 @@ for (let i = 0; i < equipmentTypes.length; i++) {
 equipmentList[0].name = 'Genesis';
 equipmentList[1].name = 'PNo';
 equipmentList[2].name = 'Gold';
+equipmentList[3].name = 'CRA';
+equipmentList[4].name = 'CRA';
+equipmentList[5].name = 'CRA';
+equipmentList[6].name = 'Arcane';
+equipmentList[7].name = 'Arcane';
+equipmentList[8].name = 'Arcane';
+equipmentList[9].name = 'Arcane';
 
 export const defaultCharacter: Character = {
   id: crypto.randomUUID(),
@@ -64,4 +72,5 @@ export const defaultCharacter: Character = {
   arcane: '1350',
   sacred: '660',
   equipments: equipmentList,
+  showAdvanced: true,
 }
