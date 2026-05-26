@@ -8,136 +8,9 @@ import CheckboxInput from "../checkboxInput";
 import Spacer from "../spacer";
 import { useCharacters } from "../characterContext";
 import { Character, Equipment, defaultCharacter } from "../character";
-
-const fields: { label: string, advanced: boolean }[] = [
-  { label: 'Name', advanced: false },
-  { label: 'Starforce', advanced: false },
-  { label: 'Flame', advanced: false },
-  { label: 'Flame Upgrade %', advanced: true },
-  { label: 'Potentials', advanced: false },
-  { label: 'PotentialsLine2', advanced: false },
-  { label: 'PotentialsLine3', advanced: false },
-  { label: 'Potential Goals', advanced: true },
-  { label: 'Potential Diff', advanced: true },
-  { label: 'Potential FD% Diff', advanced: true } ,
-  { label: 'Goal Avg Cost', advanced: true } ,
-  { label: 'Cost Effectiveness', advanced: true },
-];
+import { CLASSES, FIELDS, EQUIPMENT_OPTIONS, TIERS, GEAR_POTENTIALS, LOWER_GEAR } from "./rosterConfig";
 
 export default function Roster() {
-  const classes: string[] = [
-    'Adele', 'Angelic Buster', 'Aran', 'Ark', 'Battle Mage', 'Bishop', 'Blaster', 'Blaze Wizard', 'Bowmaster', 'Buccaneer', 'Cadena', 'Cannoneer', 'Corsair', 'Dark Knight',
-    'Demon Avenger', 'Demon Slayer', 'Dual Blade', 'Evan', 'Fire/Poison', 'Hayato', 'Hero', 'Hoyoung', 'Ice/Lightning', 'Illium', 'Kain', 'Kaiser', 'Kanna', 'Khali', 'Kinesis',
-    'Lara', 'Luminous', 'Lynn', 'Marksman', 'Mercedes', 'Mechanic', 'Mihile', 'Mo Xuan', 'Night Lord', 'Night Walker', 'Paladin', 'Pathfinder', 'Phantom', 'Ren', 'Shade',
-    'Shadower', 'Sia Astelle', 'Thunder Breaker', 'Wild Hunter', 'Wind Archer', 'Xenon', 'Zero'
-  ];
-
-  const equipmentLists: Record<string, string[]> = {
-    Weapon: ['Absolab', 'Arcane', 'Genesis', 'Destiny'],
-    Emblem: ['---', 'Gold', "Mitra's"],
-    Secondary: ['---', 'PNo', 'Deimos', 'Astra', 'RFS', 'Arcane', 'Sweetwater', 'Evolving'],
-    Hat: ['---', 'CRA', 'Eternal'],
-    Top: ['---', 'CRA', 'Eternal'],
-    Bottom: ['---', 'CRA', 'Eternal'],
-    Cape: ['---', 'Absolab', 'Arcane', 'Eternal'],
-    Glove: ['---', 'Absolab', 'Arcane', 'Eternal'],
-    Shoe: ['---', 'Absolab', 'Arcane', 'Eternal'],
-    Shoulder: ['---', 'Absolab', 'Arcane', 'Eternal'],
-  };
-
-  const tierList: string[] = ['---', 'T3', 'T4', 'T5', 'T6', 'T7'];
-  const lowerWSEList: string[] = ['---', '12% M/Att', '9% M/Att', '40% Boss', '35% Boss', '30% Boss'];
-  const higherWSEList: string[] = ['---', '13% M/Att', '10% M/Att', '40% Boss', '35% Boss', '30% Boss'];
-  const lowerWSEGoalList: string[] = ['---', '30% M/Att', '33% M/Att', '21% M/Att + 40% Boss'];
-  const higherWSEGoalList: string[] = ['---', '33% M/Att', '36% M/Att', '23% M/Att + 40% Boss'];
-  const lowerList: string[] = ['Gold', 'PNo', 'Deimos', 'RFS', 'Evolving', 'CRA'];
-  const lowerGeneralList: string[] = ['---', '12% Main', '9% Main', '12% Sub', '9% Sub', '9% All', '6% All'];
-  const higherGeneralList: string[] = ['---', '13% Main', '10% Main', '13% Sub', '10% Sub', '10% All', '7% All'];
-  const lowerHatList: string[] = ['---', '12% Main', '9% Main', '12% Sub', '9% Sub', '9% All', '6% All', '-2s', '-1s'];
-  const higherHatList: string[] = ['---', '13% Main', '10% Main', '13% Sub', '10% Sub', '10% All', '7% All', '-2s', '-1s'];
-  const lowerGloveList: string[] = ['---', '8% Crit', '12% Main', '9% Main', '12% Sub', '9% Sub', '9% All', '6% All'];
-  const higherGloveList: string[] = ['---', '8% Crit', '13% Main', '10% Main', '13% Sub', '10% Sub', '10% All', '7% All'];
-  const lowerPotentialGoalList: string[] = ['---', '30% Main', '33% Main'];
-  const higherPotentialGoalList: string[] = ['---', '33% Main', '36% Main'];
-  const lowerHatPotentialGoalList: string[] = ['---', '30% Main', '33% Main', '-2s + 18%', '-2s + 21%', '-4s', '-4s + 9%'];
-  const higherHatPotentialGoalList: string[] = ['---', '33% Main', '36% Main', '-2s + 20%', '-2s + 23%', '-4s', '-4s + 10%'];
-  const higherGlovePotentialGoalList: string[] = ['---', '16% Crit', '16% Crit + 10%'];
-  const lowerGoalCosts: Record<string, Record<string, { cost: string; cube: string }>> = {
-    'Secondary': {
-      '30% M/Att': { 'cost': '86.79 B', 'cube': 'Glowing' },
-      '33% M/Att': { 'cost': '886.07 B', 'cube': 'Bright' },
-      '21% M/Att + 40% Boss': { 'cost': '436.40 B', 'cube': 'Bright' },
-    },
-    'Emblem': {
-      '30% M/Att': { 'cost': '38.42 B', 'cube': 'Glowing' },
-      '33% M/Att': { 'cost': '378.48 B', 'cube': 'Bright' },
-    },
-    'Hat': {
-      '30% Main': { 'cost': '10.97 B', 'cube': 'Glowing' },
-      '33% Main': { 'cost': '93.28 B', 'cube': 'Bright' },
-      '-2s + 20%': { 'cost': '7.69 B', 'cube': 'Glowing' },
-      '-2s + 23%': { 'cost': '91.4 B', 'cube': 'Bright' },
-      '-4s': { 'cost': '35.90 B', 'cube': 'Bright' },
-      '-4s + 9%': { 'cost': '210.00 B', 'cube': 'Bright' },
-    },
-    'Top': {
-      '30% Main': { 'cost': '13.81 B', 'cube': 'Glowing' },
-      '33% Main': { 'cost': '97.52 B', 'cube': 'Bright' },
-    },
-    'Bottom': {
-      '30% Main': { 'cost': '8.24 B', 'cube': 'Glowing' },
-      '33% Main': { 'cost': '58.64 B', 'cube': 'Bright' },
-    }
-  };
-  const higherGoalCosts: Record<string, Record<string, { cost: string; cube: string }>> = {
-    'Weapon': {
-      '33% M/Att': { 'cost': '55.74 B', 'cube': 'Glowing' },
-      '36% M/Att': { 'cost': '579.51 B', 'cube': 'Bright' },
-      '23% M/Att + 40% Boss': { 'cost': '285.55 B', 'cube': 'Bright' },
-    },
-    'Secondary': {
-      '33% M/Att': { 'cost': '89.65 B', 'cube': 'Glowing' },
-      '36% M/Att': { 'cost': '902.22 B', 'cube': 'Bright' },
-      '23% M/Att + 40% Boss': { 'cost': '444.35', 'cube': 'Bright' },
-    },
-    'Emblem': {
-      '33% M/Att': { 'cost': '40.90 B', 'cube': 'Glowing' },
-      '36% M/Att': { 'cost': '391.80 B', 'cube': 'Bright' },
-    },
-    'Hat': {
-      '33% Main': { 'cost': '11.28 B', 'cube': 'Glowing' },
-      '36% Main': { 'cost': '94.73 B', 'cube': 'Bright' },
-      '-2s + 20%': { 'cost': '7.91 B', 'cube': 'Glowing' },
-      '-2s + 23%': { 'cost': '94.8 B', 'cube': 'Bright' },
-      '-4s': { 'cost': '36.46 B', 'cube': 'Bright' },
-      '-4s + 10%': { 'cost': '213.27 B', 'cube': 'Bright' },
-    },
-    'Top': {
-      '33% Main': { 'cost': '14.20 B', 'cube': 'Glowing' },
-      '36% Main': { 'cost': '99.04 B', 'cube': 'Bright' },
-    },
-    'Bottom': {
-      '33% Main': { 'cost': '8.47 B', 'cube': 'Glowing' },
-      '36% Main': { 'cost': '59.55 B', 'cube': 'Bright' },
-    },
-    'Glove': {
-      '16% Crit': { 'cost': '8.82 B', 'cube': 'Glowing' },
-      '16% Crit + 10%': { 'cost': '54.01 B', 'cube': 'Bright' },
-    },
-    'Shoe': {
-      '33% Main': { 'cost': '9.51 B', 'cube': 'Glowing' },
-      '36% Main': { 'cost': '71.77 B', 'cube': 'Bright' },
-    },
-    'Cape': {
-      '33% Main': { 'cost': '7.41 B', 'cube': 'Glowing' },
-      '36% Main': { 'cost': '55.63 B', 'cube': 'Bright' },
-    },
-    'Shoulder': {
-      '33% Main': { 'cost': '7.41 B', 'cube': 'Glowing' },
-      '36% Main': { 'cost': '55.63 B', 'cube': 'Bright' },
-    },
-  };
-
   const { characters, setCharacters } = useCharacters();
   const [selectedId, setSelectedId] = useState<string>(characters[0].id);
   const selectedCharacter = characters.find(c => c.id === selectedId) ?? characters[0];
@@ -157,7 +30,6 @@ export default function Roster() {
       const index = characters.findIndex(c => c.id === selectedId);
       const newCharacters = characters.filter(c => c.id !== selectedId); 
       let nextSelectedId: string;
-      
       if (index < newCharacters.length) {
         nextSelectedId = newCharacters[index].id;
       } else {
@@ -222,17 +94,25 @@ export default function Roster() {
     list={list} size={size} />
   }
 
+  const createGoalOptionList = (options: any) => {
+    const list = [];
+    for (const option of options) {
+      list.push(option['Option']);
+    }
+    return list;
+  }
+
   const renderCell = (field: string, equipment: Equipment) => {
     if (field === 'Name') {
       if (equipment.type === 'Weapon') {
         return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                   name: v,
                   sf: (v === 'Genesis' || v === 'Destiny') ? '22' : equipment.sf,
-                })} list={equipmentLists[equipment.type]} size="w-22" />
+                })} list={EQUIPMENT_OPTIONS[equipment.type]} size="w-22" />
       } else if (equipment.type === 'Secondary') {
-        return createEquipmentDropdownInput(equipment, 'name', equipmentLists[equipment.type], 'w-27');
+        return createEquipmentDropdownInput(equipment, 'name', EQUIPMENT_OPTIONS[equipment.type], 'w-27');
       } else {
-        return createEquipmentDropdownInput(equipment, 'name', equipmentLists[equipment.type], 'w-21');
+        return createEquipmentDropdownInput(equipment, 'name', EQUIPMENT_OPTIONS[equipment.type], 'w-21');
       }
     } else if (field === 'Starforce') {
       let sfList: string[] = [];
@@ -258,23 +138,23 @@ export default function Roster() {
       if (equipment.name === '---') {
         return '';
       }
-      const hasNormalFlame = ['Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape'];
+      const hasFlame = ['Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape'];
       if (equipment.type === 'Weapon') { // Will have special Attack + Boss Damage + Damage + Flame Score
         return  <div className="flex gap-1">
                   <DropdownInput value={equipment.attackFlame} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                     attackFlame: v,
-                  })} list={tierList} size="w-12" />
+                  })} list={TIERS} size="w-12" />
                   <DropdownInput value={equipment.bossFlame} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                     bossFlame: v,
-                  })} list={tierList} size="w-12" />
+                  })} list={TIERS} size="w-12" />
                   <DropdownInput value={equipment.damageFlame} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                     damageFlame: v,
-                  })} list={tierList} size="w-12" />
+                  })} list={TIERS} size="w-12" />
                   <NumberInput value={equipment.flame} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                     flame: v,
                   })} min={0} max={300} size="w-13" />
                 </div>
-      } else if (hasNormalFlame.includes(equipment.type)) {
+      } else if (hasFlame.includes(equipment.type)) {
         return  <NumberInput value={equipment.flame} onChange={(v) => updateEquipment(selectedCharacter.id, equipment.id, {
                   flame: v,
                 })} min={0} max={300} size="w-13" />
@@ -295,7 +175,7 @@ export default function Roster() {
       }
       const line = Number(field.at(-1)) || 1;
       const potentials: [string, string, string] = [...equipment.potentials];
-      if (equipment.type === 'Weapon' || equipment.type === 'Secondary') {
+      if (equipment.type === 'Weapon') {
         return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
             potentials[line-1] = v;
@@ -304,7 +184,17 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerWSEList : higherWSEList} size="w-30" />
+        list={GEAR_POTENTIALS.Lines.WeaponHigher} size="w-30" />
+      } else if (equipment.type === 'Secondary') {
+        return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
+          {
+            potentials[line-1] = v;
+            updateEquipment(selectedCharacter.id, equipment.id, {
+              potentials: potentials,
+            })
+          }
+        }
+        list={LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Lines.SecondaryLower : GEAR_POTENTIALS.Lines.SecondaryHigher} size="w-30" />
       } else if (equipment.type === 'Emblem') {
         return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
@@ -314,7 +204,7 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerWSEList.slice(0, -3) : higherWSEList.slice(0, -3)} size="w-30" /> // Slice off boss damage from list
+        list={LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Lines.EmblemLower : GEAR_POTENTIALS.Lines.EmblemHigher} size="w-30" />
       } else if (equipment.type === 'Hat') {
         return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
@@ -324,7 +214,7 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerHatList : higherHatList} size="w-24" />
+        list={LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Lines.HatLower : GEAR_POTENTIALS.Lines.HatHigher} size="w-24" />
       } else if (equipment.type === 'Glove') {
         return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
@@ -334,7 +224,7 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerGloveList : higherGloveList} size="w-24" />
+        list={GEAR_POTENTIALS.Lines.GloveHigher} size="w-24" />
       } else {
         return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
@@ -344,13 +234,13 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerGeneralList : higherGeneralList} size="w-24" />
+        list={LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Lines.GeneralLower : GEAR_POTENTIALS.Lines.GeneralHigher} size="w-24" />
       }
     } else if (field === 'Potential Goals') {
       if (equipment.name === '---') {
         return '';
       }
-      if (equipment.type === 'Weapon' || equipment.type === 'Secondary') {
+      if (equipment.type === 'Weapon') {
         return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
           {
             updateEquipment(selectedCharacter.id, equipment.id, {
@@ -359,8 +249,19 @@ export default function Roster() {
               potentialCostEffectiveness: getCostEffectiveness(equipment, 'GoalChange', v)
             })
           }
-        }
-        list={lowerList.includes(equipment.name) ? lowerWSEGoalList : higherWSEGoalList} size="w-43" />
+        }       
+        list={createGoalOptionList(GEAR_POTENTIALS.Goals.WeaponHigher)} size="w-43" /> 
+      } else if (equipment.type === 'Secondary') {
+        return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
+          {
+            updateEquipment(selectedCharacter.id, equipment.id, {
+              potentialGoals: v,
+              potentialGoalAvgCost: getGoalAvgCost(equipment, v),
+              potentialCostEffectiveness: getCostEffectiveness(equipment, 'GoalChange', v)
+            })
+          }
+        }       
+        list={LOWER_GEAR.includes(equipment.name) ? createGoalOptionList(GEAR_POTENTIALS.Goals.SecondaryLower) : createGoalOptionList(GEAR_POTENTIALS.Goals.SecondaryHigher)} size="w-43" /> 
       } else if (equipment.type === 'Emblem') {
         return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
           {
@@ -371,7 +272,7 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerWSEGoalList.slice(0, -1) : higherWSEGoalList.slice(0, -1)} size="w-24" />
+        list={LOWER_GEAR.includes(equipment.name) ? createGoalOptionList(GEAR_POTENTIALS.Goals.EmblemLower) : createGoalOptionList(GEAR_POTENTIALS.Goals.EmblemHigher)} size="w-24" /> 
       } else if (equipment.type === 'Hat') {
         return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
           {
@@ -382,7 +283,7 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerHatPotentialGoalList : higherHatPotentialGoalList} size="w-23" />
+        list={LOWER_GEAR.includes(equipment.name) ? createGoalOptionList(GEAR_POTENTIALS.Goals.HatLower) : createGoalOptionList(GEAR_POTENTIALS.Goals.HatHigher)} size="w-23" /> 
       } else if (equipment.type === 'Glove') {
         return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
           {
@@ -393,8 +294,8 @@ export default function Roster() {
             })
           }
         }
-        list={higherGlovePotentialGoalList} size="w-32" />        
-      } else if (equipment.type === 'Top' || equipment.type === 'Bottom' || equipment.type === 'Shoe' || equipment.type === 'Cape' || equipment.type === 'Shoulder') {
+        list={createGoalOptionList(GEAR_POTENTIALS.Goals.GloveHigher)} size="w-32" />        
+      } else if (equipment.type === 'Top') {
         return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
           {
             updateEquipment(selectedCharacter.id, equipment.id, {
@@ -404,19 +305,64 @@ export default function Roster() {
             })
           }
         }
-        list={lowerList.includes(equipment.name) ? lowerPotentialGoalList : higherPotentialGoalList} size="w-23" />
+        list={LOWER_GEAR.includes(equipment.name) ? createGoalOptionList(GEAR_POTENTIALS.Goals.TopLower) : createGoalOptionList(GEAR_POTENTIALS.Goals.TopHigher)} size="w-23" />
+      } else if (equipment.type === 'Bottom') {
+        return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
+          {
+            updateEquipment(selectedCharacter.id, equipment.id, {
+              potentialGoals: v,
+              potentialGoalAvgCost: getGoalAvgCost(equipment, v),
+              potentialCostEffectiveness: getCostEffectiveness(equipment, 'GoalChange', v)
+            })
+          }
+        }
+        list={LOWER_GEAR.includes(equipment.name) ? createGoalOptionList(GEAR_POTENTIALS.Goals.BottomLower) : createGoalOptionList(GEAR_POTENTIALS.Goals.BottomHigher)} size="w-23" />
+      } else if (equipment.type === 'Shoe') {
+        return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
+          {
+            updateEquipment(selectedCharacter.id, equipment.id, {
+              potentialGoals: v,
+              potentialGoalAvgCost: getGoalAvgCost(equipment, v),
+              potentialCostEffectiveness: getCostEffectiveness(equipment, 'GoalChange', v)
+            })
+          }
+        }
+        list={createGoalOptionList(GEAR_POTENTIALS.Goals.ShoeHigher)} size="w-23" />
+      } else if (equipment.type === 'Cape') {
+        return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
+          {
+            updateEquipment(selectedCharacter.id, equipment.id, {
+              potentialGoals: v,
+              potentialGoalAvgCost: getGoalAvgCost(equipment, v),
+              potentialCostEffectiveness: getCostEffectiveness(equipment, 'GoalChange', v)
+            })
+          }
+        }
+        list={createGoalOptionList(GEAR_POTENTIALS.Goals.CapeHigher)} size="w-23" />
+      } else if (equipment.type === 'Shoulder') {
+        return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
+          {
+            updateEquipment(selectedCharacter.id, equipment.id, {
+              potentialGoals: v,
+              potentialGoalAvgCost: getGoalAvgCost(equipment, v),
+              potentialCostEffectiveness: getCostEffectiveness(equipment, 'GoalChange', v)
+            })
+          }
+        }
+        list={createGoalOptionList(GEAR_POTENTIALS.Goals.ShoulderHigher)} size="w-23" />
       } else {
-        return createEquipmentDropdownInput(equipment, 'potentialGoals', lowerList.includes(equipment.name) ? lowerPotentialGoalList : higherPotentialGoalList, 'w-24');
+        return '';
       }
     } else if (field === 'Potential Diff') {
-      if (equipment.name === '---') {
+      if (equipment.name === '---' || equipment.potentialGoals === '---') {
         return '';
       }
       if (equipment.type === 'Weapon' || equipment.type === 'Secondary' || equipment.type === 'Emblem') {
         return <div>
           {getWSEDiff(equipment)}
         </div>
-      } else if (equipment.type === 'Hat' || equipment.type === 'Top' || equipment.type === 'Bottom' || equipment.type === 'Glove') {
+      } else if (equipment.type === 'Hat' || equipment.type === 'Top' || equipment.type === 'Bottom' || equipment.type === 'Glove' || equipment.type === 'Shoe' ||
+                 equipment.type === 'Cape' || equipment.type === 'Shoulder') {
         return <div>
           {getPotentialDiff(equipment)}
         </div>
@@ -549,10 +495,9 @@ export default function Roster() {
 
   const getGoalAvgCost = (equipment: Equipment, goal: string) => {
     if (goal === '---') return '';
-    const list = lowerList.includes(equipment.name) ? lowerGoalCosts : higherGoalCosts;
-    console.log(goal);
-    const properties = list[equipment.type][goal];
-    return properties.cost + ' (' + properties.cube + ')';
+    const list = LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Goals[equipment.type + 'Lower'] : GEAR_POTENTIALS.Goals[equipment.type + 'Higher'];
+    const properties = list.find(obj => (obj as any)['Option'] === goal);
+    return (properties as any)['Cost'] + ' (' + (properties as any)['Cube'] + ')';
   }
 
   const getCostEffectiveness = (equipment: Equipment, changeType: string, newValue: string) => {
@@ -611,7 +556,7 @@ export default function Roster() {
           })} maxLength={12} size="w-30" />
           <DropdownInput label='Class' value={selectedCharacter.class} onChange={(v) => updateCharacter(selectedCharacter.id, {
             class: v,
-          })} list={classes} size="w-40" />
+          })} list={CLASSES} size="w-40" />
           <CheckboxInput label='Show Advanced' value={selectedCharacter.showAdvanced} onChange={(v) => updateCharacter(selectedCharacter.id, {
             showAdvanced: v,
           })} />
@@ -643,7 +588,7 @@ export default function Roster() {
               </tr>
             </thead>
             <tbody>
-              {fields.map((field) => (
+              {FIELDS.map((field) => (
                 <tr key={field.label}>
                   {(!field.advanced || (field.advanced && selectedCharacter.showAdvanced)) && (
                     <>
