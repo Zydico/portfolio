@@ -184,7 +184,7 @@ export default function Roster() {
             })
           }
         }
-        list={GEAR_POTENTIALS.Lines.WeaponHigher} size="w-30" />
+        list={GEAR_POTENTIALS.Lines.WeaponHigher as string[]} size="w-30" />
       } else if (equipment.type === 'Secondary') {
         return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
@@ -194,7 +194,7 @@ export default function Roster() {
             })
           }
         }
-        list={LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Lines.SecondaryLower : GEAR_POTENTIALS.Lines.SecondaryHigher} size="w-30" />
+        list={LOWER_GEAR.includes(equipment.name) ? (GEAR_POTENTIALS.Lines.SecondaryLower as string[]) : (GEAR_POTENTIALS.Lines.SecondaryHigher as string[])} size="w-30" />
       } else if (equipment.type === 'Emblem') {
         return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
@@ -204,7 +204,7 @@ export default function Roster() {
             })
           }
         }
-        list={LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Lines.EmblemLower : GEAR_POTENTIALS.Lines.EmblemHigher} size="w-30" />
+        list={LOWER_GEAR.includes(equipment.name) ? (GEAR_POTENTIALS.Lines.EmblemLower as string[]) : (GEAR_POTENTIALS.Lines.EmblemHigher as string[])} size="w-30" />
       } else if (equipment.type === 'Hat') {
         return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
@@ -214,7 +214,7 @@ export default function Roster() {
             })
           }
         }
-        list={LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Lines.HatLower : GEAR_POTENTIALS.Lines.HatHigher} size="w-24" />
+        list={LOWER_GEAR.includes(equipment.name) ? (GEAR_POTENTIALS.Lines.HatLower as string[]) : (GEAR_POTENTIALS.Lines.HatHigher as string[])} size="w-24" />
       } else if (equipment.type === 'Glove') {
         return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
@@ -224,7 +224,7 @@ export default function Roster() {
             })
           }
         }
-        list={GEAR_POTENTIALS.Lines.GloveHigher} size="w-24" />
+        list={GEAR_POTENTIALS.Lines.GloveHigher as string[]} size="w-24" />
       } else {
         return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
           {
@@ -234,7 +234,7 @@ export default function Roster() {
             })
           }
         }
-        list={LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Lines.GeneralLower : GEAR_POTENTIALS.Lines.GeneralHigher} size="w-24" />
+        list={LOWER_GEAR.includes(equipment.name) ? (GEAR_POTENTIALS.Lines.GeneralLower as string[]) : (GEAR_POTENTIALS.Lines.GeneralHigher as string[])} size="w-24" />
       }
     } else if (field === 'Potential Goals') {
       if (equipment.name === '---') {
@@ -621,7 +621,7 @@ export default function Roster() {
         <p>It is also multiplied by 1000 to get a cleaner value. The higher the number, the better.</p>
         <h2 className="mt-4">How were the goal average costs found?</h2>
         Values were simply collected using MathBro's cubing calculator. For items below level 160, the values are those for an item at level 150. 
-        For items level 160 or above, the values are those for an item at level 200.
+        For items level 160 or above, the values are those for an item at level 200 or 250 depending on the piece.
         <h2 className="mt-4">How do you find stat equivalencies for WhackyBeanz's Flame Calculator?</h2>
         Most people just do a simple calculation for the the Flame Score as (Main Stat) + (All Stat% x 10) + (Substat / 10) + (Att or M.Att x 3).
         However, if you really want to go in-depth, you can use flame scores relative to a character's progression.
