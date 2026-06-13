@@ -252,5 +252,26 @@
             "MaxParty": 3,
             "Traces": 500
         }
+    ],
+    "Malefic Star": [
+        {
+            "Difficulty": "Normal",
+            "Crystal": 0,
+            "Level": 280,
+            "HP": [3288000000000000, 100000],
+            "Symbol": 400,
+            "SymbolType": "Sacred",
+            "MaxParty": 3
+        }, 
+        {
+            "Difficulty": "Hard",
+            "Crystal": 0,
+            "Level": 280,
+            "HP": [14740000000000000, 100000],
+            "Symbol": 550,
+            "SymbolType": "Sacred",
+            "MaxParty": 3,
+            "Notes": "P2 at 80%, P3 at 40%"
+        }
     ]
 }
