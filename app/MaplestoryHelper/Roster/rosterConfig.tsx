@@ -34,8 +34,16 @@ export const EQUIPMENT_OPTIONS: Record<string, string[]> = {
 };
 
 export const TIERS: string[] = ['---', 'T3', 'T4', 'T5', 'T6', 'T7'];
+export type GoalDef = {
+    Option: string;
+    Cost?: string;
+    Cube?: string;
+};
 
-export const GEAR_POTENTIALS: Record<string, Record<string, string[] | {}[]>>  = {
+export const GEAR_POTENTIALS: {
+    Lines: Record<string, string[]>;
+    Goals: Record<string, GoalDef[]>;
+} = {
     'Lines': {
         'WeaponHigher': ['---', '13% M/Att', '10% M/Att', '40% Boss', '35% Boss', '30% Boss'],
         'SecondaryLower': ['---', '12% M/Att', '9% M/Att', '40% Boss', '35% Boss', '30% Boss'],
@@ -77,12 +85,14 @@ export const GEAR_POTENTIALS: Record<string, Record<string, string[] | {}[]>>  =
             { Option: '36% M/Att', Cost: '391.80 B', Cube: 'Bright' }, 
         ],
         'HatLower': [
-            { Option: '---' },
+            { Option: '---' }, 
+            { Option: '27% Main', Cost: '3.90 B', Cube: 'Glowing' }, 
             { Option: '30% Main', Cost: '10.97 B', Cube: 'Glowing' }, 
             { Option: '-2s + 18%', Cost: '7.66 B', Cube: 'Glowing' }, 
         ],
         'HatHigher': [
             { Option: '---' },
+            { Option: '30% Main', Cost: '4.15 B', Cube: 'Glowing' }, 
             { Option: '33% Main', Cost: '11.67 B', Cube: 'Glowing' }, 
             { Option: '36% Main', Cost: '96.60 B', Cube: 'Bright' }, 
             { Option: '-2s + 20%', Cost: '7.69 B', Cube: 'Glowing' }, 
@@ -97,34 +107,41 @@ export const GEAR_POTENTIALS: Record<string, Record<string, string[] | {}[]>>  =
         ],
         'TopLower': [
             { Option: '---' },
+            { Option: '27% Main', Cost: '5.05 B', Cube: 'Glowing' },
             { Option: '30% Main', Cost: '13.81 B', Cube: 'Glowing' },
         ],
         'TopHigher': [
             { Option: '---' },
+            { Option: '30% Main', Cost: '5.38 B', Cube: 'Glowing' },
             { Option: '33% Main', Cost: '14.20 B', Cube: 'Glowing' },
             { Option: '36% Main', Cost: '99.04 B', Cube: 'Bright' },
         ],
         'BottomLower': [
             { Option: '---' },
+            { Option: '27% Main', Cost: '3.01 B', Cube: 'Glowing' },
             { Option: '30% Main', Cost: '8.24 B', Cube: 'Glowing' },
         ],
         'BottomHigher': [
             { Option: '---' },
+            { Option: '30% Main', Cost: '3.21 B', Cube: 'Glowing' },
             { Option: '33% Main', Cost: '8.47 B', Cube: 'Glowing' },
             { Option: '36% Main', Cost: '59.55 B', Cube: 'Bright' },
         ],
         'ShoeHigher': [
             { Option: '---' },
+            { Option: '30% Main', Cost: '3.44 B', Cube: 'Glowing' },
             { Option: '33% Main', Cost: '9.51 B', Cube: 'Glowing' },
             { Option: '36% Main', Cost: '71.77 B', Cube: 'Bright' },
         ],
         'CapeHigher': [
             { Option: '---' },
+            { Option: '30% Main', Cost: '2.69 B', Cube: 'Glowing' },
             { Option: '33% Main', Cost: '7.41 B', Cube: 'Glowing' },
             { Option: '36% Main', Cost: '55.63 B', Cube: 'Bright' },
         ],
         'ShoulderHigher': [
             { Option: '---' },
+            { Option: '30% Main', Cost: '2.69 B', Cube: 'Glowing' },
             { Option: '33% Main', Cost: '7.41 B', Cube: 'Glowing' },
             { Option: '36% Main', Cost: '56.63 B', Cube: 'Bright' },
         ]

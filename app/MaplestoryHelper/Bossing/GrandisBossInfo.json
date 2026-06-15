@@ -261,7 +261,8 @@
             "HP": [3288000000000000, 100000],
             "Symbol": 400,
             "SymbolType": "Sacred",
-            "MaxParty": 3
+            "MaxParty": 3,
+            "Notes": "P2 at 80%, P3 at 40%"
         }, 
         {
             "Difficulty": "Hard",
@@ -270,8 +271,7 @@
             "HP": [14740000000000000, 100000],
             "Symbol": 550,
             "SymbolType": "Sacred",
-            "MaxParty": 3,
-            "Notes": "P2 at 80%, P3 at 40%"
+            "MaxParty": 3
         }
     ]
 }
