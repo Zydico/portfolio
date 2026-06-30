@@ -1,5 +1,5 @@
 import { Equipment } from "../character";
-import { GEAR_POTENTIALS, LOWER_GEAR } from "./rosterConfig";
+import { GEAR_POTENTIALS, GoalDef, LOWER_GEAR } from "./rosterConfig";
 
 export const createSFList = (min: number, max: number): string[] => {
   const sfList: string[] = [];
@@ -123,9 +123,10 @@ export const getPotentialDiff = (equipment: Equipment): string => {
 
 export const getGoalAvgCost = (equipment: Equipment, goal: string) => {
   if (goal === '---') return '';
-  const list = LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Goals[equipment.type + 'Lower'] : GEAR_POTENTIALS.Goals[equipment.type + 'Higher'];
-  const properties = list.find(obj => (obj as any)['Option'] === goal);
-  return (properties as any)['Cost'] + ' (' + (properties as any)['Cube'] + ')';
+  const list = (LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Goals[equipment.type + 'Lower'] : GEAR_POTENTIALS.Goals[equipment.type + 'Higher']) as GoalDef[];
+  const properties = list.find(obj => obj.Option === goal);
+  if (!properties) return '';
+  return `${properties.Cost} (${properties.Cube})`;
 }
 
 export const getCostEffectiveness = (equipment: Equipment, changeType: string, newValue: string) => {

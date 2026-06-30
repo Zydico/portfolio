@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import NumberInput from "../numberInput";
 import TextInput from "../textInput";
 import DropdownInput from "../dropDownInput";
@@ -20,7 +20,8 @@ export default function Roster() {
     const newChar: Character = {
       ...defaultCharacter,
       id: crypto.randomUUID(),
-      name: 'Unnamed Char'
+      name: 'Unnamed Char',
+      equipments: defaultCharacter.equipments.map(eq => ({ ...eq }))
     }
     setCharacters(prev => [...prev, newChar]);
     setSelectedId(newChar.id);
@@ -54,7 +55,7 @@ export default function Roster() {
     )
   };
 
-  const updateEquipment = (
+  const updateEquipment = useCallback((
     id: string,
     equipmentId: string,
     updates: Partial<Equipment>
@@ -73,7 +74,7 @@ export default function Roster() {
           : char
       )
     )
-  };
+  }, [setCharacters]);
 
   useEffect(() => { // Self healing effect to fix the desync issue for the selectedid when the very first character in the list is selected
     if (!characters.length) return;

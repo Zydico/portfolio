@@ -256,7 +256,7 @@
     "Malefic Star": [
         {
             "Difficulty": "Normal",
-            "Crystal": 0,
+            "Crystal": 1452000000,
             "Level": 280,
             "HP": [3288000000000000, 100000],
             "Symbol": 400,
@@ -266,7 +266,7 @@
         }, 
         {
             "Difficulty": "Hard",
-            "Crystal": 0,
+            "Crystal": 3990000000,
             "Level": 280,
             "HP": [14740000000000000, 100000],
             "Symbol": 550,
