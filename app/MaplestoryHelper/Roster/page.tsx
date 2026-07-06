@@ -118,18 +118,6 @@ export default function Roster() {
             showAdvanced: v,
           })} />
         </div>
-        <div className="flex flex-row gap-6">
-          <NumberInput label='Level' value={selectedCharacter.level} onChange={(v) => updateCharacter(selectedCharacter.id, {
-            level: v,
-          })} min={1} max={300} size="w-15" />
-          <Spacer size="w-6"></Spacer>
-          <NumberInput label='Arcane' value={selectedCharacter.arcane} onChange={(v) => updateCharacter(selectedCharacter.id, {
-            arcane: v,
-          })} min={0} max={1760} size="w-15" />
-          <NumberInput label='Sacred' value={selectedCharacter.sacred} onChange={(v) => updateCharacter(selectedCharacter.id, {
-            sacred: v,
-          })} min={0} max={880} size="w-15" />
-        </div>
         <div className="flex flex-wrap">
           <table>
             <thead>
@@ -173,6 +161,13 @@ export default function Roster() {
 
       {/* FAQ ---------------------------------------------------------------------------------------------------- */}
       <div className="panel mt-4 inline-flex flex-wrap flex-col gap-2 shadow max-w-300">
+        <h1 className="">TODO:</h1>
+        <ul>
+          <li>- Add Rings and Pendants table (Ring 1, Ring 2, Ring 3, Ring 4, Pendant 1, Pendant 2). Reveal second dropdown if oz ring selected. Prevent other ring slots from selecting oz ring if already chosen.</li>
+          <li>- Add Accessories table (Eye, Face, Earring, Belt, Pocket, Heart, Badge, Medal) </li>
+          <li>- Implement Local Storage</li>
+          <li>- Implement ordered cost effectiveness display across all characters</li>
+        </ul>
         <h1 className="">FAQ</h1>
         <h2 className="mt-4">What are the fields for the Weapon flame?</h2>
         From left to right, they are: M/Att, Boss%, Dmg%, and Stat.

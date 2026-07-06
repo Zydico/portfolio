@@ -2,9 +2,6 @@ export type Character = {
   id: string;
   name: string;
   class: string;
-  level: string;
-  arcane: string;
-  sacred: string;
   equipments: Equipment[];
   showAdvanced: boolean;
 }
@@ -68,9 +65,6 @@ export const defaultCharacter: Character = {
   id: crypto.randomUUID(),
   name: 'Unnamed Char',
   class: 'Adele',
-  level: '290',
-  arcane: '1350',
-  sacred: '660',
   equipments: equipmentList,
   showAdvanced: true,
 }

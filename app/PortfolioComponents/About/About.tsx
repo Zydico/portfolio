@@ -206,7 +206,7 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
     }
         
     return (
-        <section ref={props.aboutRef} id="aboutPage" className="page pt-5 pb-8 text-white w-full bg-[var(--color-ground)] font-(family-name:--font-body)">
+        <section ref={props.aboutRef} id="aboutPage" className="pt-5 pb-20 text-white w-full bg-[var(--color-ground)] font-(family-name:--font-body)">
             <div className="flex flex-wrap items-start justify-between text-xl">
                 <section className="flex flex-col gap-4 md:w-40/100 w-full pl-12 pr-12">
                     <motion.h1 id="aboutHeader" className="font-(family-name:--font-header) font-bold text-3xl md:text-5xl/16 mb-4 font-(family-name:--font-header)"
@@ -227,10 +227,6 @@ const About = (props: { aboutRef: RefObject<HTMLElement | null> }) => {
                         I have a background in <span className="text-(--color-light-orange)">Computer Science</span> and <span className="text-(--color-light-orange)">Mechanical Engineering</span>, and this portfolio website is the perfect little playground
                         to experiment and showcase my skills and interests.
                     </motion.p>
-                </section>
-                <section className="md:w-40/100 w-full md:mt-0 md:mr-12 mt-5 w-full aspect-square relative">
-                    <canvas id="skillsCanvas" className="w-full h-full origin-center" ref={skillsCanvasRef}></canvas>
-                    <div className="bg-black text-white absolute p-1 border-1" ref={skillsLabelRef}></div>
                 </section>
             </div>
         </section>
