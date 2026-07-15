@@ -212,7 +212,7 @@
             "SymbolType": "Arcane",
             "MaxParty": 6,
             "Traces": 45,
-            "Notes": "Healing familiars bypass healing restrictions"
+            "Notes": "Healing familiars bypass healing restrictions. New phase every 25% HP"
         }, 
         {
             "Difficulty": "Hard",

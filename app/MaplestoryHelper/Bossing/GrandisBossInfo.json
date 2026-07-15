@@ -177,7 +177,7 @@
             "SymbolType": "Sacred",
             "MaxParty": 3,
             "Traces": 120,
-            "Notes": "Forced phase in p2-1 at 80% HP"
+            "Notes": "Forced phase in p2-1 at 80% HP. Next forced phase is 20% below when you transition back."
         }, 
         {
             "Difficulty": "Hard",
