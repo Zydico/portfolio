@@ -40,7 +40,7 @@ export const EquipmentCell = memo(({ field, equipment, characterId, updateEquipm
       return  <DropdownInput value={equipment.name} onChange={(v) => updateEquipment(characterId, equipment.id, {
                 name: v,
                 sf: (v === 'Genesis' || v === 'Destiny') ? '22' : equipment.sf,
-              })} list={EQUIPMENT_OPTIONS[equipment.type]} size="w-22" />
+              })} list={EQUIPMENT_OPTIONS[equipment.type]} size="w-23" />
     } else if (equipment.type === 'Secondary') {
       return createEquipmentDropdownInput('name', EQUIPMENT_OPTIONS[equipment.type], 'w-27');
     } else {

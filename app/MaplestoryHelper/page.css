@@ -103,7 +103,7 @@ input {
     padding-left: calc(var(--spacing) * 2);
     font-size: var(--text-sm);
     line-height: var(--text-sm--line-height);
-    min-height: calc(var(--spacing) * 6.5);
+    height: calc(var(--spacing) * 6.5);
 }
 
 .maple-input-center {
