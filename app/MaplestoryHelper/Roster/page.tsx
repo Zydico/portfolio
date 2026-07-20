@@ -1,11 +1,9 @@
 'use client';
 
 import { useCallback, useEffect, useState } from "react";
-import NumberInput from "../numberInput";
 import TextInput from "../textInput";
 import DropdownInput from "../dropDownInput";
 import CheckboxInput from "../checkboxInput";
-import Spacer from "../spacer";
 import { useCharacters } from "../characterContext";
 import { Character, Equipment, defaultCharacter } from "../character";
 import { CLASSES, FIELDS } from "./rosterConfig";
@@ -15,6 +13,18 @@ export default function Roster() {
   const { characters, setCharacters } = useCharacters();
   const [selectedId, setSelectedId] = useState<string>(characters[0].id);
   const selectedCharacter = characters.find(c => c.id === selectedId) ?? characters[0];
+
+  const wseAndArmor = selectedCharacter.equipments.filter(eq => 
+    ['Weapon', 'Secondary', 'Emblem', 'Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape', 'Shoulder'].includes(eq.type)
+  );
+
+  const ringsAndPendants = selectedCharacter.equipments.filter(eq => 
+    ['Ring 1', 'Ring 2', 'Ring 3', 'Oz Ring 1', 'Oz Ring 2', 'Pendant 1', 'Pendant 2'].includes(eq.type)
+  );
+
+  const accessories = selectedCharacter.equipments.filter(eq =>
+    ['Eye', 'Face', 'Earring', 'Belt', 'Pocket', 'Heart', 'Badge', 'Medal'].includes(eq.type)
+  );
 
   const addCharacter = () => {
     const newChar: Character = {
@@ -118,18 +128,23 @@ export default function Roster() {
             showAdvanced: v,
           })} />
         </div>
+        
+        {/* WSE & ARMOR ---------------------------------------------------------------------------------------------------- */}
         <div className="flex flex-wrap">
           <table>
             <thead>
               <tr>
                 <td rowSpan={2} className="th"></td>
-                <th colSpan={3} className="text-center">WSE</th>
+                <th colSpan={3} className="text-center !border-r-4">WSE</th>
                 <th colSpan={7} className="text-center">Armor</th>
               </tr>
               <tr>
-                {selectedCharacter.equipments.map((eq) => (
-                  <th key={eq.id} colSpan={1} className="text-center">{eq.type}</th>
-                ))}
+                {wseAndArmor.map((eq) => {
+                  const isLastOfCategory = eq.type === 'Emblem';
+                  return (
+                    <th key={eq.id} colSpan={1} className={`text-center ${isLastOfCategory ? '!border-r-4' : ''}`}>{eq.type}</th>
+                  )
+                })}
               </tr>
             </thead>
             <tbody>
@@ -137,11 +152,13 @@ export default function Roster() {
                 <tr key={field.label}>
                   {(!field.advanced || (field.advanced && selectedCharacter.showAdvanced)) && (
                     <>
-                        {(field.label != 'PotentialsLine2' && field.label != 'PotentialsLine3') &&
-                          <td rowSpan={(field.label == 'Potentials') ? 3 : 1} className="th">{field.label}</td>
-                        }
-                        {selectedCharacter.equipments.map((eq) => (
-                          <td key={eq.type} className="text-center min-w-37">
+                      {(field.label != 'PotentialsLine2' && field.label != 'PotentialsLine3') &&
+                        <td rowSpan={(field.label == 'Potentials') ? 3 : 1} className="th">{field.label}</td>
+                      }
+                      {wseAndArmor.map((eq) => {
+                        const isLastOfCategory = eq.type === 'Emblem';
+                        return (
+                          <td key={eq.type} className={`min-w-37 text-center ${isLastOfCategory ? '!border-r-4' : ''}`}>
                             <EquipmentCell
                               field={field.label}
                               equipment={eq}
@@ -149,7 +166,8 @@ export default function Roster() {
                               updateEquipment={updateEquipment}
                             />
                           </td>
-                        ))}
+                        ) 
+                      })}
                     </>
                   )}
                 </tr>
@@ -157,13 +175,61 @@ export default function Roster() {
             </tbody>
           </table>
         </div>
+        
+        {/* RINGS & PENDANTS ---------------------------------------------------------------------------------------------------- */}
+        <div className="flex flex-wrap">
+          <table>
+            <thead>
+              <tr>
+                <td rowSpan={2} className="th"></td>
+                <th colSpan={5} className="text-center !border-r-4">Rings</th>
+                <th colSpan={2} className="text-center">Pendants</th>
+              </tr>
+              <tr>
+                {ringsAndPendants.map((eq) => {
+                  const isLastOfCategory = eq.type === 'Oz Ring 2';
+                  return (
+                    <th key={eq.id} colSpan={1} className={`text-center ${isLastOfCategory ? '!border-r-4' : ''}`}>{eq.type}</th>
+                  )
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {FIELDS.map((field) => (
+                <tr key={field.label}>
+                  {(!field.advanced || (field.advanced && selectedCharacter.showAdvanced)) && (
+                    <>
+                      {(field.label != 'PotentialsLine2' && field.label != 'PotentialsLine3') &&
+                        <td rowSpan={(field.label == 'Potentials') ? 3 : 1} className="th">{field.label}</td>
+                      }
+                      {ringsAndPendants.map((eq) => {
+                        const isLastOfCategory = eq.type === 'Oz Ring 2';
+                        return (
+                          <td key={eq.type} className={`min-w-37 text-center ${isLastOfCategory ? '!border-r-4' : ''}`}>
+                            <EquipmentCell
+                              field={field.label}
+                              equipment={eq}
+                              characterId={selectedCharacter.id}
+                              updateEquipment={updateEquipment}
+                            />
+                          </td>
+                        ) 
+                      })}
+                    </>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        
+
       </div>
 
       {/* FAQ ---------------------------------------------------------------------------------------------------- */}
       <div className="panel mt-4 inline-flex flex-wrap flex-col gap-2 shadow max-w-300">
         <h1 className="">TODO:</h1>
         <ul>
-          <li>- Add Rings and Pendants table (Ring 1, Ring 2, Ring 3, Ring 4, Pendant 1, Pendant 2). Reveal second dropdown if oz ring selected. Prevent other ring slots from selecting oz ring if already chosen.</li>
           <li>- Add Accessories table (Eye, Face, Earring, Belt, Pocket, Heart, Badge, Medal) </li>
           <li>- Implement Local Storage</li>
           <li>- Implement ordered cost effectiveness display across all characters</li>
@@ -178,7 +244,7 @@ export default function Roster() {
         <p>It is also multiplied by 1000 to get a cleaner value. The higher the number, the better.</p>
         <h2 className="mt-4">How were the goal average costs found?</h2>
         Values were simply collected using MathBro's cubing calculator. For items below level 160, the values are those for an item at level 150. 
-        For items level 160 or above, the values are those for an item at level 200 or 250 depending on the piece.
+        For items level 160 or above, the values are those for an item at levels 160, 200, or 250 depending on the equipment type.
         <h2 className="mt-4">How do you find stat equivalencies for WhackyBeanz's Flame Calculator?</h2>
         Most people just do a simple calculation for the the Flame Score as (Main Stat) + (All Stat% x 10) + (Substat / 10) + (Att or M.Att x 3).
         However, if you really want to go in-depth, you can use flame scores relative to a character's progression.

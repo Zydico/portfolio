@@ -43,6 +43,8 @@ export const EquipmentCell = memo(({ field, equipment, characterId, updateEquipm
               })} list={EQUIPMENT_OPTIONS[equipment.type]} size="w-23" />
     } else if (equipment.type === 'Secondary') {
       return createEquipmentDropdownInput('name', EQUIPMENT_OPTIONS[equipment.type], 'w-27');
+    } else if (['Ring 1', 'Ring 2', 'Ring 3', 'Oz Ring 1', 'Oz Ring 2', 'Pendant 1', 'Pendant 2'].includes(equipment.type)) {
+      return createEquipmentDropdownInput('name', EQUIPMENT_OPTIONS[equipment.type], 'w-26');
     } else {
       return createEquipmentDropdownInput('name', EQUIPMENT_OPTIONS[equipment.type], 'w-21');
     }
@@ -60,6 +62,8 @@ export const EquipmentCell = memo(({ field, equipment, characterId, updateEquipm
       } else if (equipment.name === 'Astra' || equipment.name === 'Arcane' || equipment.name === 'Sweetwater') {
         sfList = createSFList(0, 30);
       }
+    } else if (['ROR3', 'ROR4', 'ROR5', 'ROR6', 'WJ3', 'WJ4', 'WJ5', 'WJ6', 'CONT3', 'CONT4', 'CONT5', 'CONT6'].includes(equipment.name)) {
+      
     } else if (equipment.name !== '---' && equipment.type !== 'Emblem') {
       sfList = createSFList(0, 30);
     }
@@ -102,7 +106,7 @@ export const EquipmentCell = memo(({ field, equipment, characterId, updateEquipm
               })} min={0.00} max={100.00} size="w-18" />
     }
   } else if (field === 'Potentials' || field === 'PotentialsLine2' || field === 'PotentialsLine3') {
-    if (equipment.name === '---') {
+    if (['---', 'ROR3', 'ROR4', 'ROR5', 'ROR6', 'WJ3', 'WJ4', 'WJ5', 'WJ6', 'CONT3', 'CONT4', 'CONT5', 'CONT6'].includes(equipment.name)) {
       return '';
     }
     const line = Number(field.at(-1)) || 1;
@@ -157,6 +161,16 @@ export const EquipmentCell = memo(({ field, equipment, characterId, updateEquipm
         }
       }
       list={GEAR_POTENTIALS.Lines.GloveHigher as string[]} size="w-24" />
+    } else if (['Ring 1', 'Ring 2', 'Ring 3', 'Oz Ring 1', 'Oz Ring 2', 'Pendant 1', 'Pendant 2'].includes(equipment.type)) {
+      return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
+        {
+          potentials[line-1] = v;
+          updateEquipment(characterId, equipment.id, {
+            potentials: potentials,
+          })
+        }
+      }
+      list={LOWER_GEAR.includes(equipment.name) ? (GEAR_POTENTIALS.Lines.GeneralLower as string[]) : (GEAR_POTENTIALS.Lines.GeneralHigher as string[])} size="w-24" />
     } else {
       return <DropdownInput value={equipment.potentials[line-1]} onChange={(v) => 
         {
@@ -169,7 +183,7 @@ export const EquipmentCell = memo(({ field, equipment, characterId, updateEquipm
       list={LOWER_GEAR.includes(equipment.name) ? (GEAR_POTENTIALS.Lines.GeneralLower as string[]) : (GEAR_POTENTIALS.Lines.GeneralHigher as string[])} size="w-24" />
     }
   } else if (field === 'Potential Goals') {
-    if (equipment.name === '---') {
+    if (['---', 'ROR3', 'ROR4', 'ROR5', 'ROR6', 'WJ3', 'WJ4', 'WJ5', 'WJ6', 'CONT3', 'CONT4', 'CONT5', 'CONT6'].includes(equipment.name)) {
       return '';
     }
     if (equipment.type === 'Weapon') {
@@ -282,11 +296,25 @@ export const EquipmentCell = memo(({ field, equipment, characterId, updateEquipm
         }
       }
       list={createGoalOptionList(GEAR_POTENTIALS.Goals.ShoulderHigher)} size="w-23" />
+    } else if (['Ring 1', 'Ring 2', 'Ring 3', 'Oz Ring 1', 'Oz Ring 2', 'Pendant 1', 'Pendant 2'].includes(equipment.type)) {
+      return <DropdownInput value={equipment.potentialGoals} onChange={(v) => 
+        {
+          updateEquipment(characterId, equipment.id, {
+            potentialGoals: v,
+            potentialGoalAvgCost: getGoalAvgCost(equipment, v),
+            potentialCostEffectiveness: getCostEffectiveness(equipment, 'GoalChange', v)
+          })
+        }
+      }
+      list={LOWER_GEAR.includes(equipment.name) ? createGoalOptionList(GEAR_POTENTIALS.Goals.AccessoryLower) : createGoalOptionList(GEAR_POTENTIALS.Goals.AccessoryHigher)} size="w-23" />
     } else {
       return '';
     }
   } else if (field === 'Potential Diff') {
-    if (equipment.name === '---' || equipment.potentialGoals === '---') {
+    if (equipment.potentialGoals === '---') {
+      return '';
+    }
+    if (['---', 'ROR3', 'ROR4', 'ROR5', 'ROR6', 'WJ3', 'WJ4', 'WJ5', 'WJ6', 'CONT3', 'CONT4', 'CONT5', 'CONT6'].includes(equipment.name)) {
       return '';
     }
     if (equipment.type === 'Weapon' || equipment.type === 'Secondary' || equipment.type === 'Emblem') {
@@ -299,25 +327,34 @@ export const EquipmentCell = memo(({ field, equipment, characterId, updateEquipm
       </div>
     }
   } else if (field === 'Potential FD% Diff') {
-    if (equipment.name === '---' || equipment.potentialGoals === '---' || 
+    if (equipment.potentialGoals === '---' || 
       ((equipment.type === 'Weapon' || equipment.type === 'Secondary' || equipment.type === 'Emblem') && (getWSEDiff(equipment) === '')) ||
       ((equipment.type !== 'Weapon' && equipment.type !== 'Secondary' && equipment.type !== 'Emblem') && (getPotentialDiff(equipment) === ''))
     ) return '';
+    if (['---', 'ROR3', 'ROR4', 'ROR5', 'ROR6', 'WJ3', 'WJ4', 'WJ5', 'WJ6', 'CONT3', 'CONT4', 'CONT5', 'CONT6'].includes(equipment.name)) {
+      return '';
+    }
     return  <NumberInput value={equipment.potentialFDDifference} inLabel={'%'} onChange={(v) => updateEquipment(characterId, equipment.id, {
               potentialFDDifference: v,
               potentialCostEffectiveness: getCostEffectiveness(equipment, 'FDChange', v)
             })} min={0.00} max={100.00} size="w-18" />
   } else if (field === 'Goal Avg Cost') {
-    if (equipment.name === '---' || equipment.potentialGoals === '---' || 
+    if (equipment.potentialGoals === '---' || 
       ((equipment.type === 'Weapon' || equipment.type === 'Secondary' || equipment.type === 'Emblem') && (getWSEDiff(equipment) === '')) ||
       ((equipment.type !== 'Weapon' && equipment.type !== 'Secondary' && equipment.type !== 'Emblem') && (getPotentialDiff(equipment) === ''))
     ) return '';
+    if (['---', 'ROR3', 'ROR4', 'ROR5', 'ROR6', 'WJ3', 'WJ4', 'WJ5', 'WJ6', 'CONT3', 'CONT4', 'CONT5', 'CONT6'].includes(equipment.name)) {
+      return '';
+    }
     return <div>{equipment.potentialGoalAvgCost}</div>
   } else if (field === 'Cost Effectiveness') {
-    if (equipment.name === '---' || equipment.potentialGoals === '---' || 
+    if (equipment.potentialGoals === '---' || 
       ((equipment.type === 'Weapon' || equipment.type === 'Secondary' || equipment.type === 'Emblem') && (getWSEDiff(equipment) === '')) ||
       ((equipment.type !== 'Weapon' && equipment.type !== 'Secondary' && equipment.type !== 'Emblem') && (getPotentialDiff(equipment) === ''))
     ) return '';
+    if (['---', 'ROR3', 'ROR4', 'ROR5', 'ROR6', 'WJ3', 'WJ4', 'WJ5', 'WJ6', 'CONT3', 'CONT4', 'CONT5', 'CONT6'].includes(equipment.name)) {
+      return '';
+    }
     return <div>{equipment.potentialCostEffectiveness}</div>
   }
   return '';

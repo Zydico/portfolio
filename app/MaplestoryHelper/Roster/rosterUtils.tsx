@@ -123,7 +123,12 @@ export const getPotentialDiff = (equipment: Equipment): string => {
 
 export const getGoalAvgCost = (equipment: Equipment, goal: string) => {
   if (goal === '---') return '';
-  const list = (LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Goals[equipment.type + 'Lower'] : GEAR_POTENTIALS.Goals[equipment.type + 'Higher']) as GoalDef[];
+  let list;
+  if (['Ring 1', 'Ring 2', 'Ring 3', 'Oz Ring 1', 'Oz Ring 2', 'Pendant 1', 'Pendant 2'].includes(equipment.type)) {
+    list = (LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Goals['AccessoryLower'] : GEAR_POTENTIALS.Goals['AccessoryHigher']) as GoalDef[];    
+  } else {
+    list = (LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Goals[equipment.type + 'Lower'] : GEAR_POTENTIALS.Goals[equipment.type + 'Higher']) as GoalDef[];
+  }
   const properties = list.find(obj => obj.Option === goal);
   if (!properties) return '';
   return `${properties.Cost} (${properties.Cube})`;

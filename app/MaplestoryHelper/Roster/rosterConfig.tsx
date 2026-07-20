@@ -31,6 +31,21 @@ export const EQUIPMENT_OPTIONS: Record<string, string[]> = {
     Glove: ['---', 'Absolab', 'Arcane', 'Eternal'],
     Shoe: ['---', 'Absolab', 'Arcane', 'Eternal'],
     Shoulder: ['---', 'Absolab', 'Arcane', 'Eternal'],
+    'Ring 1': ['---', 'KT', 'Meister', 'Event Ring', 'Reinf Gollux', 'Sup Gollux', 'Slime Ring', 'ET', 'Limbo', 'Malefic'],
+    'Ring 2': ['---', 'KT', 'Meister', 'Event Ring', 'Reinf Gollux', 'Sup Gollux', 'Slime Ring', 'ET', 'Limbo', 'Malefic'],
+    'Ring 3': ['---', 'KT', 'Meister', 'Event Ring', 'Reinf Gollux', 'Sup Gollux', 'Slime Ring', 'ET', 'Limbo', 'Malefic'],
+    'Oz Ring 1': ['---', 'ROR3', 'ROR4', 'ROR5', 'ROR6', 'WJ3', 'WJ4', 'WJ5', 'WJ6', 'CONT3', 'CONT4', 'CONT5', 'CONT6'],
+    'Oz Ring 2': ['---', 'ROR3', 'ROR4', 'ROR5', 'ROR6', 'WJ3', 'WJ4', 'WJ5', 'WJ6', 'CONT3', 'CONT4', 'CONT5', 'CONT6'],
+    'Pendant 1': ['---', 'Mechanator', 'Dominator', 'Daybreak', 'Reinf Gollux', 'Sup Gollux', 'Sweetwater', 'SoS', 'Baldrix'],
+    'Pendant 2': ['---', 'Mechanator', 'Dominator', 'Daybreak', 'Reinf Gollux', 'Sup Gollux', 'Sweetwater', 'SoS', 'Baldrix'],
+    'Eye': ['---', 'BBM', 'Pap Mark', 'Sweetwater', 'Eyepatch'],
+    'Face': ['---', 'Twilight Mark', 'Sweetwater', 'Berserked', 'Jupiter'],
+    'Earring': ['---', 'Reinf Gollux', 'Sup Gollux', 'CFE'],
+    'Belt': ['---', 'Reinf Gollux', 'Sup Gollux', 'Dreamy'],
+    'Pocket': ['---', 'PB Cup', 'Spellbook'],
+    'Heart': ['---', 'Fairy', 'Black', 'Plasma', 'TC'],
+    'Badge': ['---', 'Magnus', 'Genesis', 'MP'],
+    'Medal': ['---', 'Vellum', 'MP', 'Adversary', 'MVP Red'],
 };
 
 export const TIERS: string[] = ['---', 'T3', 'T4', 'T5', 'T6', 'T7'];
@@ -144,8 +159,20 @@ export const GEAR_POTENTIALS: {
             { Option: '30% Main', Cost: '2.69 B', Cube: 'Glowing' },
             { Option: '33% Main', Cost: '7.41 B', Cube: 'Glowing' },
             { Option: '36% Main', Cost: '56.63 B', Cube: 'Bright' },
+        ],
+        'AccessoryLower': [
+            { Option: '---' },
+            { Option: '27% Main', Cost: '2.27 B', Cube: 'Glowing' },
+            { Option: '30% Main', Cost: '6.55 B', Cube: 'Glowing' },
+            { Option: '33% Main', Cost: '66.52 B', Cube: 'Bright' },
+        ],
+        'AccessoryHigher': [
+            { Option: '---' },
+            { Option: '30% Main', Cost: '2.27 B', Cube: 'Glowing' },
+            { Option: '33% Main', Cost: '6.58 B', Cube: 'Glowing' },
+            { Option: '36% Main', Cost: '66.70 B', Cube: 'Bright' },
         ]
     }
 };
   
-export const LOWER_GEAR: string[] = ['Gold', 'PNo', 'Deimos', 'RFS', 'Evolving', 'CRA'];
+export const LOWER_GEAR: string[] = ['Gold', 'PNo', 'Deimos', 'RFS', 'Evolving', 'CRA', 'KT', 'Meister', 'Event Ring', 'Reinf Gollux', 'Sup Gollux', 'Mechanator', 'Dominator', 'Daybreak', 'BBM', 'Pap Mark', 'Twilight Mark', 'Fairy', 'Plasma'];
