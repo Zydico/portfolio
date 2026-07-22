@@ -1,4 +1,4 @@
-import { Equipment } from "../character";
+import { Character, Equipment } from "../character";
 import { GEAR_POTENTIALS, GoalDef, LOWER_GEAR } from "./rosterConfig";
 
 export const createSFList = (min: number, max: number): string[] => {
@@ -124,7 +124,7 @@ export const getPotentialDiff = (equipment: Equipment): string => {
 export const getGoalAvgCost = (equipment: Equipment, goal: string) => {
   if (goal === '---') return '';
   let list;
-  if (['Ring 1', 'Ring 2', 'Ring 3', 'Oz Ring 1', 'Oz Ring 2', 'Pendant 1', 'Pendant 2'].includes(equipment.type)) {
+  if (['Ring 1', 'Ring 2', 'Ring 3', 'Pendant 1', 'Pendant 2', 'Eye', 'Face', 'Earring'].includes(equipment.type)) {
     list = (LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Goals['AccessoryLower'] : GEAR_POTENTIALS.Goals['AccessoryHigher']) as GoalDef[];    
   } else {
     list = (LOWER_GEAR.includes(equipment.name) ? GEAR_POTENTIALS.Goals[equipment.type + 'Lower'] : GEAR_POTENTIALS.Goals[equipment.type + 'Higher']) as GoalDef[];
@@ -161,4 +161,33 @@ const splitPotential = (potential: string): [number, string] => {
   }
   const split = potential.split(' ');
   return [Number(split[0].slice(0, -1)), split[1]];
+}
+
+export type CostEffectivenessItem = {
+  characterName: string;
+  equipmentType: string;
+  equipmentName: string;
+  costEffectiveness: number;
+  fdDiff: string;
+  avgCost: string;
+}
+
+export const getOrderedCostEffectiveness = (characters: Character[]): CostEffectivenessItem[] => {
+  const items: CostEffectivenessItem[] = [];
+  characters.forEach((char) => {
+    char.equipments.forEach((eq) => {
+      const val = parseFloat(eq.potentialCostEffectiveness);
+      if (!isNaN(val) && val > 0) {
+        items.push({
+          characterName: char.name,
+          equipmentType: eq.type,
+          equipmentName: eq.name,
+          costEffectiveness: val,
+          fdDiff: eq.potentialFDDifference,
+          avgCost: eq.potentialGoalAvgCost,
+        })
+      }
+    })
+  })
+  return items.sort((a, b) => b.costEffectiveness - a.costEffectiveness);
 }

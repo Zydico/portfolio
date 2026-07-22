@@ -1,6 +1,6 @@
 export const CLASSES: string[] = [
     'Adele', 'Angelic Buster', 'Aran', 'Ark', 'Battle Mage', 'Bishop', 'Blaster', 'Blaze Wizard', 'Bowmaster', 'Buccaneer', 'Cadena', 'Cannoneer', 'Corsair', 'Dark Knight',
-    'Demon Avenger', 'Demon Slayer', 'Dual Blade', 'Evan', 'Fire/Poison', 'Hayato', 'Hero', 'Hoyoung', 'Ice/Lightning', 'Illium', 'Kain', 'Kaiser', 'Kanna', 'Khali', 'Kinesis',
+    'Demon Avenger', 'Demon Slayer', 'Dual Blade', 'Erel Light', 'Evan', 'Fire/Poison', 'Hayato', 'Hero', 'Hoyoung', 'Ice/Lightning', 'Illium', 'Kain', 'Kaiser', 'Kanna', 'Khali', 'Kinesis',
     'Lara', 'Luminous', 'Lynn', 'Marksman', 'Mercedes', 'Mechanic', 'Mihile', 'Mo Xuan', 'Night Lord', 'Night Walker', 'Paladin', 'Pathfinder', 'Phantom', 'Ren', 'Shade',
     'Shadower', 'Sia Astelle', 'Thunder Breaker', 'Wild Hunter', 'Wind Archer', 'Xenon', 'Zero'
 ];
@@ -171,6 +171,30 @@ export const GEAR_POTENTIALS: {
             { Option: '30% Main', Cost: '2.27 B', Cube: 'Glowing' },
             { Option: '33% Main', Cost: '6.58 B', Cube: 'Glowing' },
             { Option: '36% Main', Cost: '66.70 B', Cube: 'Bright' },
+        ],
+        'BeltLower': [
+            { Option: '---' },
+            { Option: '27% Main', Cost: '2.61 B', Cube: 'Glowing' },
+            { Option: '30% Main', Cost: '7.21 B', Cube: 'Glowing' },
+            { Option: '33% Main', Cost: '54.78 B', Cube: 'Bright' },
+        ],
+        'BeltHigher': [
+            { Option: '---' },
+            { Option: '30% Main', Cost: '2.69 B', Cube: 'Glowing' },
+            { Option: '33% Main', Cost: '7.41 B', Cube: 'Glowing' },
+            { Option: '36% Main', Cost: '55.63 B', Cube: 'Bright' },
+        ],
+        'HeartLower': [
+            { Option: '---' },
+            { Option: '27% Main', Cost: '1.43 B', Cube: 'Glowing' },
+            { Option: '30% Main', Cost: '3.93 B', Cube: 'Glowing' },
+            { Option: '33% Main', Cost: '29.89 B', Cube: 'Bright' },
+        ],
+        'HeartHigher': [
+            { Option: '---' },
+            { Option: '30% Main', Cost: '1.52 B', Cube: 'Glowing' },
+            { Option: '33% Main', Cost: '4.19 B', Cube: 'Glowing' },
+            { Option: '36% Main', Cost: '30.94 B', Cube: 'Bright' },
         ]
     }
 };

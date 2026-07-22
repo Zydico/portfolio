@@ -5,6 +5,7 @@ This is my portfolio website that was developed using React, Next.js, Tailwind, 
 Initially built using Angular (https://zydico.github.io/Website/#/portfolio), I decided to build a new portfolio website from scratch using React after seeing that React has grown massively in popularity recently.
 
 ## Dev Log
+- 7/21/2026 - Added Other Accessories table. Added sorted potential goal cost effectiveness rankings table.
 - 7/19/2026 - Added Rings/Pendants table
 - 7/15/2026 - Refactored resources page and optimized image loading
 - 6/14/2026 - Refactored code and separated into files.

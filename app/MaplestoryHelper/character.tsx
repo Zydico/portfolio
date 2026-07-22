@@ -76,11 +76,12 @@ equipmentList[15].name = '---';
 equipmentList[16].name = '---';
 equipmentList[17].name = '---';
 equipmentList[18].name = '---';
-equipmentList[19].name = '---';
-equipmentList[20].name = '---';
+equipmentList[19].name = 'Sup Gollux';
+equipmentList[20].name = 'Sup Gollux';
 equipmentList[21].name = '---';
 equipmentList[22].name = '---';
-equipmentList[23].name = '---';
+equipmentList[23].name = 'Magnus';
+equipmentList[24].name = 'Vellum';
 
 export const defaultCharacter: Character = {
   id: crypto.randomUUID(),

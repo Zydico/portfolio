@@ -8,11 +8,15 @@ import { useCharacters } from "../characterContext";
 import { Character, Equipment, defaultCharacter } from "../character";
 import { CLASSES, FIELDS } from "./rosterConfig";
 import { EquipmentCell } from "./EquipmentCell";
+import { getOrderedCostEffectiveness } from "./rosterUtils";
 
 export default function Roster() {
   const { characters, setCharacters } = useCharacters();
   const [selectedId, setSelectedId] = useState<string>(characters[0].id);
   const selectedCharacter = characters.find(c => c.id === selectedId) ?? characters[0];
+  const [showOnlySelected, setShowOnlySelected] = useState<boolean>(false);
+  const targetCharacters = showOnlySelected ? [selectedCharacter] : characters;
+  const costRankings = getOrderedCostEffectiveness(targetCharacters);
 
   const wseAndArmor = selectedCharacter.equipments.filter(eq => 
     ['Weapon', 'Secondary', 'Emblem', 'Hat', 'Top', 'Bottom', 'Glove', 'Shoe', 'Cape', 'Shoulder'].includes(eq.type)
@@ -223,6 +227,84 @@ export default function Roster() {
           </table>
         </div>
         
+        {/* OTHER ACCESSORIES ---------------------------------------------------------------------------------------------------- */}
+        <div className="flex flex-wrap">
+          <table>
+            <thead>
+              <tr>
+                <td rowSpan={2} className="th"></td>
+                <th colSpan={8} className="text-center">Other Accessories</th>
+              </tr>
+              <tr>
+                {accessories.map((eq) => 
+                  <th key={eq.id} colSpan={1} className='text-center'>{eq.type}</th>
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              {FIELDS.map((field) => (
+                <tr key={field.label}>
+                  {(!field.advanced || (field.advanced && selectedCharacter.showAdvanced)) && (
+                    <>
+                      {(field.label != 'PotentialsLine2' && field.label != 'PotentialsLine3') &&
+                        <td rowSpan={(field.label == 'Potentials') ? 3 : 1} className="th">{field.label}</td>
+                      }
+                      {accessories.map((eq) => 
+                        <td key={eq.type} className='min-w-37 text-center'>
+                          <EquipmentCell
+                            field={field.label}
+                            equipment={eq}
+                            characterId={selectedCharacter.id}
+                            updateEquipment={updateEquipment}
+                          />
+                        </td>
+                      )}
+                    </>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        
+        {/* COST EFFECTIVENESS ---------------------------------------------------------------------------------------------------- */}
+        
+        {(selectedCharacter.showAdvanced && costRankings.length > 0) && (
+          <>
+            <h1 className='mt-6'>Potential Goals Cost Effectiveness Rankings (Highest to Lowest)</h1>
+            <div className='flex flex-row'>
+            <CheckboxInput label='Show Current Character Only' value={showOnlySelected} onChange={(checked) => setShowOnlySelected(checked)} />
+
+            </div>
+            <div className="flex flex-wrap mb-2">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Character</th>
+                    <th>Item Name</th>
+                    <th>Item Type</th>
+                    <th>Potential FD% Diff</th>
+                    <th>Potential Goal Avg Cost</th>
+                    <th>Cost Effectiveness</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {costRankings.map((item, index) => 
+                    <tr key={`${item.characterName}-${item.equipmentType}-${index}`}>
+                      <td className='font-bold'>{item.characterName}</td>
+                      <td className='font-bold'>{item.equipmentName}</td>
+                      <td>{item.equipmentType}</td>
+                      <td>{item.fdDiff}%</td>
+                      <td>{item.avgCost}</td>
+                      <td>{item.costEffectiveness}</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
+        
 
       </div>
 
@@ -230,9 +312,8 @@ export default function Roster() {
       <div className="panel mt-4 inline-flex flex-wrap flex-col gap-2 shadow max-w-300">
         <h1 className="">TODO:</h1>
         <ul>
-          <li>- Add Accessories table (Eye, Face, Earring, Belt, Pocket, Heart, Badge, Medal) </li>
           <li>- Implement Local Storage</li>
-          <li>- Implement ordered cost effectiveness display across all characters</li>
+          <li>- Implement flame percentage display across all characters</li>
         </ul>
         <h1 className="">FAQ</h1>
         <h2 className="mt-4">What are the fields for the Weapon flame?</h2>
