@@ -178,7 +178,7 @@ export const classInfo: ClassResource[] = [
     image: '../images/Maplestory/Classes/Icons/Kanna.png',
     guide: 'https://docs.google.com/document/d/1Xp7JD_YEDGyZD613QT7BGXO1kOtF2ze1E2hUDSkuxSc/edit?usp=sharing',
     discord: 'https://discord.gg/zbH8e2xC7H',
-    hexa: '../images/Maplestory/Classes/Hexa/Kanna.png', 
+    hexa: 'https://lostara.com/kanna/hexaCalc/revamp.html', 
     lastUpdated: '7/15/2026',
   },
   { 

@@ -57,4 +57,11 @@ export const tools: Resource[] = [
     author: 'WhackyBeanz', 
     link: 'https://www.whackybeanz.com/calc/equips/flames' 
   },
+  { 
+    name: 'Mystic Frontier', 
+    image: '../images/Maplestory/Icons/MysticFrontier.png',
+    description: 'Everything to do with Mystic Frontier / Champions', 
+    author: 'dloux', 
+    link: 'https://maplefrontier.org/' 
+  },
 ];

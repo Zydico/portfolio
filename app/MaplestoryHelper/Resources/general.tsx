@@ -140,14 +140,6 @@ export const general: GeneralResource[] = [
     category: 'Guide' 
   },
   { 
-    name: 'Mystic Frontier Familiar Elements/Types', 
-    image: '',
-    description: 'A list of familiar elements and types that are easy to farm', 
-    author: '', 
-    link: 'https://docs.google.com/spreadsheets/d/1V77_vMMQjLuV3EI69QYl_FkzmLoPs43sAaueJ44cJ-c/edit?usp=sharing',
-    category: 'Info' 
-  },
-  { 
     name: 'Everything EXP', 
     image: '../images/Maplestory/Icons/TranscendentPotion.png',
     description: 'Everything that has to do with EXP', 
